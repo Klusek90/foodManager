@@ -4,8 +4,27 @@
     background-color: yellowgreen;
 }
 
+.nav-link:hover{
+    background-color: darkgray;
+}
 
 body{
     background-color: black;
     color:wheat;
+}
+
+.logoutBtn, .logoutBtn >a{
+    background-color: red;
+    color: white;
+    font-weight: bold;
+}
+
+.logoutBtn:hover, .logoutBtn >a:hover{
+    background-color: darkred;
+    color: darkgray;
+}
+
+.logo{
+    width: auto; /* Adjust the size as needed */
+    height: 2cm; /* Maintain aspect ratio */
 }
