@@ -30,8 +30,12 @@ public class mainControl {
         return "queryGPT";
     }
 
-//    @GetMapping("/")
-//    public String (){
-//        return "";
-//    }
+    @GetMapping("/orders")
+    public String orders(){
+        return "orders";
+    }
+        @GetMapping("/reports")
+    public String reports(){
+        return "reports";
+    }
 }
