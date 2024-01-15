@@ -1,0 +1,10 @@
+.active {
+    font-weight: bold;
+    color: #124413; /* Or any color of your choice */
+    background-color: yellowgreen;
+}
+
+
+body{
+    background-color: black;
+}

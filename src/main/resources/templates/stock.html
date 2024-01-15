@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SCORAC stock contoll</title>
 </head>
 <body>
-   stock
-
-<a href="/home">back</a>
+   <div class="container-fluid">
+       <div class="row">
+           <div th:replace="fragments/sidebar :: sidebar('stock')"></div>
+           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+               <div> stock</div>
+           </main>
+       </div>
+   </div>
 </body>
 </html>

@@ -1,0 +1,23 @@
+<div th:fragment="sidebar(activeMenu)">
+  <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+      <ul class="nav flex-column">
+        <li class="nav-item" th:classappend="${activeMenu == 'index' ? 'active' : ''}">
+          <a class="nav-link" href="/index">Homepage</a>
+        </li>
+        <li class="nav-item" th:classappend="${activeMenu == 'recipes' ? 'active' : ''}">
+          <a class="nav-link" href="/recipes">Recipes</a>
+        </li>
+        <li class="nav-item" th:classappend="${activeMenu == 'solution' ? 'active' : ''}">
+          <a class="nav-link" href="/solution">QueryGPT</a>
+        </li>
+        <li class="nav-item" th:classappend="${activeMenu == 'stock' ? 'active' : ''}">
+          <a class="nav-link" href="/stock">Stock</a>
+        </li>
+        <li class="nav-item" th:classappend="${activeMenu == 'users' ? 'active' : ''}">
+          <a class="nav-link" href="/users">Users</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
