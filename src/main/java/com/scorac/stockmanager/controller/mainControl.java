@@ -11,10 +11,10 @@ public class mainControl {
         return "index";
     }
 
-    @GetMapping("/users")
-    public String manageUsers(){
-        return "users";
-    }
+//    @GetMapping("/users")
+//    public String manageUsers(){
+//        return "users";
+//    }
     @GetMapping("/stock")
     public String stockContorl(){
         return "stock";
