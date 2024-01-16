@@ -1,67 +1,62 @@
 package com.scorac.stockmanager.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
+@Data
 @Table(name="users")
-public class Users {
+public class Users implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
 
     private String password;
     private String username;
-    private Boolean accountNonExpired;
+    private String name;
+    private String surname;
     private String position;
-    private boolean admin;
 
-    public Long getId() {
-        return id;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    @Override
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public Boolean getAccountNonExpired() {
-        return accountNonExpired;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setAccountNonExpired(Boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public String getPosition() {
-        return position;
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
-    }
 
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
 }
