@@ -9,7 +9,31 @@
         <div class="row">
             <div th:replace="fragments/sidebar :: sidebar('users')"></div>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div> users</div>
+
+                <form action="#" th:action="@{/adduser}" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username"/><br/>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" /><br/>
+
+                    <label for="password">Name:</label>
+                    <input type="text" id="name"/><br/>
+
+                    <label for="password">Surname:</label>
+                    <input type="text" id="surname"/><br/>
+
+                    <label for="password">Position:</label>
+                    <input type="text" id="position" /><br/>
+
+                    <label for="role">Role:</label>
+                    <select id="role">
+                         <option value="ADMIN">ADMIN</option>
+                         <option value="USER">USER</option>
+                    </select>
+
+                    <button type="submit">Register</button>
+                </form>
             </main>
         </div>
     </div>
