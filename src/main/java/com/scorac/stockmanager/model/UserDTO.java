@@ -9,10 +9,10 @@ public class UserDTO {
     private String name;
     private String surname;
     private String position;
-    private Role role;
+    private String role;
 
-    public String getRole() {
-        return role != null ? role.name() : "ADMIN"; // Provide a default role (e.g., "user") if it's null
-    }
+//    public String getRole() {
+//        return role != null ? role.name() : "ADMIN"; // Provide a default role (e.g., "user") if it's null
+//    }
 }
 

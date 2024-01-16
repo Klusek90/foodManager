@@ -1,12 +1,9 @@
 package com.scorac.stockmanager.controller;
 
-import com.scorac.stockmanager.model.Role;
 import com.scorac.stockmanager.model.UserDTO;
-import com.scorac.stockmanager.model.Users;
 import com.scorac.stockmanager.service.UserRepository;
+import com.scorac.stockmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +21,12 @@ public class userControl {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private final UserService userService;
+
+    public userControl(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/users")
     public String showRegistrationForm(Model model) {
         model.addAttribute("userDTO", new UserDTO());
@@ -33,15 +36,7 @@ public class userControl {
 
     @PostMapping("/adduser")
     public String registerUser(@ModelAttribute UserDTO userDTO) {
-        Users newUser = new Users();
-        newUser.setUsername(userDTO.getUsername());
-        newUser.setPassword(userDTO.getPassword());
-        newUser.setName(userDTO.getName());
-        newUser.setSurname(userDTO.getSurname());
-        newUser.setPosition(userDTO.getPosition());
-        newUser.setRole(Role.valueOf(userDTO.getRole().toString()));
-
-        userRepository.save(newUser);
+        userService.addNewUser(userDTO);
         return "redirect:/users"; // Redirect or show a success page
     }
 }

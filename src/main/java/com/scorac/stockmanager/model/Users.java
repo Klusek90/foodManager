@@ -24,13 +24,12 @@ public class Users implements UserDetails {
     private String surname;
     private String position;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
     @Override
@@ -57,6 +56,5 @@ public class Users implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
-
 
 }

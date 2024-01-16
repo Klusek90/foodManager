@@ -12,22 +12,22 @@
 
                 <form action="#" th:action="@{/adduser}" method="post">
                     <label for="username">Username:</label>
-                    <input type="text" id="username"/><br/>
+                    <input type="text" id="username" name="username"/><br/>
 
                     <label for="password">Password:</label>
-                    <input type="password" id="password" /><br/>
+                    <input type="password" id="password" name="password"/><br/>
 
                     <label for="password">Name:</label>
-                    <input type="text" id="name"/><br/>
+                    <input type="text" id="name" name="name"/><br/>
 
                     <label for="password">Surname:</label>
-                    <input type="text" id="surname"/><br/>
+                    <input type="text" id="surname" name="surname"/><br/>
 
                     <label for="password">Position:</label>
-                    <input type="text" id="position" /><br/>
+                    <input type="text" id="position" name="position" /><br/>
 
                     <label for="role">Role:</label>
-                    <select id="role">
+                    <select id="role" name="role">
                          <option value="ADMIN">ADMIN</option>
                          <option value="USER">USER</option>
                     </select>

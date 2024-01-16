@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         Users user = userOptional.get();
 
-        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_" + user.getRole().name());
+        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_" + user.getRole());
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
