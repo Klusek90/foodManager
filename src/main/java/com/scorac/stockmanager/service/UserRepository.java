@@ -3,9 +3,11 @@ package com.scorac.stockmanager.service;
 import com.scorac.stockmanager.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Repository;
 
-public interface UsersRepository extends JpaRepository<Users, Integer> {
+import java.util.Optional;
 
-    UserDetails findByUsername(String username);
-
+@Repository
+public interface UserRepository extends JpaRepository<Users, Long> {
+    Optional<Users> findByUsername(String username);
 }
