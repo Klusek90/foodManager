@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,6 @@ public class userControl {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     private final UserService userService;
 
@@ -67,4 +65,11 @@ public class userControl {
         return "redirect:/users/list";
         }
 
+    @PostMapping("/delete/{username}")
+    public String deleteUser(@PathVariable("username") String username, RedirectAttributes redirectAttributes) {
+//        Users deleteUser = userRepository.findOneByUsername(username);
+        userRepository.deleteById(username);
+        redirectAttributes.addFlashAttribute("successMessage", "User successfully deleted!");
+        return "redirect:/users/list";
+    }
 }
