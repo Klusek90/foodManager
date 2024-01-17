@@ -14,9 +14,6 @@ import java.util.List;
 @Table(name="users")
 public class Users implements UserDetails {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Integer id;
     @Id
     private String username;
 

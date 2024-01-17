@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,4 +53,18 @@ public class userControl {
             return "newUser";
         }
     }
+
+    @GetMapping("/edit/{username}")
+    public String editUser(@PathVariable String username, Model model) {
+       Users singleUser = userRepository.findOneByUsername(username);
+       model.addAttribute("user", singleUser);
+       return "editUser";
+    }
+
+    @PostMapping("/updateuser")
+    public String updateuser(@ModelAttribute UserDTO userDTO) {
+        userService.updateUser(userDTO);
+        return "redirect:/users/list";
+        }
+
 }

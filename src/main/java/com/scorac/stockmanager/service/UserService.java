@@ -44,4 +44,15 @@ public class UserService {
         return allUsers;
     }
 
+    public  void  updateUser(UserDTO userDTO){
+        Users updatedUser = new Users();
+        updatedUser.setUsername(userDTO.getUsername());
+        updatedUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        updatedUser.setName(userDTO.getName());
+        updatedUser.setSurname(userDTO.getSurname());
+        updatedUser.setPosition(userDTO.getPosition());
+        updatedUser.setRole(userDTO.getRole());
+        userRepository.save(updatedUser);
+    }
+
 }

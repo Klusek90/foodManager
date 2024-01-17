@@ -18,6 +18,7 @@
                         <th>Surname</th>
                         <th>Position</th>
                         <th>Role</th>
+                        <th></th>
                     </tr>
                     <tr th:each="user : ${list}">
 <!--                        <td th:text="${user.id}">ID</td>-->
@@ -26,6 +27,9 @@
                         <td th:text="${user.surname}">Surname</td>
                         <td th:text="${user.position}">Position</td>
                         <td th:text="${user.role}">Role</td>
+                        <td>
+                            <a th:href="@{/users/edit/{username}(username=${user.username})}" class="btn btn-primary">Edit</a>
+                        </td>
                     </tr>
                 </table>
 
