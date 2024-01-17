@@ -42,12 +42,18 @@ public class userControl {
     public String showRegistrationForm(Model model) {
         model.addAttribute("userDTO", new UserDTO());
         model.addAttribute("roles", List.of("USER", "ADMIN"));
+
         return "newUser";
     }
 
     @PostMapping("/adduser")
-    public String registerUser(@ModelAttribute UserDTO userDTO) {
-        userService.addNewUser(userDTO);
-        return "redirect:/users/list"; // Redirect or show a success page
+    public String registerUser(@ModelAttribute UserDTO userDTO, Model model) {
+        try{
+            userService.addNewUser(userDTO);
+            return "redirect:/users/list"; // Redirect or show a success page
+        } catch (IllegalStateException e){
+            model.addAttribute("error", "User already exist!");
+            return "newUser";
+        }
     }
 }

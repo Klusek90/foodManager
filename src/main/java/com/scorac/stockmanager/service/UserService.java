@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -25,7 +26,16 @@ public class UserService {
         newUser.setSurname(userDTO.getSurname());
         newUser.setPosition(userDTO.getPosition());
         newUser.setRole(userDTO.getRole());
-        userRepository.save(newUser);
+
+        Optional<Users> userOptional = userRepository.findByUsername(newUser.getUsername());
+
+        if (userOptional.isEmpty()) {
+            // Save the new user only if user with the same username doesn't exist
+            userRepository.save(newUser);
+        } else {
+            // Handle the case when user already exists, e.g., throw an exception or log a message
+            throw new IllegalStateException("Username already taken");
+        }
     }
 
     public List<Users> getAllUsers(){

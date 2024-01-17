@@ -14,12 +14,13 @@ import java.util.List;
 @Table(name="users")
 public class Users implements UserDetails {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private Integer id;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private String username;
 
     private String password;
-    private String username;
     private String name;
     private String surname;
     private String position;
