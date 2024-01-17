@@ -54,7 +54,7 @@ public class userControl {
     }
 
     @GetMapping("/edit/{username}")
-    public String editUser(@PathVariable String username, Model model) {
+    public String editUser(@PathVariable("username") String username, Model model) {
        Users singleUser = userRepository.findOneByUsername(username);
        model.addAttribute("user", singleUser);
        return "editUser";
