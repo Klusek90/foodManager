@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header">
+<head th:replace="~{fragments/header :: header}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SCORAC stock contoll</title>
 </head>
 <body>
    <div class="container-fluid">
-       <div th:replace="fragments/logoBar :: logoBar"></div>
+       <div th:replace="~{fragments/logoBar :: logoBar}"></div>
        <div class="row">
-           <div th:replace="fragments/sidebar :: sidebar('stock')"></div>
+           <div th:replace="~{fragments/sidebar :: sidebar('stock')}"></div>
            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                <div> stock</div>
            </main>

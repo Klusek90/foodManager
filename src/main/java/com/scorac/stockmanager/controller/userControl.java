@@ -42,9 +42,10 @@ public class userControl {
     }
 
     @PostMapping("/adduser")
-    public String registerUser(@ModelAttribute UserDTO userDTO, Model model) {
+    public String registerUser(@ModelAttribute UserDTO userDTO, Model model,RedirectAttributes redirectAttributes) {
         try{
             userService.addNewUser(userDTO);
+            redirectAttributes.addFlashAttribute("successMessage", "User successfully added!");
             return "redirect:/users/list"; // Redirect or show a success page
         } catch (IllegalStateException e){
             model.addAttribute("error", "User already exist!");
@@ -60,14 +61,14 @@ public class userControl {
     }
 
     @PostMapping("/updateuser")
-    public String updateuser(@ModelAttribute UserDTO userDTO) {
+    public String updateuser(@ModelAttribute UserDTO userDTO, RedirectAttributes redirectAttributes) {
         userService.updateUser(userDTO);
+        redirectAttributes.addFlashAttribute("successMessage", "User successfully updated!");
         return "redirect:/users/list";
         }
 
     @PostMapping("/delete/{username}")
     public String deleteUser(@PathVariable("username") String username, RedirectAttributes redirectAttributes) {
-//        Users deleteUser = userRepository.findOneByUsername(username);
         userRepository.deleteById(username);
         redirectAttributes.addFlashAttribute("successMessage", "User successfully deleted!");
         return "redirect:/users/list";
