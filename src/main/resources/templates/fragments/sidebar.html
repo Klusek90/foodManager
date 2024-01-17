@@ -1,5 +1,5 @@
-<div th:fragment="sidebar(activeMenu)" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+<div th:fragment="sidebar(activeMenu)" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="col-md-3 col-lg-2">
+  <nav class="d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
       <ul class="nav flex-column">
         <li class="nav-item" th:classappend="${activeMenu == 'index' ? 'active' : ''}">
@@ -15,7 +15,7 @@
           <a class="nav-link" href="/stock">Stock</a>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeMenu == 'users' ? 'active' : ''}">
-          <a class="nav-link" href="/users">Users</a>
+          <a class="nav-link" href="/users/list">Users</a>
         </li>
         <li class="nav-item" th:classappend="${activeMenu == 'orders' ? 'active' : ''}">
           <a class="nav-link" href="/orders">Orders</a>

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -23,6 +26,12 @@ public class UserService {
         newUser.setPosition(userDTO.getPosition());
         newUser.setRole(userDTO.getRole());
         userRepository.save(newUser);
+    }
+
+    public List<Users> getAllUsers(){
+        List<Users> allUsers = new ArrayList<>();
+        allUsers= userRepository.findAll();
+        return allUsers;
     }
 
 }
