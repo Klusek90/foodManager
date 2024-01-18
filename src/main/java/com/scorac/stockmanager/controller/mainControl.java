@@ -15,10 +15,10 @@ public class mainControl {
 //    public String manageUsers(){
 //        return "users";
 //    }
-    @GetMapping("/stock")
-    public String stockContorl(){
-        return "stock";
-    }
+//    @GetMapping("/stock")
+//    public String stockContorl(){
+//        return "stock";
+//    }
 
     @GetMapping("/recipes")
     public String recipes(){
