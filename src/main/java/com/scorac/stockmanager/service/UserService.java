@@ -46,7 +46,13 @@ public class UserService {
     public  void  updateUser(UserDTO userDTO){
         Users updatedUser = new Users();
         updatedUser.setUsername(userDTO.getUsername());
-        updatedUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        if(userDTO.getPassword().isEmpty()){
+            Users inMemoryUser = userRepository.findOneByUsername(userDTO.getUsername());
+            updatedUser.setPassword(inMemoryUser.getPassword());
+        }
+        else{
+            updatedUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        }
         updatedUser.setName(userDTO.getName());
         updatedUser.setSurname(userDTO.getSurname());
         updatedUser.setPosition(userDTO.getPosition());
