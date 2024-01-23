@@ -12,7 +12,7 @@
           <a class="nav-link" href="/solution">QueryGPT</a>
         </li>
         <li class="nav-item" th:classappend="${activeMenu == 'stock' ? 'active' : ''}">
-          <a class="nav-link" href="/stock">Stock</a>
+          <a class="nav-link" href="/stock/total">Stock</a>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeMenu == 'users' ? 'active' : ''}">
           <a class="nav-link" href="/users/list">Users</a>
