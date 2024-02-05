@@ -1,24 +1,17 @@
 package com.scorac.stockmanager.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class mainControl {
 
+//    @CrossOrigin
     @GetMapping({"/","home","index"})
     public String homePage(){
         return "index";
     }
-
-//    @GetMapping("/users")
-//    public String manageUsers(){
-//        return "users";
-//    }
-//    @GetMapping("/stock")
-//    public String stockContorl(){
-//        return "stock";
-//    }
 
     @GetMapping("/recipes")
     public String recipes(){
@@ -34,8 +27,19 @@ public class mainControl {
     public String orders(){
         return "orders";
     }
-        @GetMapping("/reports")
+
+    @GetMapping("/reports")
     public String reports(){
         return "reports";
+    }
+
+    @GetMapping ("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping ("/logout")
+    public String logout(){
+        return "login";
     }
 }

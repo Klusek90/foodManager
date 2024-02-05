@@ -18,10 +18,9 @@ public class SecurityConfiguration {
         http
                 .authorizeRequests(authz -> authz
                         .requestMatchers("/users/*", "/reports", "/recipes").hasRole("ADMIN") // only for admin
-                        .requestMatchers("/login", "/register").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
-//                        .loginPage("/login")
+                        .loginPage("/login")
                         .permitAll())
                 .logout(logout -> logout.permitAll());
         return http.build();
