@@ -18,11 +18,8 @@
     text-decoration: none;
 }
 
-
-
 #editUserForm{
     width: 50%;
-    margin-left: 0%;
 }
 
 #updateUser{
@@ -31,5 +28,5 @@
 }
 #deleteUser{
     text-align: right;
-    margin-right: 50%;
+    margin-top: 20px;
 }

@@ -4,24 +4,23 @@
     background-color: yellowgreen;
 }
 
-.nav-link:hover{
-    background-color: darkgray;
-}
+/*.nav-link:hover{*/
+/*    background-color: darkgray;*/
+/*}*/
 
 body{
     background-color: black;
     color:wheat;
 }
-
-.logoutBtn, .logoutBtn >a{
-    background-color: red;
-    color: white;
+.msg-err{
+    text-align: center;
+    color: red;
     font-weight: bold;
 }
-
-.logoutBtn:hover, .logoutBtn >a:hover{
-    background-color: darkred;
-    color: darkgray;
+.msg-lout{
+    text-align: center;
+    color:#007bff;
+    font-weight: bold;
 }
 
 .logo{
@@ -34,4 +33,91 @@ input{
     padding: 8px;
     margin: 0; /* Adjust or remove if needed */
     display: block;
+}
+
+/* Basic Styling for Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Stay on top of other content */
+    padding: 48px 0 0; /* Top padding */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    width: 250px; /* Sidebar width */
+    transition: all 0.3s; /* Smooth transition for toggling visibility */
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.bg-light {
+    background-color: #f8f9fa!important;
+}
+
+.nav-link {
+    color: #007bff;
+}
+
+.nav-link:hover {
+    color: #0056b3;
+}
+
+/* Active state */
+.nav-item.active > .nav-link {
+    color: #fff;
+    background-color: #007bff;
+}
+
+/* Sign Out Button */
+.logoutBtn {
+    width: 100%;
+    margin-top: 1rem;
+
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative; /* Change position for small devices */
+    }
+    .sidebar-sticky {
+        height: auto;
+        top: 0;
+        padding-top: 0;
+    }
+    .nav.flex-column {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .nav-item {
+        display: none; /* Initially hide items */
+    }
+    .nav-item.logoutBtn {
+        display: block; /* Always show logout */
+    }
+    .nav-item.show {
+        display: block; /* Show when toggled */
+    }
+}
+
+/* Toggle button for small screens */
+#sidebarToggle {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+@media (max-width: 767.98px) {
+    #sidebarToggle {
+        display: block;
+    }
 }

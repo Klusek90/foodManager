@@ -33,6 +33,22 @@ public class mainControl {
         return "reports";
     }
 
+    @GetMapping("/calendar")
+    public String calendar(){
+        return "calendar";
+    }
+
+    @GetMapping("/setup")
+    public String setup(){
+        return "setup";
+    }
+
+    @GetMapping("/wastage")
+    public String wastage(){
+        return "wastage";
+    }
+
+
     @GetMapping ("/login")
     public String login(){
         return "login";
