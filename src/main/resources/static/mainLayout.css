@@ -28,3 +28,10 @@ body{
     width: auto; /* Adjust the size as needed */
     height: 2cm; /* Maintain aspect ratio */
 }
+
+input{
+    width: 60%; /* Makes input take full width of its parent */
+    padding: 8px;
+    margin: 0; /* Adjust or remove if needed */
+    display: block;
+}

@@ -1,41 +1,58 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header}">
+    <meta charset="UTF-8">
     <title>SCORAC manage users</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <div th:replace="~{fragments/logoBar :: logoBar}"></div>
-        <div class="row">
-            <div th:replace="~{fragments/sidebar :: sidebar('users')}"></div>
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div th:if="${successMessage}" th:text="${successMessage}"></div>
-                <button><a href="newuser">New User</a></button>
-                <table border="1">
-                    <tr>
-<!--                        <th>ID</th>-->
-                        <th>Username</th>
-                        <th>Name</th>
-                        <th>Surname</th>
-                        <th>Position</th>
-                        <th>Role</th>
-                        <th></th>
-                    </tr>
-                    <tr th:each="user : ${list}">
-<!--                        <td th:text="${user.id}">ID</td>-->
-                        <td th:text="${user.username}">Username</td>
-                        <td th:text="${user.name}">Name</td>
-                        <td th:text="${user.surname}">Surname</td>
-                        <td th:text="${user.position}">Position</td>
-                        <td th:text="${user.role}">Role</td>
-                        <td>
-                            <a th:href="@{/users/edit/{username}(username=${user.username})}" class="btn btn-primary">Edit</a>
-                        </td>
-                    </tr>
-                </table>
+<div class="container-fluid">
+    <div th:replace="~{fragments/logoBar :: logoBar}"></div>
+    <div class="row">
+        <div th:replace="~{fragments/sidebar :: sidebar('users')}"></div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div th:if="${successMessage}" th:text="${successMessage}"></div>
 
-            </main>
-        </div>
+            <!-- Card container -->
+            <div class="container">
+                <div class="row">
+                    <!-- Card for each user -->
+                    <div th:each="user : ${list}" class="col-12 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Name and Surname in the top row -->
+                                <div class="row mb-2">
+                                    <div class="col-6">
+                                        Name: <span th:text="${user.name}">Name</span>
+                                    </div>
+                                    <div class="col-6">
+                                        Surname: <span th:text="${user.surname}">Surname</span>
+                                    </div>
+                                </div>
+                                <!-- Position and Role in the second row -->
+                                <div class="row mb-2">
+                                    <div class="col-6">
+                                        Position: <span th:text="${user.position}">Position</span>
+                                    </div>
+                                    <div class="col-6">
+                                        Role: <span th:text="${user.role}">Role</span>
+                                    </div>
+                                </div>
+                                <!-- Edit button aligned to the right -->
+                                <div class="d-flex justify-content-end">
+                                    <a th:href="@{/users/edit/{username}(username=${user.username})}" class="btn btn-primary userEdit">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a id="newUser" class="btn btn-secondary col" href="newuser">Add New User</a>
+                </div>
+            </div>
+
+
+        </main>
     </div>
+</div>
 </body>
 </html>
