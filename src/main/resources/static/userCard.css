@@ -1,0 +1,32 @@
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3mm; /* 3 mm gap between each card */
+}
+
+.card {
+    border: 1px solid #ddd; /* Light grey border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px;
+    margin-bottom: 3mm; /* Maintain gap at the bottom */
+    background-color:#db9437; /* Light background color */
+    width: 70%;
+}
+
+#newUser{
+    width: 20%;
+    text-decoration: none;
+}
+
+#editUserForm{
+    width: 50%;
+}
+
+#updateUser{
+    padding: 10px;
+    margin-top: 20px;
+}
+#deleteUser{
+    text-align: right;
+    margin-top: 20px;
+}

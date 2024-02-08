@@ -1,0 +1,49 @@
+body {
+    background-color: #ffeadb; /* Peach background */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make the container fill the entire screen height */
+}
+
+#login-form {
+    background-color: #ffeadb;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 49vh;
+    height: 50vh;
+
+}
+
+.input-field {
+    width: 170%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ff8c00; /* Dark orange border */
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding does not increase the size of the input */
+}
+
+#button {
+    background-color: #ff8c00; /* Orange background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1cm;
+}
+
+#button:hover {
+    background-color: #e67e22; /* Darker shade of orange for hover effect */
+}
+
+label {
+    color: #555; /* Dark grey color for the text */
+    font-size: 16px;
+}

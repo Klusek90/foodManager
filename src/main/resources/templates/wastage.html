@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header}">
-    <title>SCORAC orders page</title>
+    <title>SCORAC index page</title>
 </head>
 <body>
     <div class="container-fluid">
         <div th:replace="~{fragments/logoBar :: logoBar}"></div>
         <div class="row">
-            <div th:replace="~{fragments/sidebar :: sidebar('orders')}"></div>
+            <div th:replace="~{fragments/sidebar :: sidebar('wastage')}"></div>
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div> orders</div>
+                <div> index</div>
             </main>
         </div>
     </div>
 
     <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
+
 </html>
