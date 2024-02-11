@@ -9,8 +9,8 @@
 /*}*/
 
 body{
-    background-color: black;
-    color:wheat;
+    background-color:#FFFCEF;
+    color: #276749 ;
 }
 .msg-err{
     text-align: center;
@@ -25,7 +25,7 @@ body{
 
 .logo{
     width: auto; /* Adjust the size as needed */
-    height: 2cm; /* Maintain aspect ratio */
+    height: 4cm; /* Maintain aspect ratio */
 }
 
 input{
@@ -37,42 +37,32 @@ input{
 
 /* Basic Styling for Sidebar */
 .sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100; /* Stay on top of other content */
-    padding: 48px 0 0; /* Top padding */
     box-shadow: 2px 0 5px rgba(0,0,0,0.5);
     width: 250px; /* Sidebar width */
     transition: all 0.3s; /* Smooth transition for toggling visibility */
+    margin-left: -10px;
+
 }
 
 .sidebar-sticky {
     position: relative;
-    top: 0;
+    top: 0px;
     height: calc(100vh - 48px);
     padding-top: 0.5rem;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-}
-
-.bg-light {
-    background-color: #f8f9fa!important;
-}
-
-.nav-link {
-    color: #007bff;
+    background-color:#F6AD55 ;
 }
 
 .nav-link:hover {
-    color: #0056b3;
+    background-color: green;
+    color: wheat;
 }
 
 /* Active state */
 .nav-item.active > .nav-link {
     color: #fff;
-    background-color: #007bff;
+    background-color:#124413;
 }
 
 /* Sign Out Button */
@@ -81,12 +71,18 @@ input{
     margin-top: 1rem;
 
 }
+#customer-name{
+    font-weight: bold;
+    font-size: 30pt;
+    padding: 0px 0 15px 0;
+}
 
 @media (max-width: 767.98px) {
     .sidebar {
         width: 100%;
-        height: auto;
+        height: 1.2cm;
         position: relative; /* Change position for small devices */
+        background-color:#F6AD55 ;
     }
     .sidebar-sticky {
         height: auto;

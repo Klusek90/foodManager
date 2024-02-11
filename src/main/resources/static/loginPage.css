@@ -20,7 +20,7 @@ body {
 }
 
 .input-field {
-    width: 170%;
+    width: 150%;
     padding: 10px;
     margin: 10px 0;
     border: 2px solid #ff8c00; /* Dark orange border */
@@ -47,3 +47,5 @@ label {
     color: #555; /* Dark grey color for the text */
     font-size: 16px;
 }
+
+
