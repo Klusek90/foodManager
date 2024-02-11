@@ -19,7 +19,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authz -> authz
-                        .requestMatchers("/loginPage.css").permitAll()
+                        .requestMatchers("/loginPage.css", "/img/logo.jpg").permitAll()
                         .requestMatchers("/users/*", "/reports", "/recipes").hasRole("ADMIN") // only for admin
                         .anyRequest().authenticated())
                 .formLogin(form -> form

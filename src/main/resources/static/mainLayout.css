@@ -24,7 +24,7 @@ body{
     background-color:#FFFCEF;
     color: #276749 ;
     /*usun!!*/
-    overflow-y: hidden;
+    /*overflow-y: hidden;*/
 }
 .msg-err{
     text-align: center;
