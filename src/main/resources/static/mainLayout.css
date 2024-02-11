@@ -136,15 +136,19 @@ h1{
     }
 
     .submit{
-        width: 100%;
+        width: 100% !important;
     }
 
     .logo-row{
-        text-align: center;!important;
+        text-align: center !important;
     }
 
     input{
         width: 100%;
+    }
+
+    .blank{
+        display: none;
     }
 }
 
