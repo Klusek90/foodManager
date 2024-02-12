@@ -9,11 +9,55 @@
         <div class="row">
             <div th:replace="~{fragments/sidebar :: sidebar('wastage')}"></div>
             <main class="col-md-8 px-md-3">
-                    <div> index</div>
+                    <h1>Wastage</h1>
+                <div class="row">
+                    <div class="col col-md-6">
+<!--                        <form action="#" th:action="@{/users/adduser}" method="post">-->
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username"/><br/>
+
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password"/><br/>
+
+                            <label for="password">Name:</label>
+                            <input type="text" id="name" name="name"/><br/>
+
+                            <label for="password">Surname:</label>
+                            <input type="text" id="surname" name="surname"/><br/>
+
+                            <label for="password">Position:</label>
+                            <input type="text" id="position" name="position" /><br/>
+
+
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#waste">Add</button>
+<!--                        </form>-->
+                    </div>
+                    <div class="col">
+                        <div class="bd-success">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam amet aperiam at consectetur debitis dignissimos doloremque dolores doloribus eaque eligendi eos ex exercitationem explicabo impedit in iste laboriosam libero magnam maiores minima molestiae nihil non officia pariatur porro quis ratione repellat, sed suscipit tempore unde voluptate voluptates? Dignissimos eius, ex fuga fugiat illo illum maxime, nihil nisi reiciendis, sunt tenetur velit vero vitae! Ab accusantium beatae cumque deleniti dolorem eum incidunt non nulla numquam omnis, quasi reprehenderit repudiandae similique vel vero vitae voluptatibus? Asperiores atque, aut commodi distinctio dolorem incidunt laborum minus, nam natus quia quidem quos repudiandae voluptatum.</div>
+                    </div>
+                </div>
             </main>
             <div class="col"></div>
         </div>
     </div>
+
+<div class="modal fade" id="waste" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content"> <!-- Corrected class name -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title">Waste report</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consectetur ducimus eaque eum facere in iste perferendis possimus repellat sit!</p>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
 </body>
 

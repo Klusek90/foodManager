@@ -55,6 +55,7 @@ input, textarea{
     width: 250px; /* Sidebar width */
     transition: all 0.3s; /* Smooth transition for toggling visibility */
     margin-left: -10px;
+    z-index:10;
 
 }
 

@@ -5,13 +5,11 @@ import com.scorac.stockmanager.model.Users;
 import com.scorac.stockmanager.service.UserRepository;
 import com.scorac.stockmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 @Controller
 @RequestMapping(value="/users")
@@ -38,7 +36,7 @@ public class userControl {
         model.addAttribute("userDTO", new UserDTO());
         model.addAttribute("roles", List.of("USER", "ADMIN"));
 
-        return "newUser";
+        return "userNew";
     }
 
     @PostMapping("/adduser")
@@ -49,7 +47,7 @@ public class userControl {
             return "redirect:/users/list"; // Redirect or show a success page
         } catch (IllegalStateException e){
             model.addAttribute("error", "User already exist!");
-            return "newUser";
+            return "userNew";
         }
     }
 
@@ -57,7 +55,7 @@ public class userControl {
     public String editUser(@PathVariable("username") String username, Model model) {
        Users singleUser = userRepository.findOneByUsername(username);
        model.addAttribute("user", singleUser);
-       return "editUser";
+       return "userEdit";
     }
 
     @PostMapping("/updateuser")

@@ -9,7 +9,39 @@
     <div class="row">
         <div th:replace="~{fragments/sidebar :: sidebar('recipes')}"></div>
         <main class="col-md-8 px-md-3">
-                <div> recipes</div>
+            <h1>Recipe List</h1>
+            <a href="/index" class="btn btn-secondary">Back</a>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col">
+                    <div th:if="${successMessage}" th:text="${successMessage}"></div>
+
+                    <!-- Card for each user -->
+                    <div th:each="user : ${list}" class="col-12 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Name and Surname in the top row -->
+                                <div class="row mb-2">
+                                    <div class="col-6">
+                                        Name: <span th:text="${user.name}">Name</span>
+                                    </div>
+                                    <div class="col-6">
+                                        Items: <span th:text="${user.surname}">Surname</span>
+                                    </div>
+                                </div>
+                                <!-- Edit button aligned to the right -->
+                                <div class="d-flex justify-content-end">
+                                    <a th:href="@{/users/edit/{username}(username=${user.username})}" class="btn btn-primary userEdit">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a id="newUser" class="btn btn-secondary col" href="newrecipe">Add New Recipe</a>
+                    </div>
+                </div>
+            </div>
+
         </main>
         <div class="col"></div>
     </div>
