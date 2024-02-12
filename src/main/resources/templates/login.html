@@ -15,6 +15,12 @@
 			<div class="text-center">
 				<img src="/img/logo.jpg" alt="Leaf Food Logo" class="pic">
 			</div>
+			<div class="error msg-err" th:if="${param.error}">
+				Invalid username and password.
+			</div>
+			<div class="error msg-lout" th:if="${param.logout}">
+				You have been logged out.
+			</div>
 			<form th:action="@{/login}" method="post" id="login-form">
 				<div>
 					<label> User Name :<br>
@@ -30,12 +36,7 @@
 					<input class="btn btn-primary" id="button" type="submit" value="Sign In"/>
 				</div>
 			</form>
-			<div class="error msg-err" th:if="${param.error}">
-				Invalid username and password.
-			</div>
-			<div class="error msg-lout" th:if="${param.logout}">
-				You have been logged out.
-			</div>
+
 		</div>
 	</div>
 </div>

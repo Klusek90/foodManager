@@ -8,7 +8,7 @@
         <div th:replace="~{fragments/logoBar :: logoBar}"></div>
         <div class="row">
             <div th:replace="~{fragments/sidebar :: sidebar('users')}"></div>
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-md-8 ms-sm-auto col-lg-10 px-md-4">
                 <div id="editUserForm">
                     <h1>Edit User <span th:text="${user.username}"></span></h1>
                     <form th:action="@{/users/updateuser}" th:object="${user}" method="post" class="container mt-3" >
@@ -56,6 +56,7 @@
                 </div>
                 </div>
             </main>
+            <div class="col"></div>
         </div>
     </div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
