@@ -27,7 +27,7 @@ public class stockConrol {
     public String stockContorl(Model model){
         List<Product> products =stockService.listofALLSortedByName();
         model.addAttribute("total", products);
-        return "total";
+        return "stock";
     }
 
     @PostMapping("/stockupdate")
