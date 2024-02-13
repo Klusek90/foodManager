@@ -1,12 +1,12 @@
 $(document).ready(function() {
     $('#all-table').DataTable({
         "processing": true,
-        "serverSide": true,
         "ajax": {
-            "url": "/stock/datatable",
+            "url": "http://localhost:8080/stock/datatable",
             "type": "GET",
+            // Ensure proper data handling, assuming your endpoint returns a plain array
+            "dataSrc": ""
         },
-        "order": [[0, "desc"]],
         "columns": [
             {data: "name", "width": "20%"},
             {data: "type", "width": "20%"},
@@ -15,5 +15,4 @@ $(document).ready(function() {
             {data: "other", "width": "20%"}
         ]
     });
-
 });
