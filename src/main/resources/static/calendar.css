@@ -1,0 +1,21 @@
+.calendar-container {
+    max-width: 640px;
+    margin: auto;
+}
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+.day {
+    width: 14.28%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.selected-day {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border-radius: 50%;
+}
