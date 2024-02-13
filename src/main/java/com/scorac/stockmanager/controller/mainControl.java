@@ -1,6 +1,7 @@
 package com.scorac.stockmanager.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -44,7 +45,9 @@ public class mainControl {
     }
 
     @GetMapping("/wastage")
-    public String wastage(){
+    public String wastage(Model model){
+//        List<String> itemProducts = // fetch or create your list of item products
+//        model.addAttribute("itemProducts", itemProducts);
         return "wastage";
     }
 

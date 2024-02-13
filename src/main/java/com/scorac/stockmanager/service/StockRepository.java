@@ -6,6 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
+//https://datatables.net/manual/server-side#:~:text=Server%2Dside%20processing%20in%20DataTables,get%20its%20Ajax%20data%20from.
+//https://www.baeldung.com/spring-data-jpa-pagination-sorting
 public interface StockRepository  extends CrudRepository<Product, Long> {
 
     List<Product> findAll();

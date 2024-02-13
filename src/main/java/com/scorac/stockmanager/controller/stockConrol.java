@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/stock")
@@ -37,5 +38,11 @@ public class stockConrol {
 //        List<Product> products = stockRepository.findAll();
         redirectAttributes.addFlashAttribute("successMessage", "Product successfully updated!");
         return "redirect:/stock/total"; // Redirect to an appropriate view
+    }
+
+    @GetMapping("/datatable")
+    @ResponseBody   //restcontrol
+    public List<Product> getForm(final @RequestParam Map<String, String> allRequestParams){
+        return stockService.listofALLSortedByName();
     }
 }

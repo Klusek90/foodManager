@@ -10,41 +10,33 @@
     <div class="row">
         <div th:replace="~{fragments/sidebar :: sidebar('stock')}"></div>
         <main class="col-md-8 px-md-3">
-               <h1>Edit Products</h1>
-               <div th:each="product, iterStat : ${total}">
-                   <form th:action="@{/stock/stockupdate}" th:object="${product}" method="post">
-                       <input type="hidden" th:value="${product.id}" name="id" />
-                       <div >
-                           <label th:text="${product.name}" ></label>
-                           <input type="hidden" th:value="${product.name}" name="name"  />
-                       </div>
-                       <div>
-                           <label for="type">Type:</label>
-                           <input type="text" id="type" th:value="${product.type}" name="type" />
-                       </div>
-                       <div>
-                           <label>Weight:</label>
-                           <input type="text" id th:value="${product.weight}" name="weight" />
-                       </div>
-                       <div>
-                           <label>Cost:</label>
-                           <input type="text" th:value="${product.cost}" name="cost" />
-                       </div>
-                       <div>
-                           <label>Other:</label>
-                           <input type="text" th:value="${product.other}" name="other" />
-                       </div>
-                       <div>
-                           <button type="submit">Update</button>
-                       </div>
-                   </form>
-                   <hr/>
-               </div>
+            <div class="col-sm-7 board table-responsive">
+                <h1>Stock</h1>
+                <table class="table" id="all-table">
+                    <thead class="thead-dark">
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Weight</th>
+                    <th>Cost </th>
+                    <th>Other</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td/>
+                            <td/>
+                            <td/>
+                            <td/>
+                            <td/>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </main>
         <div class="col"></div>
     </div>
 </div>
 
    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script th:src="@{/scripts/dataTable.js}"></script>
 </body>
 </html>

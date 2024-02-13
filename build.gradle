@@ -30,6 +30,11 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    implementation group: 'com.github.darrachequesne', name: 'spring-data-jpa-datatables', version: '6.0.1'
+    implementation 'org.webjars:jquery:3.5.1'
+    implementation 'org.webjars:datatables:1.10.23'
+    implementation 'org.webjars:bootstrap:5.0.0'
+
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
 //    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter:0.8.0-SNAPSHOT'
