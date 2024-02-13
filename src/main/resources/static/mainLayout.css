@@ -42,7 +42,7 @@ body{
     height: 4cm; /* Maintain aspect ratio */
 }
 
- textarea{
+.textfield, textarea{
     width: 60%; /* Makes input take full width of its parent */
     padding: 8px;
     margin: 0; /* Adjust or remove if needed */
@@ -148,7 +148,7 @@ table, card{
         text-align: center !important;
     }
 
-    input, textarea{
+    .textfield, textarea{
         width: 100%;
     }
 
