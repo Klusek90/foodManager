@@ -32,22 +32,11 @@
                             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#waste">Add</button>
 <!--                        </form>-->
                     </div>
-                    <div class="col mt-5">
-                            <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search items...">
-
-                            <ul id="itemsList" class="list-group">
-<!--                                <li th:each="item : ${itemProducts}" th:text="${item}" class="list-group-item"></li>-->
-                                <li>12</li>
-                                <li>11</li>
-                                <li>10</li>
-                                <li>9</li>
-                                <li>1</li>
-                                <li>7</li>
-                                <li>6</li>
-                                <li>5</li>
-                                <li>4</li>
-                                <li>3</li>
-                            </ul>
+                    <div class="col col-md-4 col-sm-12 mt-5">
+                        <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search items...">
+                        <ul id="itemsList" class="list-group">
+                            <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
+                        </ul>
                     </div>
                 </div>
             </main>

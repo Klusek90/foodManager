@@ -1,21 +1,32 @@
 package com.scorac.stockmanager.controller;
 
+import com.scorac.stockmanager.service.StockService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 public class mainControl {
+    @Autowired
+    private final StockService stockService;
 
-//    @CrossOrigin
+    public mainControl(StockService stockService) {
+        this.stockService = stockService;
+    }
+
+    //    @CrossOrigin
     @GetMapping({"/","home","index"})
     public String homePage(){
         return "index";
     }
 
     @GetMapping("/recipes")
-    public String recipes(){
+    public String recipes(Model model){
+        List<String> productNames= stockService.productSearch();
+        model.addAttribute("itemsName", productNames);
         return "recipes";
     }
 
@@ -46,8 +57,8 @@ public class mainControl {
 
     @GetMapping("/wastage")
     public String wastage(Model model){
-//        List<String> itemProducts = // fetch or create your list of item products
-//        model.addAttribute("itemProducts", itemProducts);
+        List<String> productNames= stockService.productSearch();
+        model.addAttribute("itemsName", productNames);
         return "wastage";
     }
 

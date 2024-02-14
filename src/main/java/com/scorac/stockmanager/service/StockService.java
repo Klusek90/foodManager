@@ -24,4 +24,13 @@ public class StockService {
 
         return all;
     }
+
+    public List<String> productSearch(){
+        List<String> productNames = new ArrayList<>();
+        List<Product> all = stockRepository.findAll();
+        for (int i =0; i< all.size();i++){
+            productNames.add(all.get(i).getName());
+        }
+        return productNames;
+    }
 }
