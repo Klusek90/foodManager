@@ -16,8 +16,11 @@ public class mainControl {
     public mainControl(StockService stockService) {
         this.stockService = stockService;
     }
-
-    //    @CrossOrigin
+    // TODO: 10/02/2024 Add AI and ML algorithm  !!!
+    // TODO: 12/02/2024 Add Pictures for product, users and recopies
+    // TODO: 13/02/2024 proper render the card size
+    // TODO: 14/02/2024 create report
+    
     @GetMapping({"/","home","index"})
     public String homePage(){
         return "index";
