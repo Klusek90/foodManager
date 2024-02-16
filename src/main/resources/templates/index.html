@@ -12,7 +12,14 @@
                 <h1>Mains</h1>
                 <div class="row py-2">
                     <div class="col col-sm-12 col-md-6">
-                        <h2>weather pic</h2>
+                        <div>
+                            <p>Description: <span th:text="${weather.description}"></span></p>
+                            <p>Temperature: <span th:text="${weather.temperature}"></span> °C</p>
+                            <img th:src="${weather.description == 'rain' ? '@{/images/rain.jpg}' :
+                                          weather.description == 'sunny' ? '@{/images/sunny.jpg}' :
+                                          weather.description == 'cloudy' ? '@{/images/cloudy.jpg}' :
+                                          '@{/images/default.jpg}'}" alt="Weather Image"/>
+                                                </div>
                         <div class="card border-warrning border-2">
                             <div class="card-header"> Events</div>
                             <div class="card-body py-5">

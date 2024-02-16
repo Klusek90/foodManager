@@ -2,7 +2,9 @@ package com.scorac.stockmanager.controller;
 
 import com.scorac.stockmanager.model.Order;
 import com.scorac.stockmanager.model.OrderLine;
+import com.scorac.stockmanager.model.Weather;
 import com.scorac.stockmanager.service.StockService;
+import com.scorac.stockmanager.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +17,15 @@ import java.util.List;
 public class mainControl {
     @Autowired
     private final StockService stockService;
+    @Autowired
+    private WeatherService weatherService;
 
-    public mainControl(StockService stockService) {
+    public mainControl(StockService stockService, WeatherService weatherService) {
+
         this.stockService = stockService;
+        this.weatherService = weatherService;
     }
+
     // TODO: 10/02/2024 Add AI and ML algorithm  !!!
     // TODO: 12/02/2024 Add Pictures for product, users and recopies
     // TODO: 13/02/2024 proper render the card size
@@ -35,8 +42,10 @@ public class mainControl {
         Order order2 = new Order(2, Arrays.asList(line3, line4));
 
         List<Order> orders = Arrays.asList(order1, order2);
-
         model.addAttribute("orders", orders);
+
+        Weather weather = weatherService.getWeather("Rugby"); // Example city
+        model.addAttribute("weather", weather);
         return "index";
     }
 
