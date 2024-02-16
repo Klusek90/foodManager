@@ -17,7 +17,9 @@ public class WeatherService {
         Weather weather = new Weather();
         Map<String, Object> main = (Map<String, Object>) response.get("main");
         weather.setTemperature(main.get("temp").toString());
-        Map<String, Object>[] weatherInfo = (Map<String, Object>[]) response.get("weather");
+
+//        Must match with api json!
+//        Map<String, Object>[] weatherInfo = (Map<String, Object>[]) response.get("weather");
 //        weather.setDescription(weatherInfo[0].get("description").toString());
 //        weather.setDescription("ddzyscie");
 
