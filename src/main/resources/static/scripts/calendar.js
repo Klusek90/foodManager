@@ -23,7 +23,7 @@ $(document).ready(function () {
 
     function fillYearDropdown() {
         let year = currentDate.getFullYear();
-        for (let i = year - 50; i <= year + 50; i++) {
+        for (let i = year - 10; i <= year + 5; i++) {
             $('#yearSelect').append($('<option />').val(i).html(i));
         }
         $('#yearSelect').val(year);

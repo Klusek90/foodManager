@@ -6,7 +6,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    /*padding: 10px 0;*/
+    width: 300px;
 }
 .day {
     width: 14.28%;
@@ -15,7 +16,18 @@
 }
 
 .selected-day {
-    background-color: #007bff; /* Bootstrap primary color */
+    background-color: #124413; /* Bootstrap primary color */
     color: white;
-    border-radius: 50%;
+    border-radius: 35px;
 }
+
+#yearSelect{
+    width: 150px;
+}
+
+@media (max-width: 500px) {
+  .cover {
+      background-color: #FFFCEF;
+  }
+}
+

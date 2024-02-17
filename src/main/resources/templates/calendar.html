@@ -6,28 +6,34 @@
 <body>
 <div th:replace="~{fragments/logoBar :: logoBar}"></div>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row bg">
         <div th:replace="~{fragments/sidebar :: sidebar('calendar')}"></div>
-        <main class="col-md-8 px-md-3">
+        <main class="col-md-8 px-md-3 cover">
                <h1>Calendar</h1>
-                 <div class="py-5">
-                    <div class="calendar-container">
-                        <div class="calendar-header">
-                            <button id="prev" class="btn btn-primary">&lt;</button>
-                            <h4 id="monthYear"></h4>
-                            <button id="next" class="btn btn-primary">&gt;</button>
-                            <select id="yearSelect" class="form-select mb-3"></select>
-                        </div>
+            <div class="row cover">
+                <div class="col col-sm-6 calendar-header">
+                    <button id="prev" class="btn arrow-btn">&lt;</button>
+                    <h4 id="monthYear"></h4>
+                    <button id="next" class="btn arrow-btn">&gt</button>
+                </div>
+                <div class="col col-sm-6">
+                    <select id="yearSelect" class="form-select mt-2"></select>
+                </div>
+
+
+            </div>
+            <div class="pt-5">
+                     <div class="calendar-container">
                         <div id="calendarDays" class="d-flex flex-wrap"></div>
                     </div>
                 </div>
             <form>
-                <div class="py-5">
+                <div class="pt-5">
                     <label for="event">Event participants:</label>
                     <input type="number" id="event"/>
                     <button class="btn btn-success">Add</button></br>
                 </div>
-                <div class="py-5">
+                <div class="pt-5">
                     <label for="notes">Notes:</label>
                     <textarea id="notes" rows="4"></textarea>
                     <button type="submit" class="btn btn-primary"> Update</button>
