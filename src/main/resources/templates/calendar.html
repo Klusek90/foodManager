@@ -27,20 +27,28 @@
                         <div id="calendarDays" class="d-flex flex-wrap"></div>
                     </div>
                 </div>
-            <form>
-                <div class="pt-5">
-                    <label for="event">participants on event:</label>
-                    <input type="number" id="event"/>
-<!--                    <button class="btn btn-success">Add</button></br>-->
-                </div>
-                <div class="pt-5">
-                    <label for="notes">Additional Notes:</label>
-                    <textarea id="notes" rows="4"></textarea>
-                    <button type="submit" class="btn btn-primary"> Update</button>
-                </div>
+            <form  action="#" th:action="@{/dayEvent/add}" method="POST" class="hidden" id="dayEventForm">
+                <input type="hidden" id="date" name="date" value="#"> <!-- Ensure name matches class field -->
+
+                    <div class="pt-5">
+                        <label for="participants">Participants on event:</label>
+                        <input type="number" id="participants" name="participants"/> <!-- Change name to match class field -->
+                    </div>
+                    <div class="pt-5">
+                        <label for="note">Additional Notes:</label>
+                        <textarea id="note" name="note" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3"> Update</button>
+
             </form>
         </main>
-        <div class="col"></div>
+<!--        <div  th:each="event : ${dayEvents}">-->
+<!--            <div th:id="${event.date}">-->
+<!--                <p th:text="${event.note}"></p>-->
+<!--                <p th:text="${event.participants}"></p>-->
+<!--            </div>-->
+<!--            <p th:text="${event.date}"></p>-->
+<!--        </div>-->
     </div>
 </div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>

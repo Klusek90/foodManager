@@ -1,14 +1,19 @@
 package com.scorac.stockmanager.controller;
 
+import com.scorac.stockmanager.model.DayEvent;
 import com.scorac.stockmanager.model.Order;
 import com.scorac.stockmanager.model.OrderLine;
 import com.scorac.stockmanager.model.Weather;
+import com.scorac.stockmanager.service.DayEventService;
 import com.scorac.stockmanager.service.StockService;
 import com.scorac.stockmanager.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,13 +22,14 @@ import java.util.List;
 public class mainControl {
     @Autowired
     private final StockService stockService;
-    @Autowired
     private WeatherService weatherService;
 
-    public mainControl(StockService stockService, WeatherService weatherService) {
+    private DayEventService dayEventService;
 
+    public mainControl(StockService stockService, WeatherService weatherService, DayEventService dayEventService) {
         this.stockService = stockService;
         this.weatherService = weatherService;
+        this.dayEventService = dayEventService;
     }
 
     // TODO: 10/02/2024 Add AI and ML algorithm  !!!
@@ -83,7 +89,9 @@ public class mainControl {
     }
 
     @GetMapping("/calendar")
-    public String calendar(){
+    public String calendar(Model model){
+        List <DayEvent> dayEvents = dayEventService.findAllData();
+        model.addAttribute("dayEvents", dayEvents);
         return "calendar";
     }
 
@@ -109,4 +117,6 @@ public class mainControl {
     public String logout(){
         return "login";
     }
+
+
 }
