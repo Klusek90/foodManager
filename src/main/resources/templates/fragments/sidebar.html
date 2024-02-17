@@ -1,6 +1,6 @@
 <div th:fragment="sidebar(activeMenu)" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="col-md-3">
   <nav class="sidebar">
-    <button id="sidebarToggle">&#9776;</button>
+    <button id="sidebarToggle" class="btn btn-warning py-0">&#9776;</button>
     <div class="sidebar-sticky">
       <ul class="nav flex-column">
         <li class="nav-item" th:classappend="${activeMenu == 'index' ? 'active' : ''}">
