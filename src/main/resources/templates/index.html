@@ -16,7 +16,8 @@
 <!--                        Pictures must be added and logic tested-->
 
                         <div class="weather row my-3  border">
-                            <div class="col col-md-3 p-3">
+                            <h4 class="px-5 text-center" style="color: #124413">Weather</h4>
+                            <div class="col col-md-3">
                                 <img th:src="${weather.description == 'Sunny and warm' ? '/img/weather/sun.png' :
                                           weather.description == 'Rain' ? '/img/weather/rain.png' :
                                           weather.description == 'Thunderstorms' ? '/img/weather/thunder.png' :
@@ -25,7 +26,7 @@
                                           weather.description == 'Fog' ? '/img/weather/fog.png' :
                                           '/img/weather/default.png'}" class="weatherImg" alt="Weather Image"/>
                             </div>
-                            <div class="col p-3">
+                            <div class="col">
                                 <p class="fw-bold" th:text="${weather.description}"></p>
                                 <p>Temperature: <span th:text="${weather.temp}"></span> °C</p>
                             </div>
