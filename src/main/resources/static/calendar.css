@@ -8,11 +8,13 @@
     align-items: center;
     /*padding: 10px 0;*/
     width: 300px;
+    background-color: rgba(255, 252, 239, 0.5);
 }
 .day {
     width: 14.28%;
     text-align: center;
     padding: 10px 0;
+    background-color: rgba(255, 252, 239, 0.7);
 }
 
 .selected-day {
@@ -20,6 +22,7 @@
     color: white;
     border-radius: 35px;
 }
+
 
 #yearSelect{
     width: 150px;

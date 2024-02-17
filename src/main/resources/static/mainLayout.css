@@ -52,7 +52,7 @@ body{
 /* Basic Styling for Sidebar */
 .sidebar {
     box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-    width: 250px; /* Sidebar width */
+    width: 21vw; /* Sidebar width */
     transition: all 0.3s; /* Smooth transition for toggling visibility */
     margin-left: -20px;
     z-index:10;
