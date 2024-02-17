@@ -4,6 +4,7 @@ import com.scorac.stockmanager.model.Weather;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import static java.lang.Float.parseFloat;
@@ -24,7 +25,10 @@ public class WeatherService {
         int humidity = parseInt(main.get("humidity").toString());
         int pressure = parseInt(main.get("pressure").toString());
         String description = condition(temp, humidity, pressure);
-        Weather weather = new Weather(String.valueOf(temp), description);
+        String currentDate = LocalDate.now().toString();
+
+
+        Weather weather = new Weather(String.valueOf(temp), description, currentDate);
 
         return weather;
     }

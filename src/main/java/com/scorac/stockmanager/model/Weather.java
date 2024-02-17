@@ -7,10 +7,12 @@ public class Weather {
 
     private String temp;
     private String description;
+    private String date;
 
-    public Weather(String temp, String description) {
+    public Weather(String temp, String description, String date) {
         this.temp = temp;
         this.description = description;
+        this.date=date;
     }
 
     public Weather() {

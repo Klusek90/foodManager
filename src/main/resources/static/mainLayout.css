@@ -54,7 +54,7 @@ body{
     box-shadow: 2px 0 5px rgba(0,0,0,0.5);
     width: 250px; /* Sidebar width */
     transition: all 0.3s; /* Smooth transition for toggling visibility */
-    margin-left: -10px;
+    margin-left: -20px;
     z-index:10;
 
 }
@@ -115,8 +115,8 @@ table, card{
 }
 
 .weatherImg{
-    width: auto; /* Adjust the size as needed */
-    height: 2cm;
+    width: 100%;
+    height: auto;
 }
 
 .weather{
@@ -126,9 +126,12 @@ table, card{
     color: black;
 }
 
+bg{
+    background-image: url('img/background.jpg');
+}
 @media (max-width: 767.98px) {
     .sidebar {
-        width: 104%;
+        width: 100vw;
         height: 1.2cm;
         position: relative; /* Change position for small devices */
         background-color:#F6AD55 ;
@@ -176,13 +179,13 @@ table, card{
 /* Toggle button for small screens */
 #sidebarToggle {
     display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
 }
 
 @media (max-width: 767.98px) {
     #sidebarToggle {
         display: block;
+        width: 20%;
+        height: 100%;
+        float: right;
     }
 }
