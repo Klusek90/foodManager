@@ -5,6 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
+
+import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
+
 @Service
 public class WeatherService {
     private final String apiKey = "e369dcbf19ddeb2042fe020c729ee7ec";
@@ -14,15 +18,44 @@ public class WeatherService {
         String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
         Map<String, Object> response = restTemplate.getForObject(url, Map.class);
 
-        Weather weather = new Weather();
+//        Weather weather = new Weather();
         Map<String, Object> main = (Map<String, Object>) response.get("main");
-        weather.setTemperature(main.get("temp").toString());
-
-//        Must match with api json!
-//        Map<String, Object>[] weatherInfo = (Map<String, Object>[]) response.get("weather");
-//        weather.setDescription(weatherInfo[0].get("description").toString());
-//        weather.setDescription("ddzyscie");
+        float temp =  parseFloat(main.get("temp").toString());
+        int humidity = parseInt(main.get("humidity").toString());
+        int pressure = parseInt(main.get("pressure").toString());
+        String description = condition(temp, humidity, pressure);
+        Weather weather = new Weather(String.valueOf(temp), description);
 
         return weather;
+    }
+
+    private String condition(float temp, int humidity, int pressure){
+
+        String description;
+
+        if(temp > 20 && humidity < 60) {
+//            imageSrc = "sun.png";
+            description = "Sunny and warm";
+        } else if(temp <= 20 && temp >= 10 && humidity > 60) {
+//            imageSrc = "clouds.png";
+            description = "Cloudy or overcast";
+        } else if(humidity > 80 && temp < 20 && temp >= 5) {
+//            imageSrc = "rain.png";
+            description = "Rain";
+        } else if(temp > 18 && humidity > 80 && pressure < 1010) {
+//            imageSrc = "thunderstorm.png";
+            description = "Thunderstorms";
+        } else if(temp < 0 && humidity > 80) {
+//            imageSrc = "snow.png";
+            description = "Snow";
+        } else if(Math.abs(temp - humidity) < 5) {
+//            imageSrc = "fog.png";
+            description = "Fog";
+        } else {
+//            imageSrc = "default.png";
+            description = "Unknown";
+        }
+
+        return description;
     }
 }

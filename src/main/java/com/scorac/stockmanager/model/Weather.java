@@ -4,12 +4,13 @@ import lombok.Data;
 
 @Data
 public class Weather {
-    private String description;
-    private String temperature;
 
-    public Weather(String description, String temperature) {
+    private String temp;
+    private String description;
+
+    public Weather(String temp, String description) {
+        this.temp = temp;
         this.description = description;
-        this.temperature = temperature;
     }
 
     public Weather() {

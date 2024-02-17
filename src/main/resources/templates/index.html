@@ -15,13 +15,21 @@
 
 <!--                        Pictures must be added and logic tested-->
 
-                        <div>
-                            <p>Description: <span th:text="${weather.description}"></span></p>
-<!--                            <p>Temperature: <span th:text="${weather.temperature}"></span> °C</p>-->
-<!--                            <img th:src="${weather.description == 'rain' ? '@{/images/rain.jpg}' :-->
-<!--                                          weather.description == 'sunny' ? '@{/images/sunny.jpg}' :-->
-<!--                                          weather.description == 'cloudy' ? '@{/images/cloudy.jpg}' :-->
-<!--                                          '@{/images/default.jpg}'}" alt="Weather Image"/>-->
+                        <div class="weather row my-3  border">
+                            <div class="col col-md-3 p-3">
+                                <img th:src="${weather.description == 'Sunny and warm' ? '/img/weather/sun.png' :
+                                          weather.description == 'Rain' ? '/img/weather/rain.png' :
+                                          weather.description == 'Thunderstorms' ? '/img/weather/thunder.png' :
+                                          weather.description == 'Cloudy or overcast' ? '/img/weather/cloud.png' :
+                                          weather.description == 'Snow' ? '/img/weather/snow.png' :
+                                          weather.description == 'Fog' ? '/img/weather/fog.png' :
+                                          '/img/weather/default.png'}" class="weatherImg" alt="Weather Image"/>
+                            </div>
+                            <div class="col p-3">
+                                <p class="fw-bold" th:text="${weather.description}"></p>
+                                <p>Temperature: <span th:text="${weather.temp}"></span> °C</p>
+                            </div>
+
                        </div>
                         <div class="card border-warrning border-2">
                             <div class="card-header"> Events</div>

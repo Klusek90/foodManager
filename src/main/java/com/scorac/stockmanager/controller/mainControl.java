@@ -74,7 +74,7 @@ public class mainControl {
         List<Order> orders = Arrays.asList(order1, order2);
 
         model.addAttribute("orders", orders);
-        return "orders";
+        return "ordersList";
     }
 
     @GetMapping("/reports")
