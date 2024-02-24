@@ -115,16 +115,12 @@ table, card{
 }
 
 .weatherImg{
-    width: 100%;
-    height: auto;
+    width: 56%;
+    border-radius: 15px;
+    background-color: #FFFCEF;
 }
 
-.weather{
-    border-radius: 40px;
-    border-color: #124413;
-    background-image: linear-gradient(to right, wheat, dodgerblue);
-    color: black;
-}
+
 
 bg{
     background-image: url('img/background.jpg');
@@ -137,6 +133,8 @@ bg{
 .hidden{
     display: none;
 }
+
+
 @media (max-width: 767.98px) {
     .sidebar {
         width: 100vw;

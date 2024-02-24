@@ -1,20 +1,20 @@
 .calendar-container {
-    max-width: 640px;
-    margin: auto;
+    /*max-width: 640px;*/
+    /*margin: auto;*/
 }
 .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     /*padding: 10px 0;*/
-    width: 300px;
-    background-color: rgba(255, 252, 239, 0.5);
+    /*width: 300px;*/
+    /*background-color: rgba(255, 252, 239, 0.5);*/
 }
 .day {
     width: 14.28%;
     text-align: center;
     padding: 10px 0;
-    background-color: rgba(255, 252, 239, 0.7);
+    /*background-color: rgba(255, 252, 239, 0.7);*/
 }
 
 .selected-day {
@@ -26,6 +26,22 @@
 
 #yearSelect{
     width: 150px;
+}
+
+.calendar-left {
+    z-index: 2; /* Ensure left box is above */
+    /*position: relative;*/
+    height: 300px;
+    box-shadow: 10px 5px 5px black;
+}
+
+.calendar-right {
+    z-index: 1;
+    margin-top: 20px;
+    background-color: #124413;
+    box-shadow: 0px 4px 8px rgba(1, 0, 0, 0.1);
+    transition: width 0.3s ease;
+    height: 260px;
 }
 
 @media (max-width: 500px) {

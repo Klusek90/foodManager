@@ -10,47 +10,51 @@
             <div th:replace="~{fragments/sidebar :: sidebar('index')}"></div>
             <main class="col-md-8 px-md-3">
                 <h1>Mains</h1>
-                <div class="row py-2">
-                    <div class="col col-sm-12 col-md-6">
-
-<!--                        Pictures must be added and logic tested-->
-
-                        <div class="weather row my-3  border">
-                            <h5 class="m-3" style="color: #124413">Weather: <span th:text="${weather.date}"></span></h5>
-                            <div class="col col-md-3">
-
-                                <img th:src="${weather.description == 'Sunny and warm' ? '/img/weather/sun.png' :
-                                          weather.description == 'Rain' ? '/img/weather/rain.png' :
-                                          weather.description == 'Thunderstorms' ? '/img/weather/thunder.png' :
-                                          weather.description == 'Cloudy or overcast' ? '/img/weather/cloud.png' :
-                                          weather.description == 'Snow' ? '/img/weather/snow.png' :
-                                          weather.description == 'Fog' ? '/img/weather/fog.png' :
-                                          '/img/weather/default.png'}" class="weatherImg" alt="Weather Image"/>
-                            </div>
-                            <div class="col">
-
-                                <p class="fw-bold" th:text="${weather.description}"></p>
-                                <p>Temperature: <span th:text="${weather.temp}"></span> °C</p>
-                            </div>
-
-                       </div>
-                        <div class="card border-warrning border-2">
-                            <div class="card-header"> Events</div>
-                            <div class="card-body py-5">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet debitis error eveniet labore nulla ratione rerum! Aspernatur deleniti esse est mollitia nihil tenetur?</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-sm-12 col-md-6">
-                        <div class="card border-warrning border-2 h-100">
-                            <div class="card-header"> Notes</div>
-                            <div class="card-body py-5 px-3">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet debitis error eveniet labore nulla ratione rerum! Aspernatur deleniti esse est mollitia nihil tenetur?</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
+                    <div class="col p-0 bg-light calendar-left">
+                        <div class="calendar-header">
+                            <button id="prev" class="btn arrow-btn">&lt;</button>
+                            <h4 id="monthYear"></h4>
+                            <button id="next" class="btn arrow-btn">&gt</button>
+
+                            <select id="yearSelect" class="form-select mt-2"></select>
+                        </div>
+
+                        <div class="calendar-container">
+                            <div id="calendarDays" class="d-flex flex-wrap"></div>
+                        </div>
+                    </div>
+                    <div class="col col-sm-4 calendar-right">
+                        <div class="row">
+                            <div class="col ">
+                                <h5 class="text-center my-3 text-light" th:text="${weather.description}"></h5>
+                            </div>
+                            <div class="col text-end">
+                                <img th:src="${weather.description == 'Sunny and warm' ? '/img/weather/sun.png' :
+                                      weather.description == 'Rain' ? '/img/weather/rain.png' :
+                                      weather.description == 'Thunderstorms' ? '/img/weather/thunder.png' :
+                                      weather.description == 'Cloudy or overcast' ? '/img/weather/cloud.png' :
+                                      weather.description == 'Snow' ? '/img/weather/snow.png' :
+                                      weather.description == 'Fog' ? '/img/weather/fog.png' :
+                                      '/img/weather/default.png'}" class="weatherImg" alt="Weather Image"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div >
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet debitis error eveniet labore</p>
+                                </div>
+                            </div>
+
+                                <div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet debitis error eveniet labore </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                <div class="row mt-5">
                     <div class="col">
                         <h4 class="py-2">Product near expire date:</h4>
                         <table> <!-- Adding border="1" to visualize the table borders -->
@@ -68,7 +72,8 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="row">
+                </div>
+                <div class="row mt-5">
                         <div class="col">
                             <h4 class="py-2">Orders:</h4>
                             <div th:each="order, orderStat : ${orders}" class="accordion-item">
@@ -91,13 +96,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </main>
             <div class="col"></div>
             </div>
         </div>
 
     <div th:replace="~{fragments/scripts :: scripts}"></div>
+<script th:src="@{/scripts/calendar.js}"></script>
 </body>
 
 </html>
