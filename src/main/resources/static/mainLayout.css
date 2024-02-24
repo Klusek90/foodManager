@@ -115,7 +115,7 @@ table, card{
 }
 
 .weatherImg{
-    width: 56%;
+    height: 50px;
     border-radius: 15px;
     background-color: #FFFCEF;
 }
@@ -180,6 +180,7 @@ bg{
     .weather{
         display: none;
     }
+
 }
 
 
