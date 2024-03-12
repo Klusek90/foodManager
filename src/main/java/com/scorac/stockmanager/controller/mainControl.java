@@ -57,9 +57,16 @@ public class mainControl {
 
     @GetMapping("/recipes")
     public String recipes(Model model){
+//        List<String> productNames= stockService.productSearch();
+//        model.addAttribute("itemsName", productNames);
+        return "recipes";
+    }
+
+    @GetMapping("/newrecipe")
+    public String addRecipes(Model model){
         List<String> productNames= stockService.productSearch();
         model.addAttribute("itemsName", productNames);
-        return "recipes";
+        return "recipesAdd";
     }
 
     @GetMapping("/solution")

@@ -40,12 +40,6 @@
                         <a id="newUser" class="btn btn-secondary col" href="newrecipe">Add New Recipe</a>
                     </div>
                 </div>
-                <div class="col col-md-4 col-sm-12 mt-5">
-                    <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search items...">
-                    <ul id="itemsList" class="list-group">
-                        <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
-                    </ul>
-                </div>
             </div>
         </main>
         <div class="col"></div>

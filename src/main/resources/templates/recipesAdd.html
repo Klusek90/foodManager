@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>SCORAC recepies</title>
+</head>
+<body>
+<div th:replace="~{fragments/logoBar :: logoBar}"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{fragments/sidebar :: sidebar('recipes')}"></div>
+        <main class="col-md-8 px-md-3">
+            <h1 id="newlist">Recipe List</h1>
+            <a href="/index" class="btn btn-secondary">Back</a>
+            <div class="row">
+                 <div class="col col-md-8 col-sm-12 mt-5" >
+                     <h1>bla bla</h1>
+                 </div>
+                <div class="col col-md-4 col-sm-12 mt-5">
+                    <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search items...">
+                    <ul id="itemsList" class="list-group">
+                        <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+        <div class="col"></div>
+    </div>
+</div>
+    <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script th:src="@{/scripts/listUpdate.js}"></script>
+</body>
+</html>
