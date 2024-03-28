@@ -8,17 +8,17 @@
             <div th:replace="~{fragments/sidebar :: sidebar('wastage')}"></div>
             <main class="col-md-8 px-md-3 mt-4">
                 <div class="row">
-                    <div class="col col-md-6">
-                        <!-- <form id="namesForm" th:action="@{/submitNames}" method="post"-->
-                        <!-- Dynamically added fields will go here -->
-                        <button class="btn btn-success" type="submit">Submit</button>
-<!--                        </form>-->
-                    </div>
                     <div class="col col-md-4 col-sm-12 mt-5">
                         <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search items...">
                         <ul id="itemsList" class="list-group">
                             <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
                         </ul>
+                    </div>
+                    <div class="col col-md-6 col-sm-12">
+                        <!-- <form id="namesForm" th:action="@{/submitNames}" method="post"-->
+                        <!-- Dynamically added fields will go here -->
+                        <button class="btn btn-success" type="submit">Submit</button>
+                        <!--                        </form>-->
                     </div>
                 </div>
             </main>
