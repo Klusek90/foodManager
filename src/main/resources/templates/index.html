@@ -2,12 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('SCORAC index page')}"/>
 <body>
-<div th:replace="~{fragments/logoBar :: logoBar}"></div>
+<div th:replace="~{fragments/logoBar :: logoBar('Home Page')}"></div>
 <div class="container-fluid">
         <div class="row bg img-fluid">
             <div th:replace="~{fragments/sidebar :: sidebar('index')}"></div>
             <main class="col-md-8 px-md-3">
-                <h1>Mains</h1>
                 <div class="row">
                     <div class="col px-2 bg-light calendar-left">
                         <div class="calendar-header">

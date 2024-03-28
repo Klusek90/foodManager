@@ -1,4 +1,4 @@
-<div th:fragment="logoBar" >
+<div th:fragment="logoBar(name)" >
     <div class="container-fluid logo-row">
         <div class="row">
             <div class="col-md-2">
@@ -6,7 +6,7 @@
             </div>
             <div class="col"></div>
             <div class="col-md-8 d-flex align-items-end">
-                Name
+               <h1 th:text="${name}"></h1>
             </div>
         </div>
     </div>

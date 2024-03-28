@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('SCORAC add new user')}"/>
 <body>
-<div th:replace="~{fragments/logoBar :: logoBar}"></div>
+<div th:replace="~{fragments/logoBar :: logoBar('Add New User')}"></div>
 <div class="container-fluid">
     <div class="row">
         <div th:replace="~{fragments/sidebar :: sidebar('users')}"></div>
@@ -11,7 +11,6 @@
                 <div class="col col-md-1">
                     <a href="/users/list" class="btn btn-secondary ">Back</a>
                 </div>
-                <h1 class="col"> Add new user</h1>
             </div>
 
                 <div class="row">

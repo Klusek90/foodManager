@@ -2,12 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('SCORAC wastage')}"/>
 <body>
-<div th:replace="~{fragments/logoBar :: logoBar}"></div>
+<div th:replace="~{fragments/logoBar :: logoBar('Wastege')}"></div>
     <div class="container-fluid">
         <div class="row">
             <div th:replace="~{fragments/sidebar :: sidebar('wastage')}"></div>
             <main class="col-md-8 px-md-3">
-                    <h1>Wastage</h1> <!-- this is test-->
                 <div class="row">
                     <div class="col col-md-6">
                         <!-- <form id="namesForm" th:action="@{/submitNames}" method="post"-->
