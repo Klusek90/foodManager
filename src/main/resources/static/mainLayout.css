@@ -10,10 +10,7 @@
 .bg {
     /* The image used */
     background-image: url("/img/background.jpg");
-    /* Full height */
-    /*height: 100vh;*/
-    /* Center and scale the image nicely */
-    background-position: left;
+    background-position: 0 120px;
     background-repeat: no-repeat;
     background-size: cover;
     /* Make background image fixed */
@@ -120,11 +117,6 @@ table, card{
     background-color: #FFFCEF;
 }
 
-
-
-bg{
-    background-image: url('img/background.jpg');
-}
 .arrow-btn{
     width: 10%;
     padding: 5px;
