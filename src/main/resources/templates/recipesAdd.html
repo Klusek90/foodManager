@@ -7,17 +7,36 @@
     <div class="row bg">
         <div th:replace="~{fragments/sidebar :: sidebar('recipes')}"></div>
         <main class="col-md-8 px-md-3 mt-4">
-            <h1 id="newlist">Recipe List</h1>
-            <a href="/index" class="btn btn-secondary">Back</a>
             <div class="row">
-                 <div class="col col-md-8 col-sm-12 mt-5" >
-                     <h1>bla bla</h1>
-                 </div>
-                <div class="col col-md-4 col-sm-12 mt-5">
+                <div class="col col-md-4 mt-5">
                     <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search items...">
                     <ul id="itemsList" class="list-group">
                         <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
                     </ul>
+                </div>
+                <di class="col col-md-1 blank"></di>
+                <div class="col col-md-4 mt-5 ml-4 wastform">
+                    <form th:action="@{/submit-form}" method="post">
+                        <div class="longlist">
+                            <table id="targetTable">
+                                <colgroup>
+                                    <col style="width: 75%;">
+                                    <col style="width: 25%;">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Quantity (kg/l)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Rows will be appended here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <textarea type="text" class="mt-3" style="height: 100px; width: 100%"></textarea>
+                        <input type="submit" value="Submit" class="btn btn-success mt-3">
+                    </form>
                 </div>
             </div>
         </main>
@@ -25,6 +44,7 @@
     </div>
 </div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script th:src="@{/scripts/formPopulator.js}"></script>
     <script th:src="@{/scripts/listUpdate.js}"></script>
 </body>
 </html>
