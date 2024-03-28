@@ -143,6 +143,15 @@ bg{
     overflow-y: auto; /* Enables vertical scrollbar if content exceeds max-height */
 }
 
+.longlist{
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.wastform{
+    display: none;
+}
+
 @media (max-width: 767.98px) {
     .sidebar {
         width: 100vw;
@@ -188,6 +197,7 @@ bg{
     .weather{
         display: none;
     }
+
 
 }
 
