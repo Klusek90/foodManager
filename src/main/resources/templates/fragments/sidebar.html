@@ -33,9 +33,7 @@
         <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeMenu == 'recipes' ? 'active' : ''}">
           <a class="nav-link" href="/recipes">Recipes</a>
         </li>
-        <li class="nav-item">
-          <form th:action="@{/logout}" method="post"><input type="submit" class="btn btn-danger logoutBtn" value="Sign Out"/></form>
-        </li>
+
       </ul>
     </div>
   </nav>

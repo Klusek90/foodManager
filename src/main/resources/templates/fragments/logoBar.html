@@ -4,9 +4,12 @@
             <div class="col-md-2">
                 <img src="/img/logo.jpg" alt="Leaf Food Logo" class="logo">
             </div>
-            <div class="col"></div>
-            <div class="col-md-8 d-flex align-items-end">
+            <div class="col col-md-1"></div>
+            <div class="col col-md-7 d-flex align-items-end">
                <h1 th:text="${name}"></h1>
+            </div>
+            <div class="col col-md-1">
+                <form th:action="@{/logout}" method="post"><input type="submit" class="btn btn-danger" value="Sign Out"/></form>
             </div>
         </div>
     </div>

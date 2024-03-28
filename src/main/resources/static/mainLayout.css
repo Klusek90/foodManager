@@ -11,7 +11,7 @@
     /* The image used */
     background-image: url("/img/background.jpg");
     /* Full height */
-    height: 100vh;
+    /*height: 100vh;*/
     /* Center and scale the image nicely */
     background-position: left;
     background-repeat: no-repeat;
@@ -86,7 +86,7 @@ body{
 
 /* Sign Out Button */
 .logoutBtn {
-    width: 100%;
+    /*width: 100%;*/
     margin-top: 1rem;
 
 }
@@ -132,6 +132,10 @@ bg{
 }
 .hidden{
     display: none;
+}
+
+#all-table{
+    width: 100%;
 }
 
 
