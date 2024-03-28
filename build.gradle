@@ -30,6 +30,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    implementation platform("org.springframework.ai:spring-ai-bom:0.8.1-SNAPSHOT")
+    // Replace the following with the starter dependencies of specific modules you wish to use
+    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+
     implementation group: 'com.github.darrachequesne', name: 'spring-data-jpa-datatables', version: '6.0.1'
     implementation 'org.webjars:jquery:3.5.1'
     implementation 'org.webjars:datatables:1.10.23'
