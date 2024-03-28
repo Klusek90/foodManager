@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row">
         <div th:replace="~{fragments/sidebar :: sidebar('setup')}"></div>
-        <main class="col-md-8 px-md-3">
+        <main class="col-md-8 px-md-3 mt-4">
             <form th:action="@{/users/updateuser}" th:object="${user}" method="post" class="mt-3">
                 <div class="my-3">
                     <label for="restaurantName">Restaurant Name:</label>

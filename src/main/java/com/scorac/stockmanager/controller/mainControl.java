@@ -95,12 +95,12 @@ public class mainControl {
         return "reports";
     }
 
-    @GetMapping("/calendar")
-    public String calendar(Model model){
-        List <DayEvent> dayEvents = dayEventService.findAllData();
-        model.addAttribute("dayEvents", dayEvents);
-        return "calendar";
-    }
+//    @GetMapping("/calendar")
+//    public String calendar(Model model){
+//        List <DayEvent> dayEvents = dayEventService.findAllData();
+//        model.addAttribute("dayEvents", dayEvents);
+//        return "calendar";
+//    }
 
     @GetMapping("/setup")
     public String setup(){
