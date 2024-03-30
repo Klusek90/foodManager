@@ -36,7 +36,14 @@ body{
 
 .logo{
     width: auto; /* Adjust the size as needed */
-    height: 4cm; /* Maintain aspect ratio */
+    height: 3cm; /* Maintain aspect ratio */
+}
+
+#userID{
+    font-size: 12pt;
+    color: darkred;
+    margin-top: 20px;
+    margin-bottom: -10px;
 }
 
 .textfield, textarea{
