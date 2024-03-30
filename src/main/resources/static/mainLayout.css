@@ -10,11 +10,10 @@
 .bg {
     /* The image used */
     background-image: url("/img/background.jpg");
-    background-position: 0 120px;
+    background-position: 0 0px;
     background-repeat: no-repeat;
     background-size: cover;
-    /* Make background image fixed */
-    background-attachment: fixed;
+    height: 100vh;
 }
 
 body{
@@ -88,16 +87,9 @@ body{
     background-color:#124413;
 }
 
-/* Sign Out Button */
-.logoutBtn {
-    /*width: 100%;*/
-    margin-top: 1rem;
-
-}
 .logo-row{
     font-weight: bold;
     font-size: 30pt;
-    padding: 0px 0 5px 0;
     border-bottom-color: #124413;
     border-bottom: solid;
 
@@ -129,7 +121,9 @@ table, card{
 #all-table{
     width: 100%;
     overflow-x: auto; !important;
+    background-color: #e67e22; !important;
 }
+
 #itemsList {
     max-height: 300px;
     overflow-y: auto; /* Enables vertical scrollbar if content exceeds max-height */
@@ -143,6 +137,8 @@ table, card{
 .wastform{
     display: none;
 }
+
+
 
 @media (max-width: 767.98px) {
     .sidebar {
