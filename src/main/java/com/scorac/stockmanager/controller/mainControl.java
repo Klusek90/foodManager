@@ -8,6 +8,7 @@ import com.scorac.stockmanager.service.DayEventService;
 import com.scorac.stockmanager.service.StockService;
 import com.scorac.stockmanager.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class mainControl {
@@ -52,6 +55,9 @@ public class mainControl {
 
         Weather weather = weatherService.getWeather("Rugby"); // Example city
         model.addAttribute("weather", weather);
+
+        model.addAttribute("testId", "test1");
+        model.addAttribute("testContent", "test2");
         return "index";
     }
 
@@ -95,12 +101,14 @@ public class mainControl {
         return "reports";
     }
 
-//    @GetMapping("/calendar")
-//    public String calendar(Model model){
-//        List <DayEvent> dayEvents = dayEventService.findAllData();
-//        model.addAttribute("dayEvents", dayEvents);
-//        return "calendar";
-//    }
+    //
+    @GetMapping("/getTestValues")
+    public ResponseEntity<Map<String, String>> getTestValues() {
+        Map<String, String> response = new HashMap<>();
+        response.put("id", "costam");
+        response.put("content", "costam2");
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/setup")
     public String setup(){
@@ -112,6 +120,11 @@ public class mainControl {
         List<String> productNames= stockService.productSearch();
         model.addAttribute("itemsName", productNames);
         return "wastage";
+    }
+
+    @GetMapping("/editday")
+    public String editday(){
+        return "editday";
     }
 
 

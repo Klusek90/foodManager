@@ -152,6 +152,11 @@ bg{
     display: none;
 }
 
+.greenbox{
+    color: #F6AD55;
+    padding: 0 0 0 34px;
+}
+
 @media (max-width: 767.98px) {
     .sidebar {
         width: 100vw;
@@ -198,7 +203,11 @@ bg{
         display: none;
     }
 
-
+    .greenbox-header{
+        padding: 0 0 20px 0;
+        text-align: center;
+        width: 200%;
+    }
 }
 
 

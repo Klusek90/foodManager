@@ -24,7 +24,7 @@
                     <div class="col col col-md-4 col-sm-12 px-2 calendar-right">
                         <div class="row">
                             <div class="col ">
-                                <h5 class="text-center my-3 text-light" th:text="${weather.description}"></h5>
+                                <h5 class="text-center my-3 text-light greenbox-header" th:text="${weather.description}"></h5>
                             </div>
                             <div class="col text-end">
                                 <img th:src="${weather.description == 'Sunny and warm' ? '/img/weather/sun.png' :
@@ -37,20 +37,20 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <div >
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet debitis error eveniet labore</p>
-                                </div>
-                            </div>
+                            <div class="col greenbox" >
 
-                                <div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet debitis error eveniet labore </p>
-                                </div>
+                                <p class="booking-number"><b>Today bookings:</b> </p>
+                                <p class="today-notes"><b>Notes:</b> </p>
+<!--                                <p class="greeting-id">The ID is <span th:text="${testId}"></span></p>-->
+<!--                                <p class="greeting-content">The content is <span th:text="${testContent}"></span></p>-->
+                                <a href="/editday" class="btn btn-success btn-sm" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16"><path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/></svg>
+                                    Edit
+                                </a>
                             </div>
-
                         </div>
                     </div>
-
+                </div>
                 <div class="row mt-5">
                     <div class="col">
                         <h4 class="py-2">Product near expire date:</h4>
@@ -100,6 +100,7 @@
 
     <div th:replace="~{fragments/scripts :: scripts}"></div>
 <script th:src="@{/scripts/calendar.js}"></script>
+<script th:src="@{/scripts/todayInfo.js}"></script>
 </body>
 
 </html>

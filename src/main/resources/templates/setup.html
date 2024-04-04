@@ -10,23 +10,23 @@
             <form th:action="@{/users/updateuser}" th:object="${user}" method="post" class="mt-3">
                 <div class="my-3">
                     <label for="restaurantName">Restaurant Name:</label>
-                    <input class="textfield" type="text" id="restaurantName" name="restaurantName" placeholder="Your restaurant name">
+                    <input class="textfield form-control" type="text" id="restaurantName" name="restaurantName" placeholder="Your restaurant name">
                 </div>
 
                 <div class="my-3">
                     <label for="api">ChatGPT API:</label>
-                    <input class="textfield" type="text" id="api" name="api">
+                    <input class="textfield form-control" type="text" id="api" name="api">
                 </div>
 
                 <!-- Updated div for the text area with class="my-3" for consistent spacing -->
                 <div class="my-3">
                     <label for="additionalInfo">Information about Restaurant:</label></br>
-                    <textarea id="additionalInfo" name="additionalInfo" rows="4"></textarea>
+                    <textarea id="additionalInfo" class="form-control" name="additionalInfo" rows="4"></textarea>
                 </div>
 
                 <div class="my-3">
                     <label for="forumLink">Link to Forum:</label>
-                    <input class="textfield" type="text" id="forumLink" name="forumLink">
+                    <input class="textfield form-control" type="text" id="forumLink" name="forumLink">
                 </div>
 
                 <div class="my-3">
