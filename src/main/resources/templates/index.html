@@ -22,11 +22,9 @@
                         </div>
                     </div>
                     <div class="col col col-md-4 col-sm-12 px-2 calendar-right">
-                        <div class="row">
-                            <div class="col ">
-                                <h5 class="text-center my-3 text-light greenbox-header" th:text="${weather.description}"></h5>
-                            </div>
-                            <div class="col text-end">
+                        <div class="row text-center ">
+                            <div class="col text-light">
+                                <span class="text-center my-3 " th:text="${weather.description}"></span>
                                 <img th:src="${weather.description == 'Sunny and warm' ? '/img/weather/sun.png' :
                                       weather.description == 'Rain' ? '/img/weather/rain.png' :
                                       weather.description == 'Thunderstorms' ? '/img/weather/thunder.png' :
@@ -34,6 +32,8 @@
                                       weather.description == 'Snow' ? '/img/weather/snow.png' :
                                       weather.description == 'Fog' ? '/img/weather/fog.png' :
                                       '/img/weather/default.png'}" class="weatherImg" alt="Weather Image"/>
+                                <span class="text-center my-3 ">20</span> &#8451;
+<!--                                <span class="text-center my-3 text-light" th:text="${weather.description}"></span>-->
                             </div>
                         </div>
                         <div class="row">

@@ -24,7 +24,7 @@ public class ajaxControl {
     public ResponseEntity<Map<String, String>> getTestValues() {
         Map<String, String> response = new HashMap<>();
         response.put("booking", "20");
-        response.put("notes", "bla bla");
+        response.put("notes", "Here are some notes passed by chefs about preparation etc.");
         return ResponseEntity.ok(response);
     }
 
