@@ -4,13 +4,13 @@
 <body>
 <div th:replace="~{fragments/logoBar :: logoBar('Home Page')}"></div>
 <div class="container-fluid">
-        <div class="row bg img-fluid">
+        <div class="row bg">
             <div th:replace="~{fragments/sidebar :: sidebar('index')}"></div>
             <main class="col-md-8 px-md-3 mt-5">
                 <div class="row">
-                    <div class="col px-2 bg-light calendar-left">
+                    <div class="col col-sm-12 col-md-6 px-2 bg-light calendar-left">
                         <div class="calendar-header">
-                            <button id="prev" class="btn arrow-btn">&lt;</button>
+                            <button id="prev" class="btn arrow-btn">&lt</button>
                             <h4 id="monthYear"></h4>
                             <button id="next" class="btn arrow-btn">&gt</button>
 

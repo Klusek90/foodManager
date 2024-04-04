@@ -8,11 +8,11 @@ $(document).ready(function() {
             "dataSrc": ""
         },
         "columns": [
-            {data: "name", "width": "15%"},
-            {data: "type", "width": "15%"},
-            {data: "weight", "width": "15%"},
-            {data: "cost", "width": "15%"},
-            {data: "other", "width": "15%"}
+            { "data": "name" },
+            { "data": "type" },
+            { "data": "weight" },
+            { "data": "cost" },
+            { "data": "other" }
         ]
     });
 });
