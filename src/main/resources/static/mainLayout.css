@@ -9,9 +9,9 @@
 /*}*/
 .bg {
     /* The image used */
-    background-image: url("/img/background.jpg");
+    background-image: url("img/background.jpg");
     /* Full height */
-    /*height: 100vh;*/
+    height: 100vh;
     /* Center and scale the image nicely */
     background-position: left;
     background-repeat: no-repeat;
@@ -120,11 +120,12 @@ table, card{
     background-color: #FFFCEF;
 }
 
-
-
-bg{
-    background-image: url('img/background.jpg');
+#userID{
+    color: #e67e22;
+    font-size: 16pt;
+    width: 100%;
 }
+
 .arrow-btn{
     width: 10%;
     padding: 5px;

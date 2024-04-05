@@ -8,10 +8,10 @@
             <div class="col col-md-7 d-flex align-items-end">
                <h1 th:text="${page}"></h1>
             </div>
-            <div class="col col-md-1 d-flex flex-column">
-                <h5 id="userID" th:text="${#authentication.name}"></h5>
+            <div class="col col-md-2 d-flex flex-column">
+                <span id="userID" class="pt-5" th:text="'User: '+ ${#authentication.name}"></span>
                 <form th:action="@{/logout}" method="post">
-                    <input type="submit" class="btn btn-danger" value="Sign Out"/>
+                    <input type="submit" class="btn btn-danger mt-0" value="Sign Out"/>
                 </form>
             </div>
         </div>
