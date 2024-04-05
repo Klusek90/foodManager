@@ -19,22 +19,22 @@
                         <div class="top alert alert-danger" th:if="${error != null}">User already exist!</div>
                         <form action="#" th:action="@{/users/adduser}" method="post">
                             <label for="username">Username:</label>
-                            <input type="text" id="username" name="username"/><br/>
+                            <input type="text" id="username" class="textfield form-control" name="username"/><br/>
 
                             <label for="password">Password:</label>
-                            <input type="password" id="password" name="password"/><br/>
+                            <input type="password" id="password" class="textfield form-control" name="password"/><br/>
 
                             <label for="password">Name:</label>
-                            <input type="text" id="name" name="name"/><br/>
+                            <input type="text" id="name" class="textfield form-control" name="name"/><br/>
 
                             <label for="password">Surname:</label>
-                            <input type="text" id="surname" name="surname"/><br/>
+                            <input type="text" id="surname" class="textfield form-control" name="surname"/><br/>
 
                             <label for="password">Position:</label>
-                            <input type="text" id="position" name="position" /><br/>
+                            <input type="text" id="position" class="textfield form-control" name="position" /><br/>
 
                             <label for="role">Role:</label></br>
-                            <select id="role" name="role">
+                            <select id="role" name="role" class="textfield form-control p-1">
                                  <option value="ADMIN">ADMIN</option>
                                  <option value="USER">USER</option>
                             </select>
