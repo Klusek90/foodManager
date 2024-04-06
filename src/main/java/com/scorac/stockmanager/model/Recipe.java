@@ -17,11 +17,6 @@ public class Recipe {
     private String name;
 
     @ManyToMany
-    @JoinTable(
-            name = "recipe_product", // Name of the associative table
-            joinColumns = @JoinColumn(name = "recipe_id"), // Column linking to Recipe
-            inverseJoinColumns = @JoinColumn(name = "product_id") // Column linking to Product
-    )
     private Set<Product> products;
 
     private String user;

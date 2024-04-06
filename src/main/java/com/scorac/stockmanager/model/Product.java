@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Data
@@ -16,5 +17,8 @@ public class Product {
     private String name;
     private int lifeLength;
     private String type;
+
+    @ManyToMany
+    Set<Recipe> recipes;
 
 }
