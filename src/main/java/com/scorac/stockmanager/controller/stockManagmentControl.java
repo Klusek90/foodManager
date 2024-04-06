@@ -63,20 +63,18 @@ public class stockManagmentControl {
         return "recipesAdd";
     }
     @PostMapping("/addRecipe")
-    public String addRecipe(@ModelAttribute Recipe recipe, @RequestParam("productIds") List<Long> productIds, @RequestParam("quantities") List<Integer> quantities, RedirectAttributes redirectAttributes) {
+    public String addRecipe(@ModelAttribute Recipe recipe, @RequestParam(value = "productIds") List<Long> productIds, @RequestParam(value = "quantities") List<Integer> quantities, RedirectAttributes redirectAttributes) {
         // Retrieve products by their IDs
         List<Product> products = productService.getProductsByIds(productIds);
 
-        // Create RecipeProduct instances and associate them with the recipe
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             Integer quantity = quantities.get(i);
             RecipeProduct recipeProduct = new RecipeProduct();
             recipeProduct.setProduct(product);
             recipeProduct.setQuantity(quantity);
-            recipeProduct.setRecipe(recipe); // Associate the recipe with the RecipeProduct
+            recipe.getProducts().add(product);
         }
-
         recipeService.save(recipe);
         redirectAttributes.addFlashAttribute("message", "New recipe added");
         return "redirect:/newrecipe";

@@ -21,7 +21,7 @@ public class RecipeProduct {
     private Product product;
 
     // Additional field
-    private Integer quantity;
+    private int quantity;
 
     public void setId(Long id) {
         this.id = id;
@@ -47,11 +47,11 @@ public class RecipeProduct {
         this.product = product;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }
