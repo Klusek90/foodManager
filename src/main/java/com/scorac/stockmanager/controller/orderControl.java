@@ -20,6 +20,7 @@ public class orderControl {
     private ProductService productService;
     @GetMapping("/orders")
     public String orders(){
+
         return "ordersList";
     }
 
@@ -49,7 +50,7 @@ public class orderControl {
     @PostMapping("/submitOrder")
     public String submitOrder(@ModelAttribute Order order) {
         // Handle saving the order and its orderProducts
-        return "orderConfirmation";
+        return "neworder";
     }
 }
 

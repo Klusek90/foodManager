@@ -1,7 +1,6 @@
 package com.scorac.stockmanager.service;
 
 import com.scorac.stockmanager.model.Product;
-import com.scorac.stockmanager.model.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +25,15 @@ public class StockService {
         return all;
     }
 
-//    public List<String> productSearch(){
-//        List<String> productNames = new ArrayList<>();
+//    public List<String> currentStock(){
+//        List<String> list = new ArrayList<>();
 //        List<Product> all = stockRepository.findAll();
+////        List<Order> orders=
+//
 //        for (int i =0; i< all.size();i++){
 //            productNames.add(all.get(i).getName());
 //        }
-//        return productNames;
+//        return list;
 //    }
+
 }

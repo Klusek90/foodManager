@@ -11,14 +11,11 @@ import java.util.Set;
 @Table(name="product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)
     private Long id;
     private String name;
     private int lifeLength;
     private String type;
-
-    @ManyToMany
-    Set<Recipe> recipes;
 
 }

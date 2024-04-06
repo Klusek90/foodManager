@@ -10,6 +10,10 @@ public class RecipeService {
     @Autowired
     private RecipeRepository recipeRepository;
 
+    public RecipeService(RecipeRepository recipeRepository) {
+        this.recipeRepository = recipeRepository;
+    }
+
     public void save(Recipe recipe){
         recipeRepository.save(recipe);
     }

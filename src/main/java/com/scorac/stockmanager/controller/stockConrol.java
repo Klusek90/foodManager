@@ -36,14 +36,6 @@ public class stockConrol {
         return "stock";
     }
 
-    @PostMapping("/stockupdate")
-    public String updateProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-//        stockService.updateProduct(productDTO);
-        stockRepository.save(product);
-//        List<Product> products = stockRepository.findAll();
-        redirectAttributes.addFlashAttribute("successMessage", "Product successfully updated!");
-        return "redirect:/stock/total"; // Redirect to an appropriate view
-    }
 
     @GetMapping("/datatable")
     @ResponseBody   //restcontrol
@@ -51,8 +43,9 @@ public class stockConrol {
         ArrayList<Stock> stock = new ArrayList<>();
 
         LocalDate date = LocalDate.now();
+        LocalDate nexday = date.minusDays(3);
         Stock prod1= new Stock("ogorek", "kielbasa", 20, date);
-        Stock prod2= new Stock("sd", "kielbassda", 14, date);
+        Stock prod2= new Stock("sd", "kielbassda", 14, nexday);
 //        model.addAttribute("total", stock);
         stock.add(prod1);
         stock.add(prod2);

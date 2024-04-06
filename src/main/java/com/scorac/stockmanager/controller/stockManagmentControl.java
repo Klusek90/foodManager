@@ -35,12 +35,7 @@ public class stockManagmentControl {
     }
 
 
-    @GetMapping("/newrecipe")
-    public String addRecipes(Model model){
-        List<String> productList= productService.productSearch();
-        model.addAttribute("itemsName", productList);
-        return "recipesAdd";
-    }
+
 
     @GetMapping("/newproduct")
     public String newProduct(Model model){
@@ -56,9 +51,18 @@ public class stockManagmentControl {
         return "redirect:/newproduct"; // Redirect to prevent duplicate submissions
     }
 
+    @GetMapping("/newrecipe")
+    public String addRecipes(Model model){
+        List<String> productList= productService.productSearch();
+        List<Product> whole = productService.getAllIngredients();
+//        model.addAttribute("product", productList);
+        model.addAttribute("recipe", new Recipe());
+        model.addAttribute("products", whole);
+        return "recipesAdd";
+    }
     @PostMapping("/addRecipe")
     public String addRecipe(@ModelAttribute Recipe recipe, RedirectAttributes redirectAttributes) {
         recipeService.save(recipe);
-        return "redirect:/recipe";
+        return "redirect:/newrecipe";
     }
 }
