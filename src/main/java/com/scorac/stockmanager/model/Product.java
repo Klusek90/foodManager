@@ -15,7 +15,6 @@ public class Product {
     private Long id;
     private String name;
     private int lifeLength;
-    private BigDecimal weight;
     private String type;
 
 }

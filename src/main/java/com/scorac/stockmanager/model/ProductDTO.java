@@ -9,7 +9,6 @@ public class ProductDTO {
 
     private String name;
     private String lifeLength;
-    private BigDecimal weight;
     private String type;
 
 }

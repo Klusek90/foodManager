@@ -1,13 +1,8 @@
 package com.scorac.stockmanager.controller;
 
-import com.scorac.stockmanager.model.DayEvent;
-import com.scorac.stockmanager.model.Order;
-import com.scorac.stockmanager.model.OrderLine;
-import com.scorac.stockmanager.model.Weather;
-import com.scorac.stockmanager.service.DayEventService;
+import com.scorac.stockmanager.model.*;
+import com.scorac.stockmanager.service.*;
 //import com.scorac.stockmanager.service.StockService;
-import com.scorac.stockmanager.service.StockService;
-import com.scorac.stockmanager.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,13 +23,14 @@ public class mainControl {
     @Autowired
     private final StockService stockService;
     private WeatherService weatherService;
-
+    private ProductService productService;
     private DayEventService dayEventService;
 
-    public mainControl(WeatherService weatherService, DayEventService dayEventService, StockService stockService) {
+    public mainControl(WeatherService weatherService, DayEventService dayEventService, StockService stockService, ProductService productService) {
         this.weatherService = weatherService;
         this.dayEventService = dayEventService;
         this.stockService = stockService;
+        this.productService = productService;
     }
 
     // TODO: 10/02/2024 Add AI and ML algorithm  !!!
@@ -74,6 +71,13 @@ public class mainControl {
 //        List<String> productNames= stockService.productSearch();
 //        model.addAttribute("itemsName", productNames);
         return "recipesAdd";
+    }
+
+    @GetMapping("/newproduct")
+    public String newProduct(Model model){
+//        List<String> productNames= stockService.productSearch();
+//        model.addAttribute("itemsName", productNames);
+        return "recipesNewProduct";
     }
 
     @GetMapping("/solution")
@@ -126,4 +130,10 @@ public class mainControl {
     }
 
 
+    @PostMapping("/addProduct")
+    public String addProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
+         String r =productService.save(product);
+        redirectAttributes.addFlashAttribute("message", r);
+        return "redirect:/newproduct"; // Redirect to prevent duplicate submissions
+    }
 }

@@ -26,22 +26,22 @@ public class orderControl {
 
     @GetMapping("/neworder")
     public String newOrders(Model model) {
-        Order order = new Order();
-        order.setOrderProducts(new ArrayList<>());
-
-        // Assume you fetch a list of products to display in the form
-        List<Product> availableProducts = productService.findAll();
+//        Order order = new Order();
+//        order.setOrderProducts(new ArrayList<>());
+//
+//        // Assume you fetch a list of products to display in the form
+//        List<Product> availableProducts = productService.findAll();
 
 //         Preparing an empty OrderProduct for each available product
-        for(Product product : availableProducts) {
-            OrderProduct op = new OrderProduct();
-            op.setProduct(product);
-            op.setQuantity(0); // Default quantity
-            order.getOrderProducts().add(op);
-        }
+//        for(Product product : availableProducts) {
+//            OrderProduct op = new OrderProduct();
+//            op.setProduct(product);
+//            op.setQuantity(0); // Default quantity
+//            order.getOrderProducts().add(op);
+//        }
 
-        model.addAttribute("order", order);
-        model.addAttribute("availableProducts", availableProducts);
+//        model.addAttribute("order", order);
+//        model.addAttribute("availableProducts", availableProducts);
 
         return "ordersNew";
     }
