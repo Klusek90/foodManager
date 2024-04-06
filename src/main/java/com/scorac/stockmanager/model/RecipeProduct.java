@@ -1,26 +1,57 @@
 package com.scorac.stockmanager.model;
 
-import lombok.Data;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 
-import java.io.Serializable;
-import java.util.Objects;
+@Entity
+@Table(name="recipe_product")
+public class RecipeProduct {
 
-@Data
-public class RecipeProduct implements Serializable {
-    private Long recipe;
-    private Long product;
+    @jakarta.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RecipeProduct that = (RecipeProduct) o;
-        return Objects.equals(recipe, that.recipe) &&
-                Objects.equals(product, that.product);
+    @ManyToOne
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipe;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    // Additional field
+    private Integer quantity;
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(recipe, product);
+    public Long getId() {
+        return id;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

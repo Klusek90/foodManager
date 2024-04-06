@@ -51,4 +51,9 @@ public class ProductService {
     public List<Product> getAllIngredients() {
         return productRepository.findAll();
     }
+
+    public List<Product> getProductsByIds(List<Long> productIds) {
+
+        return productRepository.findAllById(productIds);
+    }
 }
