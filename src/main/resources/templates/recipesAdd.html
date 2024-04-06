@@ -16,9 +16,10 @@
                 </div>
                 <di class="col col-md-1 blank"></di>
                 <div class="col col-md-4 mt-5 ml-4 showform">
-                    <form th:action="@{/submit-form}" method="post">
+                    <form th:action="@{/addRecipe}" th:object="${recipe}"  method="post">
                         <div class="longlist">
-                            <input type="text" class="textfield form-control" placeholder="Recipe Name..">
+                            <input type="text" class="textfield form-control" placeholder="Recipe Name.." name="name">
+                            <input type="text" class="hidden"  name="user">
                             <table id="targetTable">
                                 <colgroup>
                                     <col style="width: 75%;">

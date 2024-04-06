@@ -3,7 +3,6 @@ $(document).ready(function() {
 
 
     $('#itemsList').on('click', 'li', function() {
-
         $('.showform').css('display', 'block');
         var itemName = $(this).text();
 
@@ -16,17 +15,27 @@ $(document).ready(function() {
             // Item is already in the list, show an alert
             alert('Item already on the list');
         } else {
+            // Calculate the position based on the current number of items
+            var position = $('#targetTable tbody tr').length; // This will start from 0 for the first item
+
             // Item is not in the list, add a new row
             var $row = $('<tr>');
             $row.append($('<td>').text(itemName));
 
-            var $input = $('<input>').attr({
+            var $nameInput = $('<input>').attr({
+                type: 'hidden',
+                name: 'products[' + position + '].name',
+                value: itemName.replace(/\s+/g, '_').toLowerCase()
+            });
+            $row.append($nameInput);
+
+            var $quantityInput = $('<input>').attr({
                 type: 'number',
                 value: 0,
                 class: 'form-control',
-                name: 'quantity_' + itemName.replace(/\s+/g, '_').toLowerCase()
+                name: 'products[' + position + '].quantity'
             });
-            $row.append($('<td>').append($input));
+            $row.append($('<td>').append($quantityInput));
 
             $('#targetTable tbody').append($row);
         }

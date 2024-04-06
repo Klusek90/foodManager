@@ -16,8 +16,13 @@ public class Recipe {
     private Long recipeId;
     private String name;
 
-//    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Set<RecipeProduct> recipeProducts;
+    @ManyToMany
+    @JoinTable(
+            name = "recipe_product", // Name of the associative table
+            joinColumns = @JoinColumn(name = "recipe_id"), // Column linking to Recipe
+            inverseJoinColumns = @JoinColumn(name = "product_id") // Column linking to Product
+    )
+    private Set<Product> products;
 
     private String user;
 }

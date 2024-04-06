@@ -59,26 +59,8 @@ public class mainControl {
         return "index";
     }
 
-    @GetMapping("/recipes")
-    public String recipes(Model model){
-//        List<String> productNames= stockService.productSearch();
-//        model.addAttribute("itemsName", productNames);
-        return "recipes";
-    }
 
-    @GetMapping("/newrecipe")
-    public String addRecipes(Model model){
-        List<String> productList= productService.productSearch();
-        model.addAttribute("itemsName", productList);
-        return "recipesAdd";
-    }
 
-    @GetMapping("/newproduct")
-    public String newProduct(Model model){
-        List<String> productList= productService.productSearch();
-        model.addAttribute("itemsName", productList);
-        return "recipesNewProduct";
-    }
 
     @GetMapping("/solution")
     public String queryChat(){
@@ -130,10 +112,5 @@ public class mainControl {
     }
 
 
-    @PostMapping("/addProduct")
-    public String addProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-        String respond =productService.save(product);
-        redirectAttributes.addFlashAttribute("message", respond);
-        return "redirect:/newproduct"; // Redirect to prevent duplicate submissions
-    }
+
 }
