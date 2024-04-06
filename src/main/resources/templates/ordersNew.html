@@ -7,30 +7,21 @@
     <div class="row bg">
         <div th:replace="~{fragments/sidebar :: sidebar('orders')}"></div>
         <main class="col-md-8 px-md-3 mt-4">
-            <div>
-             <a href="/newOrder" class="btn btn-success my-3">Add order</a>
-            </div>
-
-            <div class="accordion" id="ordersAccordion">
-            <div th:each="order, orderStat : ${orders}" class="accordion-item">
-                <h2 class="accordion-header" th:id="'heading' + ${orderStat.index}">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" th:data-bs-target="'#collapse' + ${orderStat.index}" aria-expanded="true" th:aria-controls="'collapse' + ${orderStat.index}">
-                        Order ID: <span th:text="${order.orderId}"></span>
-                    </button>
-                </h2>
-                <div th:id="'collapse' + ${orderStat.index}" class="accordion-collapse collapse" th:classappend="${orderStat.index == 0} ? 'show'" th:aria-labelledby="'heading' + ${orderStat.index}" data-bs-parent="#ordersAccordion">
-                    <div class="accordion-body">
-                        <ul class="list-group">
-                            <li th:each="line : ${order.orderLines}" class="list-group-item">
-                                Line ID: <span th:text="${line.lineId}"></span>,
-                                Item Name: <span th:text="${line.itemName}"></span>,
-                                Quantity: <span th:text="${line.quantity}"></span>
-                            </li>
-                        </ul>
+            <form th:action="@{/submitOrder}" th:object="${order}" method="post">
+                <div th:each="orderProduct, iterStat : *{orderProducts}">
+                    <div>
+                        <select th:field="*{orderProducts[__${iterStat.index}__].product.productId}">
+                            <option value="">Choose a product</option>
+                            <option th:each="product : ${availableProducts}"
+                                    th:value="${product.productId}"
+                                    th:text="${product.name}">
+                            </option>
+                        </select>
+                        <input type="number" th:field="*{orderProducts[__${iterStat.index}__].quantity}" min="0"/>
                     </div>
                 </div>
-            </div>
-        </div>
+                <button type="submit">Submit Order</button>
+            </form>
         </main>
         <div class="col"></div>
     </div>

@@ -81,21 +81,7 @@ public class mainControl {
         return "queryGPT";
     }
 
-    @GetMapping("/orders")
-    public String orders(){
-//        OrderLine line1 = new OrderLine(1, "Item 1", 2);
-//        OrderLine line2 = new OrderLine(2, "Item 2", 3);
-//        Order order1 = new Order(1, Arrays.asList(line1, line2));
-//
-//        OrderLine line3 = new OrderLine(3, "Item 3", 1);
-//        OrderLine line4 = new OrderLine(4, "Item 4", 4);
-//        Order order2 = new Order(2, Arrays.asList(line3, line4));
-//
-//        List<Order> orders = Arrays.asList(order1, order2);
-//
-//        model.addAttribute("orders", orders);
-        return "ordersList";
-    }
+
 
     @GetMapping("/reports")
     public String reports(){
