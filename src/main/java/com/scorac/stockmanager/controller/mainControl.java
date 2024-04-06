@@ -68,15 +68,15 @@ public class mainControl {
 
     @GetMapping("/newrecipe")
     public String addRecipes(Model model){
-//        List<String> productNames= stockService.productSearch();
-//        model.addAttribute("itemsName", productNames);
+        List<String> productList= productService.productSearch();
+        model.addAttribute("itemsName", productList);
         return "recipesAdd";
     }
 
     @GetMapping("/newproduct")
     public String newProduct(Model model){
-//        List<String> productNames= stockService.productSearch();
-//        model.addAttribute("itemsName", productNames);
+        List<String> productList= productService.productSearch();
+        model.addAttribute("itemsName", productList);
         return "recipesNewProduct";
     }
 
@@ -108,8 +108,8 @@ public class mainControl {
 
     @GetMapping("/wastage")
     public String wastage(Model model){
-//        List<String> productNames= stockService.productSearch();
-//        model.addAttribute("itemsName", productNames);
+        List<String> productNames= productService.productSearch();
+        model.addAttribute("itemsName", productNames);
         return "wastage";
     }
 
@@ -132,8 +132,8 @@ public class mainControl {
 
     @PostMapping("/addProduct")
     public String addProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-         String r =productService.save(product);
-        redirectAttributes.addFlashAttribute("message", r);
+        String respond =productService.save(product);
+        redirectAttributes.addFlashAttribute("message", respond);
         return "redirect:/newproduct"; // Redirect to prevent duplicate submissions
     }
 }

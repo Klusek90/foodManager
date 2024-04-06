@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     $('#itemsList').on('click', 'li', function() {
 
-        $('.wastform').css('display', 'block');
+        $('.showform').css('display', 'block');
         var itemName = $(this).text();
 
         // Check if the item is already added

@@ -7,7 +7,13 @@
     <div class="row bg">
         <div th:replace="~{fragments/sidebar :: sidebar('recipes')}"></div>
         <main class="col-md-8 px-md-3 mt-4">
-            <div th:if="${message}" th:text="${message}"></div>
+            <div class="row">
+                <div class="col">
+                    <div th:if="${message}" th:text="${message}"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-md-4 mt-5 ml-4">
                     <form th:action="@{/addProduct}" th:object="${product}" method="post">
                         <div>
                             <label for="name">Product name:</label>
@@ -22,14 +28,24 @@
                             <input type="text" id="type" class="textfield form-control" name="type">
                         </div>
                         <div>
-                            <input type="submit" class="btn bg-success mt-5"/>
+                            <button type="submit" class="btn bg-success mt-5">Add new Product</button>
                             <a href="recipes" class="btn btn-secondary mt-5">Back</a>
                         </div>
                     </form>
+                </div>
+                <div class="col col-md-1 blank"></div>
+                <div class="col col-md-4 mt-5">
+                    <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search items...">
+                    <ul id="itemsList" class="list-group">
+                        <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
+                    </ul>
+                </div>
+            </div>
         </main>
         <div class="col"></div>
     </div>
 </div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
+<!--    <script th:src="@{/scripts/formPopulator.js}"></script>-->
 </body>
 </html>

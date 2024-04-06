@@ -14,8 +14,8 @@
                             <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
                         </ul>
                     </div>
-                    <di class="col col-md-1 blank"></di>
-                    <div class="col col-md-4 mt-5 ml-4 wastform">
+                    <div class="col col-md-1 blank"></div>
+                    <div class="col col-md-4 mt-5 ml-4 showform">
                         <form th:action="@{/submit-form}" method="post">
                             <div class="longlist">
                                 <table id="targetTable">

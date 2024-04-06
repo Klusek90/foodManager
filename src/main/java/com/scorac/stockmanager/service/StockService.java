@@ -15,6 +15,7 @@ public class StockService {
 
     @Autowired
     private StockRepository stockRepository;
+    private ProductRepository productRepository;
 
 
     public List<Product> listofALLSortedByName() {
@@ -25,12 +26,12 @@ public class StockService {
         return all;
     }
 
-    public List<String> productSearch(){
-        List<String> productNames = new ArrayList<>();
-        List<Product> all = stockRepository.findAll();
-        for (int i =0; i< all.size();i++){
-            productNames.add(all.get(i).getName());
-        }
-        return productNames;
-    }
+//    public List<String> productSearch(){
+//        List<String> productNames = new ArrayList<>();
+//        List<Product> all = stockRepository.findAll();
+//        for (int i =0; i< all.size();i++){
+//            productNames.add(all.get(i).getName());
+//        }
+//        return productNames;
+//    }
 }
