@@ -4,7 +4,7 @@ import com.scorac.stockmanager.model.Order;
 import com.scorac.stockmanager.model.OrderLine;
 import com.scorac.stockmanager.model.Weather;
 import com.scorac.stockmanager.service.DayEventService;
-import com.scorac.stockmanager.service.StockService;
+//import com.scorac.stockmanager.service.StockService;
 import com.scorac.stockmanager.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -11,13 +11,11 @@ import java.math.BigDecimal;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @Column(name = "product_id", nullable = false)
     private Long id;
-
     private String name;
-    private String type;
+    private int lifeLength;
     private BigDecimal weight;
-    private BigDecimal cost;
-    private String other;
+    private String type;
 
 }

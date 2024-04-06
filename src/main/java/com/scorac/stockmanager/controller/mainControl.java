@@ -5,6 +5,7 @@ import com.scorac.stockmanager.model.Order;
 import com.scorac.stockmanager.model.OrderLine;
 import com.scorac.stockmanager.model.Weather;
 import com.scorac.stockmanager.service.DayEventService;
+//import com.scorac.stockmanager.service.StockService;
 import com.scorac.stockmanager.service.StockService;
 import com.scorac.stockmanager.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,10 @@ public class mainControl {
 
     private DayEventService dayEventService;
 
-    public mainControl(StockService stockService, WeatherService weatherService, DayEventService dayEventService) {
-        this.stockService = stockService;
+    public mainControl(WeatherService weatherService, DayEventService dayEventService, StockService stockService) {
         this.weatherService = weatherService;
         this.dayEventService = dayEventService;
+        this.stockService = stockService;
     }
 
     // TODO: 10/02/2024 Add AI and ML algorithm  !!!
@@ -42,16 +43,16 @@ public class mainControl {
     
     @GetMapping({"/","home","index"})
     public String homePage(Model model){
-        OrderLine line1 = new OrderLine(1, "Item 1", 2);
-        OrderLine line2 = new OrderLine(2, "Item 2", 3);
-        Order order1 = new Order(1, Arrays.asList(line1, line2));
+//        OrderLine line1 = new OrderLine(1, "Item 1", 2);
+//        OrderLine line2 = new OrderLine(2, "Item 2", 3);
+//        Order order1 = new Order(1, Arrays.asList(line1, line2));
+//
+//        OrderLine line3 = new OrderLine(3, "Item 3", 1);
+//        OrderLine line4 = new OrderLine(4, "Item 4", 4);
+//        Order order2 = new Order(2, Arrays.asList(line3, line4));
 
-        OrderLine line3 = new OrderLine(3, "Item 3", 1);
-        OrderLine line4 = new OrderLine(4, "Item 4", 4);
-        Order order2 = new Order(2, Arrays.asList(line3, line4));
-
-        List<Order> orders = Arrays.asList(order1, order2);
-        model.addAttribute("orders", orders);
+//        List<Order> orders = Arrays.asList(order1, order2);
+//        model.addAttribute("orders", orders);
 
         Weather weather = weatherService.getWeather("Rugby"); // Example city
         model.addAttribute("weather", weather);
@@ -70,8 +71,8 @@ public class mainControl {
 
     @GetMapping("/newrecipe")
     public String addRecipes(Model model){
-        List<String> productNames= stockService.productSearch();
-        model.addAttribute("itemsName", productNames);
+//        List<String> productNames= stockService.productSearch();
+//        model.addAttribute("itemsName", productNames);
         return "recipesAdd";
     }
 
@@ -81,18 +82,18 @@ public class mainControl {
     }
 
     @GetMapping("/orders")
-    public String orders(Model model){
-        OrderLine line1 = new OrderLine(1, "Item 1", 2);
-        OrderLine line2 = new OrderLine(2, "Item 2", 3);
-        Order order1 = new Order(1, Arrays.asList(line1, line2));
-
-        OrderLine line3 = new OrderLine(3, "Item 3", 1);
-        OrderLine line4 = new OrderLine(4, "Item 4", 4);
-        Order order2 = new Order(2, Arrays.asList(line3, line4));
-
-        List<Order> orders = Arrays.asList(order1, order2);
-
-        model.addAttribute("orders", orders);
+    public String orders(){
+//        OrderLine line1 = new OrderLine(1, "Item 1", 2);
+//        OrderLine line2 = new OrderLine(2, "Item 2", 3);
+//        Order order1 = new Order(1, Arrays.asList(line1, line2));
+//
+//        OrderLine line3 = new OrderLine(3, "Item 3", 1);
+//        OrderLine line4 = new OrderLine(4, "Item 4", 4);
+//        Order order2 = new Order(2, Arrays.asList(line3, line4));
+//
+//        List<Order> orders = Arrays.asList(order1, order2);
+//
+//        model.addAttribute("orders", orders);
         return "ordersList";
     }
 
@@ -117,8 +118,8 @@ public class mainControl {
 
     @GetMapping("/wastage")
     public String wastage(Model model){
-        List<String> productNames= stockService.productSearch();
-        model.addAttribute("itemsName", productNames);
+//        List<String> productNames= stockService.productSearch();
+//        model.addAttribute("itemsName", productNames);
         return "wastage";
     }
 

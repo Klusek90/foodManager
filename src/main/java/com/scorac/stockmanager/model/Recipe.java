@@ -1,0 +1,23 @@
+package com.scorac.stockmanager.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.Set;
+
+@Entity
+@Data
+@Table(name="recipe")
+public class Recipe {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name ="recipeid", nullable = false)
+    private Long recipeId;
+    private String name;
+
+//    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Set<RecipeProduct> recipeProducts;
+
+    private String user;
+}
