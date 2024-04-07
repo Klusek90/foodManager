@@ -1,7 +1,7 @@
 package com.scorac.stockmanager.controller;
 
-import com.scorac.stockmanager.model.Order;
-import com.scorac.stockmanager.model.OrderProduct;
+//import com.scorac.stockmanager.model.Order;
+//import com.scorac.stockmanager.model.OrderProduct;
 import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +47,11 @@ public class orderControl {
         return "ordersNew";
     }
 
-    @PostMapping("/submitOrder")
-    public String submitOrder(@ModelAttribute Order order) {
+//    @PostMapping("/submitOrder")
+//    public String submitOrder(@ModelAttribute Order order) {
         // Handle saving the order and its orderProducts
-        return "neworder";
+//        return "neworder";
     }
-}
+//}
 
 //}

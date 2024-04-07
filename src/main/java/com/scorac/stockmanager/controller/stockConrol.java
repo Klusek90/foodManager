@@ -2,6 +2,7 @@ package com.scorac.stockmanager.controller;
 
 import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.model.Stock;
+import com.scorac.stockmanager.service.ProductRepository;
 import com.scorac.stockmanager.service.StockRepository;
 import com.scorac.stockmanager.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,33 +23,32 @@ public class stockConrol {
     private final StockRepository stockRepository;
     private final StockService stockService;
 
-    public stockConrol(StockRepository stockRepository, StockService stockService) {
+    private ProductRepository productRepository;
+
+    public stockConrol(StockRepository stockRepository, StockService stockService, ProductRepository productRepository) {
         this.stockRepository = stockRepository;
         this.stockService = stockService;
+        this.productRepository =productRepository;
     }
 
     @GetMapping("/total")
     public String stockContorl(Model model){
-//        List<Product> products =stockService.listofALLSortedByName();
-        LocalDate date = LocalDate.now();
-        Stock stock= new Stock("ogorek", "kielbasa", 20, date);
-        model.addAttribute("total", stock);
         return "stock";
     }
 
 
     @GetMapping("/datatable")
     @ResponseBody   //restcontrol
-    public List<Stock> getForm(final @RequestParam Map<String, String> allRequestParams){
-        ArrayList<Stock> stock = new ArrayList<>();
+    public List<Product> getForm(final @RequestParam Map<String, String> allRequestParams){
+       List<Product> stock = productRepository.findAll();
 
-        LocalDate date = LocalDate.now();
-        LocalDate nexday = date.minusDays(3);
-        Stock prod1= new Stock("ogorek", "kielbasa", 20, date);
-        Stock prod2= new Stock("sd", "kielbassda", 14, nexday);
-//        model.addAttribute("total", stock);
-        stock.add(prod1);
-        stock.add(prod2);
+//        LocalDate date = LocalDate.now();
+//        LocalDate nexday = date.minusDays(3);
+//        Stock prod1= new Stock("ogorek", "kielbasa", 20, date);
+//        Stock prod2= new Stock("sd", "kielbassda", 14, nexday);
+////        model.addAttribute("total", stock);
+//        stock.add(prod1);
+//        stock.add(prod2);
         return stock;
 //        return stockService.listofALLSortedByName();
     }

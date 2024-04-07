@@ -1,10 +1,9 @@
 $(document).ready(function() {
-
-
-
     $('#itemsList').on('click', 'li', function() {
         $('.showform').css('display', 'block');
-        var itemName = $(this).text();
+        let itemName = $(this).text();
+        let itemNumber= $(this).attr('id').substring($(this).attr('id').indexOf('-')+1);
+        let index = parseInt(itemNumber)+1;
 
         // Check if the item is already added
         var isItemAdded = $('#targetTable tbody tr').filter(function() {
@@ -20,22 +19,22 @@ $(document).ready(function() {
 
             // Item is not in the list, add a new row
             var $row = $('<tr>');
-            $row.append($('<td>').text(itemName));
+            $row.append('<td ><span>'+itemName+'</span></td><td><input type="hidden" name="productIds" value="'+ index+'"/></td><td><input name="quantities" type="number"></td>');
 
-            var $nameInput = $('<input>').attr({
-                type: 'hidden',
-                name: 'products[' + position + '].name',
-                value: itemName.replace(/\s+/g, '_').toLowerCase()
-            });
-            $row.append($nameInput);
-
-            var $quantityInput = $('<input>').attr({
-                type: 'number',
-                value: 0,
-                class: 'form-control',
-                name: 'products[' + position + '].quantity'
-            });
-            $row.append($('<td>').append($quantityInput));
+            // var $nameInput = $('<input>').attr({
+            //     type: 'hidden',
+            //     name: 'products[' + position + '].name',
+            //     value: itemName.replace(/\s+/g, '_').toLowerCase()
+            // });
+            // $row.append($nameInput);
+            //
+            // var $quantityInput = $('<input>').attr({
+            //     type: 'number',
+            //     value: 0,
+            //     class: 'form-control',
+            //     name: 'products[' + position + '].quantity'
+            // });
+            // $row.append($('<td>').append('<span th:text="chuj">chuj ci w dupe</span>'));
 
             $('#targetTable tbody').append($row);
         }

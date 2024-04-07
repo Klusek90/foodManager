@@ -55,9 +55,10 @@ public class stockManagmentControl {
 
     @GetMapping("/newrecipe")
     public String addRecipes(Model model){
-        List<String> productList= productService.productSearch();
+//        List<String> productList= productService.productSearch();
         List<Product> whole = productService.getAllIngredients();
-//        model.addAttribute("product", productList);
+        List<String> productNames= productService.productSearch();
+        model.addAttribute("itemsName", productNames);
         model.addAttribute("recipe", new Recipe());
         model.addAttribute("products", whole);
         return "recipesAdd";
