@@ -7,26 +7,29 @@
     <div class="row bg">
         <div th:replace="~{fragments/sidebar :: sidebar('setup')}"></div>
         <main class="col-md-8 px-md-3 mt-4">
-            <form th:action="@{/users/updateuser}" th:object="${user}" method="post" class="mt-3">
+            <div th:if="${message}" th:text="${message}"></div>
+
+            <form th:action="@{/updateSetup}" th:object="${setup}" method="post" class="mt-3">
+                <input type="hidden" th:field="*{customer}">
                 <div class="my-3">
                     <label for="restaurantName">Restaurant Name:</label>
-                    <input class="textfield form-control" type="text" id="restaurantName" name="restaurantName" placeholder="Your restaurant name">
+                    <input class="textfield form-control" type="text" id="restaurantName" th:field="*{restaurantName}" required placeholder="Your restaurant name">
                 </div>
 
                 <div class="my-3">
                     <label for="api">ChatGPT API:</label>
-                    <input class="textfield form-control" type="text" id="api" name="api">
+                    <input class="textfield form-control" type="text" id="api" th:field="*{chatAPI}">
                 </div>
 
                 <!-- Updated div for the text area with class="my-3" for consistent spacing -->
                 <div class="my-3">
                     <label for="additionalInfo">Information about Restaurant:</label></br>
-                    <textarea id="additionalInfo" name="additionalInfo" rows="4"></textarea>
+                    <textarea id="additionalInfo" th:field="*{restaurantInfo}" rows="4"></textarea>
                 </div>
 
                 <div class="my-3">
                     <label for="forumLink">Link to Forum:</label>
-                    <input class="textfield form-control" type="text" id="forumLink" name="forumLink">
+                    <input class="textfield form-control" type="text" id="forumLink" th:field="*{link}">
                 </div>
 
                 <div class="my-3">

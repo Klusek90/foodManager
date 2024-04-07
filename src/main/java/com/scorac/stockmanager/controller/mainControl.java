@@ -25,12 +25,16 @@ public class mainControl {
     private WeatherService weatherService;
     private ProductService productService;
     private DayEventService dayEventService;
+    private SetupService setupService;
 
-    public mainControl(WeatherService weatherService, DayEventService dayEventService, StockService stockService, ProductService productService) {
+    public mainControl(WeatherService weatherService, DayEventService dayEventService,
+                       StockService stockService, ProductService productService,
+                       SetupService setupService) {
         this.weatherService = weatherService;
         this.dayEventService = dayEventService;
         this.stockService = stockService;
         this.productService = productService;
+        this.setupService = setupService;
     }
 
     // TODO: 10/02/2024 Add AI and ML algorithm  !!!
@@ -90,8 +94,17 @@ public class mainControl {
     }
 
     @GetMapping("/setup")
-    public String setup(){
+    public String setup(Model model){
+        Setup setup = setupService.getSetup();
+        model.addAttribute("setup", setup);
         return "setup";
+    }
+
+    @PostMapping("/updateSetup")
+    public String updateSetup(@ModelAttribute Setup setup, RedirectAttributes redirectAttributes) {
+        setupService.updateSetup(setup);
+        redirectAttributes.addFlashAttribute("message", "Setup Updated");
+        return "redirect:/setup";
     }
 
     @GetMapping("/wastage")

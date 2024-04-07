@@ -12,7 +12,7 @@ import java.util.Set;
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="recipeid", nullable = false)
     private Long recipeId;
     private String name;

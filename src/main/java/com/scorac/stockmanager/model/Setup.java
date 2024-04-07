@@ -11,6 +11,7 @@ import lombok.Data;
 public class Setup {
 
     @Id
+    private String customer;
     private String restaurantName;
     private String chatAPI;
     private String restaurantInfo;

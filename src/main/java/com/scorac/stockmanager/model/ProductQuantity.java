@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Table(name="product_quantity")
 public class ProductQuantity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int status; //1 sale 2 waste 3 order
