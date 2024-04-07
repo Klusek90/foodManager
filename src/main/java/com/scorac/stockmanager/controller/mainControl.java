@@ -37,6 +37,12 @@ public class mainControl {
     // TODO: 12/02/2024 Add Pictures for product, users and recopies
     // TODO: 13/02/2024 proper render the card size
     // TODO: 14/02/2024 create report
+
+    @GetMapping("/error")
+    public String handleError() {
+        // View to display as an error page.
+        return "errorPage";
+    }
     
     @GetMapping({"/","home","index"})
     public String homePage(Model model){
