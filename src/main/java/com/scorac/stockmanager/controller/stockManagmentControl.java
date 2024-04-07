@@ -5,7 +5,9 @@ import com.scorac.stockmanager.model.Recipe;
 import com.scorac.stockmanager.model.RecipeProduct;
 import com.scorac.stockmanager.service.ProductRepository;
 import com.scorac.stockmanager.service.ProductService;
+import com.scorac.stockmanager.service.RecipeProductService;
 import com.scorac.stockmanager.service.RecipeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,10 @@ import java.util.List;
 
 @Controller
 public class stockManagmentControl {
-
+    @Autowired
     private ProductService productService;
     private RecipeService recipeService;
+
 
     public stockManagmentControl(ProductService productService, RecipeService recipeService) {
         this.productService = productService;
@@ -73,9 +76,11 @@ public class stockManagmentControl {
             Integer quantity = quantities.get(i);
             RecipeProduct recipeProduct = new RecipeProduct();
             recipeProduct.setProduct(product);
-            recipeProduct.setQuantity(quantity);
+//            recipeProduct.setQuantity(quantity);
             recipe.getProducts().add(product);
+//            recipeProductService.save(recipeProduct);
         }
+
         recipeService.save(recipe);
         redirectAttributes.addFlashAttribute("message", "New recipe added");
         return "redirect:/newrecipe";

@@ -19,8 +19,8 @@ public class RecipeProduct {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    // Additional field
-    private Integer quantity;
+//
+//    // Additional field
+//    private Integer quantity;
 
 }
