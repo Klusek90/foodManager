@@ -25,10 +25,13 @@ public class stockManagmentControl {
     private ProductService productService;
     private RecipeService recipeService;
 
+    private RecipeProductService recipeProductService;
 
-    public stockManagmentControl(ProductService productService, RecipeService recipeService) {
+
+    public stockManagmentControl(ProductService productService, RecipeService recipeService, RecipeProductService recipeProductService) {
         this.productService = productService;
         this.recipeService = recipeService;
+        this.recipeProductService = recipeProductService;
     }
 
 
@@ -71,17 +74,20 @@ public class stockManagmentControl {
         // Retrieve products by their IDs
         List<Product> products = productService.getProductsByIds(productIds);
 
+        // Save recipe first
+        recipeService.save(recipe);
+
+        // Save recipe products
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             Integer quantity = quantities.get(i);
             RecipeProduct recipeProduct = new RecipeProduct();
             recipeProduct.setProduct(product);
-//            recipeProduct.setQuantity(quantity);
-            recipe.getProducts().add(product);
-//            recipeProductService.save(recipeProduct);
+            recipeProduct.setQuantity(quantity);
+            recipeProduct.setRecipe(recipe); // Set the recipe for the recipe product
+            recipeProductService.save(recipeProduct);
         }
 
-        recipeService.save(recipe);
         redirectAttributes.addFlashAttribute("message", "New recipe added");
         return "redirect:/newrecipe";
     }
