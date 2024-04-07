@@ -13,7 +13,6 @@ public class Setup {
     @Id
     private String customer;
     private String restaurantName;
-    private String chatAPI;
     private String restaurantInfo;
     private String link;
 
