@@ -1,17 +1,13 @@
 package com.scorac.stockmanager.controller;
 
 import com.scorac.stockmanager.model.DayEvent;
-import com.scorac.stockmanager.service.DayEventRepository;
+import com.scorac.stockmanager.service.Repository.DayEventRepository;
 import com.scorac.stockmanager.service.DayEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.text.SimpleDateFormat;
 
 @Controller
 @RequestMapping("/dayEvent")

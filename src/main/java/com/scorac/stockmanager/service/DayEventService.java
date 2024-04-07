@@ -1,11 +1,10 @@
 package com.scorac.stockmanager.service;
 
 import com.scorac.stockmanager.model.DayEvent;
+import com.scorac.stockmanager.service.Repository.DayEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

@@ -149,7 +149,7 @@ table, card{
     overflow-y: auto;
 }
 
-.wastform{
+.showform{
     display: none;
 }
 
@@ -157,6 +157,11 @@ table, card{
     color: #F6AD55;
     padding: 0 0 0 20px;
 
+}
+
+.recipelink{
+    color: #124413;
+    text-decoration: none;
 }
 
 @media (max-width: 767.98px) {

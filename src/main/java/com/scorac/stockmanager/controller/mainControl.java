@@ -1,12 +1,8 @@
 package com.scorac.stockmanager.controller;
 
-import com.scorac.stockmanager.model.DayEvent;
-import com.scorac.stockmanager.model.Order;
-import com.scorac.stockmanager.model.OrderLine;
-import com.scorac.stockmanager.model.Weather;
-import com.scorac.stockmanager.service.DayEventService;
-import com.scorac.stockmanager.service.StockService;
-import com.scorac.stockmanager.service.WeatherService;
+import com.scorac.stockmanager.model.*;
+import com.scorac.stockmanager.service.*;
+//import com.scorac.stockmanager.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,32 +23,43 @@ public class mainControl {
     @Autowired
     private final StockService stockService;
     private WeatherService weatherService;
-
+    private ProductService productService;
     private DayEventService dayEventService;
+    private SetupService setupService;
 
-    public mainControl(StockService stockService, WeatherService weatherService, DayEventService dayEventService) {
-        this.stockService = stockService;
+    public mainControl(WeatherService weatherService, DayEventService dayEventService,
+                       StockService stockService, ProductService productService,
+                       SetupService setupService) {
         this.weatherService = weatherService;
         this.dayEventService = dayEventService;
+        this.stockService = stockService;
+        this.productService = productService;
+        this.setupService = setupService;
     }
 
     // TODO: 10/02/2024 Add AI and ML algorithm  !!!
     // TODO: 12/02/2024 Add Pictures for product, users and recopies
     // TODO: 13/02/2024 proper render the card size
     // TODO: 14/02/2024 create report
+
+    @GetMapping("/error")
+    public String handleError() {
+        // View to display as an error page.
+        return "errorPage";
+    }
     
     @GetMapping({"/","home","index"})
     public String homePage(Model model){
-        OrderLine line1 = new OrderLine(1, "Item 1", 2);
-        OrderLine line2 = new OrderLine(2, "Item 2", 3);
-        Order order1 = new Order(1, Arrays.asList(line1, line2));
+//        OrderLine line1 = new OrderLine(1, "Item 1", 2);
+//        OrderLine line2 = new OrderLine(2, "Item 2", 3);
+//        Order order1 = new Order(1, Arrays.asList(line1, line2));
+//
+//        OrderLine line3 = new OrderLine(3, "Item 3", 1);
+//        OrderLine line4 = new OrderLine(4, "Item 4", 4);
+//        Order order2 = new Order(2, Arrays.asList(line3, line4));
 
-        OrderLine line3 = new OrderLine(3, "Item 3", 1);
-        OrderLine line4 = new OrderLine(4, "Item 4", 4);
-        Order order2 = new Order(2, Arrays.asList(line3, line4));
-
-        List<Order> orders = Arrays.asList(order1, order2);
-        model.addAttribute("orders", orders);
+//        List<Order> orders = Arrays.asList(order1, order2);
+//        model.addAttribute("orders", orders);
 
         Weather weather = weatherService.getWeather("Rugby"); // Example city
         model.addAttribute("weather", weather);
@@ -61,40 +69,15 @@ public class mainControl {
         return "index";
     }
 
-    @GetMapping("/recipes")
-    public String recipes(Model model){
-//        List<String> productNames= stockService.productSearch();
-//        model.addAttribute("itemsName", productNames);
-        return "recipes";
-    }
 
-    @GetMapping("/newrecipe")
-    public String addRecipes(Model model){
-        List<String> productNames= stockService.productSearch();
-        model.addAttribute("itemsName", productNames);
-        return "recipesAdd";
-    }
+
 
     @GetMapping("/solution")
     public String queryChat(){
         return "queryGPT";
     }
 
-    @GetMapping("/orders")
-    public String orders(Model model){
-        OrderLine line1 = new OrderLine(1, "Item 1", 2);
-        OrderLine line2 = new OrderLine(2, "Item 2", 3);
-        Order order1 = new Order(1, Arrays.asList(line1, line2));
 
-        OrderLine line3 = new OrderLine(3, "Item 3", 1);
-        OrderLine line4 = new OrderLine(4, "Item 4", 4);
-        Order order2 = new Order(2, Arrays.asList(line3, line4));
-
-        List<Order> orders = Arrays.asList(order1, order2);
-
-        model.addAttribute("orders", orders);
-        return "ordersList";
-    }
 
     @GetMapping("/reports")
     public String reports(){
@@ -111,13 +94,22 @@ public class mainControl {
     }
 
     @GetMapping("/setup")
-    public String setup(){
+    public String setup(Model model){
+        Setup setup = setupService.getSetup();
+        model.addAttribute("setup", setup);
         return "setup";
+    }
+
+    @PostMapping("/updateSetup")
+    public String updateSetup(@ModelAttribute Setup setup, RedirectAttributes redirectAttributes) {
+        setupService.updateSetup(setup);
+        redirectAttributes.addFlashAttribute("message", "Setup Updated");
+        return "redirect:/setup";
     }
 
     @GetMapping("/wastage")
     public String wastage(Model model){
-        List<String> productNames= stockService.productSearch();
+        List<String> productNames= productService.productSearch();
         model.addAttribute("itemsName", productNames);
         return "wastage";
     }
@@ -137,6 +129,7 @@ public class mainControl {
     public String logout(){
         return "login";
     }
+
 
 
 }

@@ -8,38 +8,42 @@
         <div th:replace="~{fragments/sidebar :: sidebar('recipes')}"></div>
         <main class="col-md-8 px-md-3 mt-4">
             <div class="row">
-                <div class="col md-4">
-                    <div th:if="${successMessage}" th:text="${successMessage}"></div>
-
-                    <!-- Card for each user -->
-                    <div th:each="user : ${list}" class="col mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Name and Surname in the top row -->
-                                <div class="row mb-2">
-                                    <div class="col-6">
-                                        Name: <span th:text="${user.name}">Name</span>
-                                    </div>
-                                    <div class="col-6">
-                                        Items: <span th:text="${user.surname}">Surname</span>
-                                    </div>
-                                </div>
-                                <!-- Edit button aligned to the right -->
-                                <div class="d-flex justify-content-end">
-                                    <a th:href="@{/users/edit/{username}(username=${user.username})}" class="btn btn-primary userEdit">Edit</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <a id="newUser" class="btn btn-secondary col" href="newrecipe">Add New Recipe</a>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-secondary col" href="newrecipe">Add New Recipe</a>
+                        <a class="btn btn-primary col" href="newproduct">Products</a>
                     </div>
                 </div>
-            </div>
+                <div class="col mt-5">
+                    <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search for recipe...">
+                    <h6>Recipes:</h6>
+                    <ul class="list-group">
+                        <!-- Iterate over the list of recipes -->
+                        <li th:each="recipe : ${recipe}" class="list-group-item p-4 m-2">
+                            <!-- Display the name of each recipe -->
+                            <a class="recipelink" th:href="@{'/recipe/' + ${recipe.recipeId}}" th:text="${recipe.name}"></a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                </div>
+
         </main>
         <div class="col"></div>
     </div>
 </div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
+<script>
+    // Capture click event on recipe names
+    $('.list-group').on('click', 'li', function() {
+        // Extract recipe ID from the ID attribute
+        var recipeId = $(this).attr('id').split('-')[1];
+        // Construct the URL with the recipe ID
+        var url = 'recipe/' + recipeId;
+        // Navigate user to the URL
+        window.location.href = url;
+        });
+</script>
 </body>
 </html>
