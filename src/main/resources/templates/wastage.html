@@ -11,7 +11,7 @@
                     <div class="col col-md-4 mt-5">
                         <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search items...">
                         <ul id="itemsList" class="list-group">
-                            <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
+                            <li th:each="recipe, iterStat : ${recipe}" th:id="'item-' + ${iterStat.index}" th:text="${recipe.name}" class="list-group-item"></li>
                         </ul>
                     </div>
                     <div class="col col-md-1 blank"></div>

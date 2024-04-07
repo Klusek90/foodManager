@@ -1,10 +1,11 @@
 package com.scorac.stockmanager.service;
 
 import com.scorac.stockmanager.model.Product;
+import com.scorac.stockmanager.service.Repository.ProductRepository;
+import com.scorac.stockmanager.service.Repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

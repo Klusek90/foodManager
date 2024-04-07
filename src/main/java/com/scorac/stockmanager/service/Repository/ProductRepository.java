@@ -1,4 +1,4 @@
-package com.scorac.stockmanager.service;
+package com.scorac.stockmanager.service.Repository;
 
 import com.scorac.stockmanager.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

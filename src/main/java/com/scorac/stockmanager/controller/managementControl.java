@@ -3,7 +3,6 @@ package com.scorac.stockmanager.controller;
 import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.model.Recipe;
 import com.scorac.stockmanager.model.RecipeProduct;
-import com.scorac.stockmanager.service.ProductRepository;
 import com.scorac.stockmanager.service.ProductService;
 import com.scorac.stockmanager.service.RecipeProductService;
 import com.scorac.stockmanager.service.RecipeService;
@@ -16,11 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Controller
-public class stockManagmentControl {
+public class managementControl {
     @Autowired
     private ProductService productService;
     private RecipeService recipeService;
@@ -28,7 +26,7 @@ public class stockManagmentControl {
     private RecipeProductService recipeProductService;
 
 
-    public stockManagmentControl(ProductService productService, RecipeService recipeService, RecipeProductService recipeProductService) {
+    public managementControl(ProductService productService, RecipeService recipeService, RecipeProductService recipeProductService) {
         this.productService = productService;
         this.recipeService = recipeService;
         this.recipeProductService = recipeProductService;
@@ -37,12 +35,10 @@ public class stockManagmentControl {
 
     @GetMapping("/recipes")
     public String recipes(Model model){
-//        List<String> productNames= stockService.productSearch();
-//        model.addAttribute("itemsName", productNames);
+        List<Recipe> recipe= recipeService.getAll();
+        model.addAttribute("recipe", recipe);
         return "recipes";
     }
-
-
 
 
     @GetMapping("/newproduct")

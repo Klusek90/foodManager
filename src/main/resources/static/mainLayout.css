@@ -159,6 +159,11 @@ table, card{
 
 }
 
+.recipelink{
+    color: #124413;
+    text-decoration: none;
+}
+
 @media (max-width: 767.98px) {
     .sidebar {
         width: 100vw;

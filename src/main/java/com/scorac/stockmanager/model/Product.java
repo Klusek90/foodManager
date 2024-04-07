@@ -13,14 +13,11 @@ import java.util.Set;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "product_id", nullable = false)
     private Long id;
 
     private String name;
     private int lifeLength;
     private String type;
-
-    @ManyToMany(mappedBy = "products")
-    private Set<Recipe> recipes = new HashSet<>();
 }
