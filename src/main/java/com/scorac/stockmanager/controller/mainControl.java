@@ -46,7 +46,7 @@ public class mainControl {
         LocalDate today = LocalDate.now();
         List<Expiring> expires = stockService.expireProducts();
         //test
-        expires.add(new Expiring("name", 2L, 2, today, today));
+//        expires.add(new Expiring("name", 2L, 2, today, today));
         model.addAttribute("expires" , expires);
         Weather weather = weatherService.getWeather("Rugby"); // Example city
         model.addAttribute("weather", weather);
@@ -61,8 +61,6 @@ public class mainControl {
     public String queryChat(Model model){
         LocalDate today =LocalDate.now();
         List<Expiring> expires = stockService.expireProducts();
-        //test
-        expires.add(new Expiring("name", 2L, 2, today, today));
         model.addAttribute("expires" , expires);
         return "queryGPT";
     }
