@@ -8,10 +8,12 @@ $(document).ready(function() {
             "dataSrc": ""
         },
         "columns": [
-            { "data": "name","width": "25%" },
-            { "data": "type" ,"width": "25%" },
-            { "data": "amount" ,"width": "25%" },
-            { "data": "date","width": "25%"  }
+            { "data": "name","width": "30%" },
+            { "data": "type" ,"width": "20%" },
+            { "data": "amount" ,"width": "12%" },
+            { "data": "productiondate","width": "13%"  },
+            { "data": "expireDate","width": "13%"  },
+            { "data": "daysLeft","width": "12%"  }
         ]
     });
 });

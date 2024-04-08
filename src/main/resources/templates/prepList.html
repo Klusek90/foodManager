@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('SCORAC orders list')}"/>
 <body>
-<div th:replace="~{fragments/logoBar :: logoBar('Orders')}"></div>
+<div th:replace="~{fragments/logoBar :: logoBar('Preparation')}"></div>
 <div class="container-fluid">
     <div class="row bg">
-        <div th:replace="~{fragments/sidebar :: sidebar('orders')}"></div>
+        <div th:replace="~{fragments/sidebar :: sidebar('preparation')}"></div>
         <main class="col-md-8 px-md-3 mt-4">
             <div>
-             <a href="/neworder" class="btn btn-success my-3">Add order</a>
+             <a href="/newprep" class="btn btn-success my-3">New Preparation</a>
             </div>
 
             <div class="accordion" id="ordersAccordion">

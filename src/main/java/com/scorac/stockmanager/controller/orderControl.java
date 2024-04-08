@@ -18,33 +18,19 @@ import java.util.List;
 public class orderControl {
     @Autowired
     private ProductService productService;
-    @GetMapping("/orders")
-    public String orders(){
+    @GetMapping("/prep")
+    public String preparation(){
 
-        return "ordersList";
+        return "prepList";
     }
 
 
-    @GetMapping("/neworder")
-    public String newOrders(Model model) {
-//        Order order = new Order();
-//        order.setOrderProducts(new ArrayList<>());
-//
-//        // Assume you fetch a list of products to display in the form
-//        List<Product> availableProducts = productService.findAll();
+    @GetMapping("/newprep")
+    public String newPrep(Model model) {
+        List<String> productNames= productService.productSearch();
+        model.addAttribute("itemsName", productNames);
 
-//         Preparing an empty OrderProduct for each available product
-//        for(Product product : availableProducts) {
-//            OrderProduct op = new OrderProduct();
-//            op.setProduct(product);
-//            op.setQuantity(0); // Default quantity
-//            order.getOrderProducts().add(op);
-//        }
-
-//        model.addAttribute("order", order);
-//        model.addAttribute("availableProducts", availableProducts);
-
-        return "ordersNew";
+        return "prepNew";
     }
 
 //    @PostMapping("/submitOrder")
