@@ -35,10 +35,7 @@
                 </div>
                 <div class="col col-md-1 blank"></div>
                 <div class="col col-md-4 mt-5">
-                    <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search items...">
-                    <ul id="itemsList" class="list-group">
-                        <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
-                    </ul>
+                    <div th:replace="~{fragments/productList :: productList}"></div>
                 </div>
             </div>
         </main>
