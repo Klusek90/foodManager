@@ -10,12 +10,14 @@
         <div th:replace="~{fragments/sidebar :: sidebar('stock')}"></div>
         <main class="col-md-8 px-md-3 mt-5">
              <table class="table mt-5" id="all-table">
-                    <thead class="thead-dark">
-                    <th>Name</th>
-                    <th>Amount</th>
-                    <th>Expire</th>
-                    <th>Type</th>
-                    </thead>
+                 <thead class="thead-dark">
+                 <th>Name</th>
+                 <th>Type</th>
+                 <th>Quantity</th>
+                 <th>Production Date</th>
+                 <th>Expire Date</th>
+                 <th>Days Left</th>
+                 </thead>
                 </table>
         </main>
         <div class="col"></div>
