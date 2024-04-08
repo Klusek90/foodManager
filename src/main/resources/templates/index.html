@@ -52,30 +52,11 @@
                     </div>
                 </div>
                 <div class="row mt-5">
+                    <div th:replace="~{fragments/expireTable :: expireTable}"></div>
+                </div>
+                <div class="row mt-4">
                     <div class="col">
-                        <h4 class="py-2">Product near expire date:</h4>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Product ID</th>
-                                <th>Days Left</th>
-                                <th>Created</th>
-                                <th>Expire</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!-- Iterate over the list of expires -->
-                            <tr th:each="expiring : ${expires}">
-                                <!-- Display the properties of each expiring object -->
-                                <td th:text="${expiring.name}"></td>
-                                <td th:text="${expiring.productid}"></td>
-                                <td th:text="${expiring.daysLeft}"></td>
-                                <td th:text="${expiring.created}"></td>
-                                <td th:text="${expiring.expire}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <p>If you don't have a plan but you dont want to waste it and check for <a href="/chatquery">Ideas</a></p>
                     </div>
                 </div>
             </main>
