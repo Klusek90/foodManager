@@ -52,13 +52,14 @@ public class StockService {
             LocalDate today =  LocalDate.now();
 
             for(int i =0; i< livePrepared.size();i++){
-                Stock singlestock = new Stock();
+
                 //cleaning expire products
                 if(livePrepared.get(i).getExpireDate().isBefore(today)){
                     prepService.deletePrep(livePrepared.get(i).getId());
                 }else{
+                    Stock singlestock = new Stock();
                     Prep prep = livePrepared.get(i);
-                    Product product = productService.getSingleProduct(prep.getId()).get();
+                    Product product = productService.getSingleProduct(prep.getProductid()).get();
                     singlestock.setName(product.getName());
                     singlestock.setType(product.getType());
                     singlestock.setExpireDate(prep.getExpireDate());
