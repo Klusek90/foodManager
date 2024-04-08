@@ -9,13 +9,10 @@
             <main class="col-md-8 px-md-3 mt-4">
                 <div class="row">
                     <div class="col col-md-4 mt-5">
-                        <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search items...">
-                        <ul id="itemsList" class="list-group">
-                            <li th:each="itemName, iterStat : ${itemsName}" th:id="'item-' + ${iterStat.index}" th:text="${itemName}" class="list-group-item"></li>
-                        </ul>
+                        <div th:replace="~{fragments/productList :: productList}"></div>
                     </div>
                     <div class="col col-md-1 blank"></div>
-                    <div class="col col-md-4 mt-5 ml-4 showform">
+                    <div class="col col-md-6 mt-5 ml-4 showform">
                         <form th:action="@{/submit-form}" method="post">
                             <div class="longlist">
                                 <table id="targetTable">
