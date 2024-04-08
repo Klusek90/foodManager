@@ -13,15 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 @Controller
 public class mainControl {
     @Autowired
-    private final StockService stockService;
+    private StockService stockService;
     private WeatherService weatherService;
     private ProductService productService;
     private DayEventService dayEventService;
@@ -37,11 +35,6 @@ public class mainControl {
         this.setupService = setupService;
     }
 
-    // TODO: 10/02/2024 Add AI and ML algorithm  !!!
-    // TODO: 12/02/2024 Add Pictures for product, users and recopies
-    // TODO: 13/02/2024 proper render the card size
-    // TODO: 14/02/2024 create report
-
     @GetMapping("/error")
     public String handleError() {
         // View to display as an error page.
@@ -50,22 +43,14 @@ public class mainControl {
     
     @GetMapping({"/","home","index"})
     public String homePage(Model model){
-//        OrderLine line1 = new OrderLine(1, "Item 1", 2);
-//        OrderLine line2 = new OrderLine(2, "Item 2", 3);
-//        Order order1 = new Order(1, Arrays.asList(line1, line2));
-//
-//        OrderLine line3 = new OrderLine(3, "Item 3", 1);
-//        OrderLine line4 = new OrderLine(4, "Item 4", 4);
-//        Order order2 = new Order(2, Arrays.asList(line3, line4));
-
-//        List<Order> orders = Arrays.asList(order1, order2);
-//        model.addAttribute("orders", orders);
-
+        LocalDate today = LocalDate.now();
+        List<Expiring> expires = stockService.expireProducts();
+        //test
+        expires.add(new Expiring("name", 2L, 2, today, today));
+        model.addAttribute("expires" , expires);
         Weather weather = weatherService.getWeather("Rugby"); // Example city
         model.addAttribute("weather", weather);
 
-        model.addAttribute("testId", "test1");
-        model.addAttribute("testContent", "test2");
         return "index";
     }
 

@@ -1,5 +1,6 @@
 package com.scorac.stockmanager.service;
 
+import com.scorac.stockmanager.model.Expiring;
 import com.scorac.stockmanager.model.Prep;
 import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.model.Stock;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -57,7 +59,10 @@ public class StockService {
                     singlestock.setExpireDate(prep.getExpireDate());
                     singlestock.setProductiondate(prep.getProductionDate());
                     singlestock.setAmount(prep.getAmount());
-                    int days= singlestock.getExpireDate().compareTo(today);
+
+                    //calculate days
+                    long differenceInDays = ChronoUnit.DAYS.between(today, singlestock.getExpireDate());
+                    int days= (int) differenceInDays;
                     singlestock.setDaysLeft(days);
 
                     list.add(singlestock);
@@ -68,6 +73,45 @@ public class StockService {
         }
 
         return list;
+    }
+
+    public List<Expiring> expireProducts(){
+        List<Expiring> expirings = new ArrayList<>();
+        List<Prep> livePrepared = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+        try{
+            livePrepared = prepService.findAll();
+            for(int i =0 ; i<livePrepared.size(); i++){
+
+                Prep prep = livePrepared.get(i);
+                LocalDate shortly  = today.plusDays(2);
+
+                if (prep.getExpireDate().isBefore(shortly)){
+
+                    Expiring expiring= new Expiring();
+                    Product product = productService.getSingleProduct(prep.getId()).get();
+
+                    expiring.setCreated(prep.getProductionDate());
+                    expiring.setExpire(prep.getExpireDate());
+
+                    //calculate days
+                    long differenceInDays = ChronoUnit.DAYS.between(expiring.getExpire(), today);
+                    int daysleft = (int) differenceInDays;
+                    expiring.setName(product.getName());
+                    expiring.setProductid(product.getId());
+                    expirings.add(expiring);
+                }
+
+            }
+
+        } catch(Exception e){
+            logger.severe("Problem with prep database in stock service");
+        }
+
+        // Sort the list based on the daysLeft field
+        Collections.sort(expirings, Comparator.comparingInt(Expiring::getDaysLeft));
+
+        return  expirings;
     }
 
 }

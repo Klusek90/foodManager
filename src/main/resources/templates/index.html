@@ -54,45 +54,30 @@
                 <div class="row mt-5">
                     <div class="col">
                         <h4 class="py-2">Product near expire date:</h4>
-                        <table> <!-- Adding border="1" to visualize the table borders -->
+                        <table>
+                            <thead>
                             <tr>
-                                <th>Header 1</th>
-                                <th>Header 2</th>
+                                <th>Name</th>
+                                <th>Product ID</th>
+                                <th>Days Left</th>
+                                <th>Created</th>
+                                <th>Expire</th>
                             </tr>
-                            <tr>
-                                <td>Row 1, Cell 1</td>
-                                <td>Row 1, Cell 2</td>
+                            </thead>
+                            <tbody>
+                            <!-- Iterate over the list of expires -->
+                            <tr th:each="expiring : ${expires}">
+                                <!-- Display the properties of each expiring object -->
+                                <td th:text="${expiring.name}"></td>
+                                <td th:text="${expiring.productid}"></td>
+                                <td th:text="${expiring.daysLeft}"></td>
+                                <td th:text="${expiring.created}"></td>
+                                <td th:text="${expiring.expire}"></td>
                             </tr>
-                            <tr>
-                                <td>Row 2, Cell 1</td>
-                                <td>Row 2, Cell 2</td>
-                            </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="row mt-5">
-                        <div class="col">
-                            <h4 class="py-2">Orders:</h4>
-                            <div th:each="order, orderStat : ${orders}" class="accordion-item">
-                                <h2 class="accordion-header" th:id="'heading' + ${orderStat.index}">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" th:data-bs-target="'#collapse' + ${orderStat.index}" aria-expanded="true" th:aria-controls="'collapse' + ${orderStat.index}">
-                                        Order ID: <span th:text="${order.orderId}"></span>
-                                    </button>
-                                </h2>
-                                <div th:id="'collapse' + ${orderStat.index}" class="accordion-collapse collapse" th:classappend="${orderStat.index == 0} ? 'show'" th:aria-labelledby="'heading' + ${orderStat.index}" data-bs-parent="#ordersAccordion">
-                                    <div class="accordion-body">
-                                        <ul class="list-group">
-                                            <li th:each="line : ${order.orderLines}" class="list-group-item">
-                                                Line ID: <span th:text="${line.lineId}"></span>,
-                                                Item Name: <span th:text="${line.itemName}"></span>,
-                                                Quantity: <span th:text="${line.quantity}"></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
             </main>
             <div class="col"></div>
             </div>
