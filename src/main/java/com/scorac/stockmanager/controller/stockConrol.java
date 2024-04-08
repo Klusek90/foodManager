@@ -33,17 +33,8 @@ public class stockConrol {
 
     @GetMapping("/datatable")
     @ResponseBody   //restcontrol
-    public List<Stock> getForm(final @RequestParam Map<String, String> allRequestParams){
+    public List<Stock> getForm(){
         List<Stock> stock = stockService.currentStock();
-//        List<Stock> stock = new ArrayList<>();
-        LocalDate now = LocalDate.now();
-        stock.add(new Stock("empty", "stock", 0, now, now,0));
-
-//       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
-//       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
-//       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
-//       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
-
         return stock;
     }
 }

@@ -29,6 +29,11 @@ public class StockService {
     private ProductService productService;
     private PrepService prepService;
 
+    public StockService(StockRepository stockRepository, ProductService productService, PrepService prepService) {
+        this.stockRepository = stockRepository;
+        this.productService = productService;
+        this.prepService = prepService;
+    }
 
     public List<Product> listofALLSortedByName() {
         List<Product> all = stockRepository.findAll();

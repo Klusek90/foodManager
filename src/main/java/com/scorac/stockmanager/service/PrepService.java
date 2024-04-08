@@ -14,11 +14,7 @@ public class PrepService {
     @Autowired
     private PrepRepository prepRepository;
 
-    public PrepService(PrepRepository prepRepository) {
-        this.prepRepository = prepRepository;
-    }
-
-    public List<Prep> findAll(){
+     public List<Prep> findAll(){
             List<Prep> allprep = prepRepository.findAll();
          return allprep;
      }

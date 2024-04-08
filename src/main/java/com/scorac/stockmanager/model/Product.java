@@ -20,4 +20,5 @@ public class Product {
     private String name;
     private int lifeLength;
     private String type;
+
 }

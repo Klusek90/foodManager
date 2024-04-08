@@ -49,7 +49,7 @@ public class prepControl {
             Product product = products.get(i);
             Integer amount = quantities.get(i);
             Prep prepProduct =  new Prep();
-            prepProduct.setProduct(product);
+            prepProduct.setProductid(product.getId());
             prepProduct.setAmount(amount);
             prepProduct.setProductionDate(timestamp);
             prepProduct.setExpireDate(timestamp.plusDays(product.getLifeLength()));
@@ -57,6 +57,6 @@ public class prepControl {
         }
 
         redirectAttributes.addFlashAttribute("message", "product preparation status saved");
-        return "redirect:/newrecipe";
+        return "redirect:/prep";
     }
 }

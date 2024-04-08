@@ -16,8 +16,6 @@ public class Prep {
     private LocalDate productionDate;
     private LocalDate expireDate;
     private int amount;
-    @OneToOne
-    @JoinColumn(name = "product_product_id")
-    private Product product;
+    private Long productid;
 
 }
