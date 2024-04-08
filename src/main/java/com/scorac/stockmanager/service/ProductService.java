@@ -5,10 +5,7 @@ import com.scorac.stockmanager.service.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -56,5 +53,10 @@ public class ProductService {
     public List<Product> getProductsByIds(List<Long> productIds) {
 
         return productRepository.findAllById(productIds);
+    }
+
+    public Optional<Product> getSingleProduct(Long id){
+        Optional<Product> product = productRepository.findById(id);
+        return product;
     }
 }

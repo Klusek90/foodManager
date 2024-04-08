@@ -3,7 +3,7 @@ $(document).ready(function() {
         "processing": true,
         // "responsive": true, // Enable the responsive option
         "ajax": {
-            "url": "http://localhost:8080/stock/datatable",
+            "url": "http://localhost:8888/stock/datatable",
             "type": "GET",
             "dataSrc": ""
         },

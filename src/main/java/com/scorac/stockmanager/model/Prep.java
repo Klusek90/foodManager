@@ -15,6 +15,7 @@ public class Prep {
     private Long id;
     private LocalDate productionDate;
     private LocalDate expireDate;
+    private int amount;
     private Long productid;
 
 }

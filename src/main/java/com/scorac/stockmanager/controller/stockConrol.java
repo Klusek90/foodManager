@@ -18,12 +18,12 @@ import java.util.Map;
 @Controller
 @RequestMapping("/stock")
 public class stockConrol {
-//    @Autowired
-//    private ProductRepository productRepository;
-//
-//    public stockConrol( ProductRepository productRepository) {
-//        this.productRepository =productRepository;
-//    }
+    @Autowired
+    private StockService stockService;
+
+    public stockConrol(StockService stockService) {
+        this.stockService = stockService;
+    }
 
     @GetMapping("/total")
     public String stockContorl(Model model){
@@ -34,12 +34,15 @@ public class stockConrol {
     @GetMapping("/datatable")
     @ResponseBody   //restcontrol
     public List<Stock> getForm(final @RequestParam Map<String, String> allRequestParams){
-       List<Stock> stock = new ArrayList<>();
+        List<Stock> stock = stockService.currentStock();
+//        List<Stock> stock = new ArrayList<>();
         LocalDate now = LocalDate.now();
-       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
-       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
-       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
-       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
+        stock.add(new Stock("empty", "stock", 0, now, now,0));
+
+//       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
+//       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
+//       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
+//       stock.add(new Stock("Kielbasa", "browary", 200, now, now.minusDays(3),2));
 
         return stock;
     }
