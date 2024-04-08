@@ -12,8 +12,9 @@
                     <div th:replace="~{fragments/productList :: productList}"></div>
                 </div>
                 <div class="col col-md-1 blank"></div>
-                <div class="col col-md-6 mt-5 ml-4 showform">
+                <div class="col col-md-6 mt-5 ml-4">
                     <div th:if="${message}" th:text="${message}"></div>
+                    <div class="showform">
                     <form action="#" th:action="@{/addPrep}" th:object="${prep}" method="post">
                         <div class="longlist">
                             <table id="targetTable">
@@ -32,6 +33,7 @@
 
                         <input type="submit" value="Submit" class="btn btn-success mt-3">
                     </form>
+                </div>
                 </div>
                 <div class="col"></div>
             </div>

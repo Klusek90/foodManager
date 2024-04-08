@@ -56,7 +56,7 @@ public class prepControl {
             prepService.save(prepProduct);
         }
 
-        redirectAttributes.addFlashAttribute("message", "product preparation status saved");
+        redirectAttributes.addFlashAttribute("message", "Product preparation status saved");
         return "redirect:/prep";
     }
 }
