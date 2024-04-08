@@ -1,6 +1,6 @@
 // Add event listener to table rows
 // Set to store selected names
-let selectedNamesSet = new Set();
+let selectedNamesSet = [];
 
 
 
@@ -12,9 +12,9 @@ document.querySelectorAll('#expiresTable tbody tr').forEach(row => {
         let name = row.cells[0].textContent;
 
         // Check if the name is already selected
-        if (!selectedNamesSet.has(name)) {
+        if (!selectedNamesSet.includes(name)) {
             // Add the name to the set and list
-            selectedNamesSet.add(name);
+            selectedNamesSet.push(name);
             let selectedNamesList = document.getElementById('selectedNames');
             let listItem = document.createElement('li');
             listItem.textContent = name;
@@ -26,33 +26,62 @@ document.querySelectorAll('#expiresTable tbody tr').forEach(row => {
     });
 });
 
+const getData = async (url = '', params = {}) => {
+    const queryParams = new URLSearchParams();
 
+    for (const key in params) {
+        if (Array.isArray(params[key])) {
+            params[key].forEach(value => {
+                queryParams.append(key, value);
+            });
+        } else {
+            queryParams.append(key, params[key]);
+        }
+    }
 
+    const response = await fetch(`${url}?${queryParams.toString()}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.json();
+};
 
 $('#chatqueryButton').on('click', function (e) {
-
-    let additionalPrompt = $('#additionalPrompt').val()
-   console.log(additionalPrompt)
-
-    // Perform AJAX request to /request endpoint
-    $.ajax({
-        url: '/request',
-        type: 'GET',
-        // data: {
-        //     products: products,
-        //     additionalPrompt: additionalPrompt,
-        //     vegan: isVegan
-        // },
-        success: function (response) {
-            console.log(response); // Log response to the console
-        },
-        error: function (xhr, status, error) {
-            console.error(xhr.responseText); // Log error to the console
-        }
+    getData('/request', {
+        selectedNamesSet
+    }).then(data => {
+        $('#answer').text(data)
+        console.log(data);
     });
-
-    setTimeout(2000)
-    // Trigger the modal here
     $('#prompt').modal('show');
-
 });
+
+
+//
+//     let additionalPrompt = $('#additionalPrompt').val()
+//    console.log(additionalPrompt)
+//
+//     // Perform AJAX request to /request endpoint
+//     $.ajax({
+//         url: '/request',
+//         type: 'GET',
+//         // data: {
+//         //     products: products,
+//         //     additionalPrompt: additionalPrompt,
+//         //     vegan: isVegan
+//         // },
+//         success: function (response) {
+//             console.log(response); // Log response to the console
+//         },
+//         error: function (xhr, status, error) {
+//             console.error(xhr.responseText); // Log error to the console
+//         }
+//     });
+//
+//     setTimeout(2000)
+//     // Trigger the modal here
+//     $('#prompt').modal('show');
+//
+// });
