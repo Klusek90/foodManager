@@ -59,7 +59,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consectetur ducimus eaque eum facere in iste perferendis possimus repellat sit!</p>
+                <p id="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
             </div>
         </div>
     </div>
@@ -68,5 +68,6 @@
 
 </div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
+    <script th:src="@{/scripts/chatGPT.js}"></script>
 </body>
 </html>
