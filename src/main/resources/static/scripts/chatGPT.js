@@ -59,29 +59,3 @@ $('#chatqueryButton').on('click', function (e) {
 });
 
 
-//
-//     let additionalPrompt = $('#additionalPrompt').val()
-//    console.log(additionalPrompt)
-//
-//     // Perform AJAX request to /request endpoint
-//     $.ajax({
-//         url: '/request',
-//         type: 'GET',
-//         // data: {
-//         //     products: products,
-//         //     additionalPrompt: additionalPrompt,
-//         //     vegan: isVegan
-//         // },
-//         success: function (response) {
-//             console.log(response); // Log response to the console
-//         },
-//         error: function (xhr, status, error) {
-//             console.error(xhr.responseText); // Log error to the console
-//         }
-//     });
-//
-//     setTimeout(2000)
-//     // Trigger the modal here
-//     $('#prompt').modal('show');
-//
-// });

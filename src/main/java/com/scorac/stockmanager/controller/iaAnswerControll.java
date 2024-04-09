@@ -16,12 +16,25 @@ public class iaAnswerControll {
     };
     @GetMapping("/request")
     public String request(@RequestParam("selectedNamesSet") String[] selectedNamesSet) {
-        System.out.println(selectedNamesSet[0]);
-        // Tworzenie łańcucha znaków z danymi wejściowymi
-//        String productList = String.join(" ", products);
-//        String veganStr = vegan ? "vegan" : "non-vegan";
-//        String question = "Based on these products: " + productList + ", create me 3 " + veganStr + " meal proposals. Additionally: " + additionalPrompt;
-        String question = "Based on these products: " + ", create me 3 " +  " meal proposals. Additionally:  . Send respond as Array";
+
+        StringBuilder sb = new StringBuilder();
+
+        String additonal="";
+
+        for (int i = 0; i < selectedNamesSet.length; i++) {
+            String str = selectedNamesSet[i];
+            //last item (additional query)
+            if (i == selectedNamesSet.length - 1) {
+                additonal = str;
+            } else {
+                // Append other strings with a comma and space
+                sb.append(str).append(", ");
+            }
+        }
+
+        String productList = sb.toString();
+
+        String question = "Based on these products: " + productList +" create me 3 meal proposals. Additionally: "+ additonal +" . Send respond as Array";
 
         // Wywołanie metody chatClient.call z zbudowanym łańcuchem znaków
         return chatClient.call(question);

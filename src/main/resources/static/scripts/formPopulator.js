@@ -19,22 +19,8 @@ $(document).ready(function() {
 
             // Item is not in the list, add a new row
             var $row = $('<tr>');
-            $row.append('<td ><span>'+itemName+'</span></td><td><input type="hidden" name="productIds" value="'+ index+'"/></td><td><input name="quantities" type="number"></td>');
+            $row.append('<td ><span>'+itemName+'</span></td><td><input type="hidden" name="productIds" value="'+ index+'"/></td><td><input required name="quantities" type="number"></td>');
 
-            // var $nameInput = $('<input>').attr({
-            //     type: 'hidden',
-            //     name: 'products[' + position + '].name',
-            //     value: itemName.replace(/\s+/g, '_').toLowerCase()
-            // });
-            // $row.append($nameInput);
-            //
-            // var $quantityInput = $('<input>').attr({
-            //     type: 'number',
-            //     value: 0,
-            //     class: 'form-control',
-            //     name: 'products[' + position + '].quantity'
-            // });
-            // $row.append($('<td>').append('<span th:text="chuj">chuj ci w dupe</span>'));
 
             $('#targetTable tbody').append($row);
         }
