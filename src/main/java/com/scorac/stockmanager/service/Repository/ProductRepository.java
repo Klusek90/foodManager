@@ -13,5 +13,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 //    Optional<Product> findById(Long id);
 
-    boolean findOneByName(String username);
+    String findNameByRecipeId(Long recipeId);
+    String findNameByProductId(Long productId);
+
+
 }

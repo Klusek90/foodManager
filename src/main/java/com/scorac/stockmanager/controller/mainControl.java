@@ -25,13 +25,11 @@ public class mainControl {
     private DayEventService dayEventService;
     private SetupService setupService;
 
-    public mainControl(WeatherService weatherService, DayEventService dayEventService,
-                       StockService stockService, ProductService productService,
-                       SetupService setupService) {
-        this.weatherService = weatherService;
-        this.dayEventService = dayEventService;
+    public mainControl(StockService stockService, WeatherService weatherService, ProductService productService, DayEventService dayEventService, SetupService setupService) {
         this.stockService = stockService;
+        this.weatherService = weatherService;
         this.productService = productService;
+        this.dayEventService = dayEventService;
         this.setupService = setupService;
     }
 
