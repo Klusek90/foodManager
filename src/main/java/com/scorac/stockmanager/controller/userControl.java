@@ -1,6 +1,6 @@
 package com.scorac.stockmanager.controller;
 
-import com.scorac.stockmanager.model.TDO.UserDTO;
+import com.scorac.stockmanager.model.UserDTO;
 import com.scorac.stockmanager.model.Users;
 import com.scorac.stockmanager.service.Repository.UserRepository;
 import com.scorac.stockmanager.service.UserService;

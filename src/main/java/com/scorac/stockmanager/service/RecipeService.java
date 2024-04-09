@@ -27,5 +27,9 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+    public String findRecipeNameById(Long recipeId) {
+        return recipeRepository.findNameByRecipeId(recipeId);
+    }
+
 
 }

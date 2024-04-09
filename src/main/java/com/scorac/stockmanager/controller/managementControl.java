@@ -86,10 +86,10 @@ public class managementControl {
         return "redirect:/newrecipe";
     }
 
-    @GetMapping("/recipe/{id}")
-    public String singleRecie(@PathVariable Long id, Model model){
-        RecipeTDO recipe = recipeProductService.fullRecipe(id);
-        model.addAttribute("recipe" , recipe);
-        return "recipeSingle";
-    }
+//    @GetMapping("/recipe/{id}")
+//    public String singleRecie(@PathVariable Long id, Model model){
+//        RecipeTDO recipe = recipeProductService.fullRecipe(id);
+//        model.addAttribute("recipe" , recipe);
+//        return "recipeSingle";
+//    }
 }

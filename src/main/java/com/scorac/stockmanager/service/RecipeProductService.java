@@ -17,31 +17,32 @@ import java.util.List;
 public class RecipeProductService {
     @Autowired
     private RecipeProductRepository recipeProductRepository;
-    private RecipeRepository recipeRepository;
+    private RecipeService recipeService;
+    private ProductService productService;
 
-    private ProductRepository productRepository;
-
-    public RecipeProductService(RecipeProductRepository recipeProductRepository, RecipeRepository recipeRepository, ProductRepository productRepository) {
+    public RecipeProductService(RecipeProductRepository recipeProductRepository, RecipeService recipeService, ProductService productService) {
         this.recipeProductRepository = recipeProductRepository;
-        this.recipeRepository = recipeRepository;
-        this.productRepository = productRepository;
+        this.recipeService = recipeService;
+        this.productService = productService;
     }
 
     public void save(RecipeProduct recipeProduct){
         recipeProductRepository.save(recipeProduct);
     }
 
+
+
     public RecipeTDO fullRecipe(Long id){
-        List<RecipeProduct> recipeProduct = recipeProductRepository.findByRecipeId(id);
+        List<RecipeProduct> recipeProduct = recipeProductRepository.findAllByRecipe_RecipeId(id);
 
         RecipeTDO recipeTDO= new RecipeTDO();
-        recipeTDO.setName(recipeRepository.findNameByRecipeId(id));
+        recipeTDO.setName(recipeService.findRecipeNameById(id));
         List<ProductTDO> products= new ArrayList<>();
 
         for(int i =0; i < recipeProduct.size(); i++){
             ProductTDO productTDO = new ProductTDO();
             productTDO.setQuantity(recipeProduct.get(i).getQuantity());
-            productTDO.setName(productRepository.findNameByProductId(recipeProduct.get(i).getId()) );
+            productTDO.setName(productService.findProductName(recipeProduct.get(i).getId()) );
             products.add(productTDO);
         }
         recipeTDO.setProductList(products);
