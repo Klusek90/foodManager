@@ -57,13 +57,26 @@ const getData = async (url = '', params = {}) => {
 };
 
 $('#chatqueryButton').on('click', function (e) {
-    getData('/request', {
-        selectedNamesSet
-    }).then(data => {
-        $('#answer').text(data)
-        console.log(data);
-    });
-    $('#prompt').modal('show');
+    if (selectedNamesSet.length === 0) {
+        alert("you cannot send empty value")
+    }
+    else {
+        selectedNamesSet.push($('#additionalPrompt').val())
+
+        getData('/request', {
+            selectedNamesSet
+        }).then(data => {
+            $('#answer').text(data)
+            console.log(data);
+            $.each(data, function (index, value) {
+                // Create a paragraph, add class, set its text, and then append it to the div
+                $('<h6>').addClass('mt-2', 'bold').text("Recipe "+ (index+1)).appendTo('#respondWindow');
+                $('<p>').addClass('mb-3').text(value).appendTo('#respondWindow');
+            });
+        });
+
+        $('#prompt').modal('show');
+    }
 });
 
 
