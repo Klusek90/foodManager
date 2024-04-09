@@ -13,13 +13,21 @@ document.querySelectorAll('#expiresTable tbody tr').forEach(row => {
 
         // Check if the name is already selected
         if (!selectedNamesSet.includes(name)) {
-            // Add the name to the set and list
+            // Add the name to the set and table
             selectedNamesSet.push(name);
-            let selectedNamesList = document.getElementById('selectedNames');
-            let listItem = document.createElement('li');
-            listItem.textContent = name;
-            listItem.classList.add('list-group-item');
-            selectedNamesList.appendChild(listItem);
+            let selectedNamesTable = document.getElementById('selectedNamesTable');
+            let newRow = selectedNamesTable.insertRow();
+            let cell1 = newRow.insertCell(0);
+            let cell2 = newRow.insertCell(1);
+            cell1.textContent = name;
+            cell2.innerHTML = '<button class="btn btn-danger btn-sm">X</button>';
+            cell2.querySelector('button').addEventListener('click', function() {
+                let index = selectedNamesSet.indexOf(name);
+                if (index !== -1) {
+                    selectedNamesSet.splice(index, 1); // Remove name from set
+                }
+                selectedNamesTable.deleteRow(newRow.rowIndex); // Remove row from table
+            });
         } else {
             alert("Name '" + name + "' is already selected!");
         }

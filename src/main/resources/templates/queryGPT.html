@@ -14,11 +14,22 @@
                 <div class="col col-md-6 mt-3">
                     <div class="my-3">
                         <label for="additionalPrompt">Additional Prompt:</label></br>
-                        <textarea id="additionalPrompt" name="additionalPrompt" rows="2" class="w-100"></textarea>
+                        <textarea id="additionalPrompt" name="additionalPrompt" rows="2" class="w-100" maxlength="200"></textarea>
                     </div>
                 </div>
                 <div class="col col-md-3 mt-4 ml-1">
-                    <ul id="selectedNames" class="list-group"></ul>
+                    <table id="selectedNamesTable" class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Selected names will be dynamically added here -->
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
 
