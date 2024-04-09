@@ -1,5 +1,7 @@
 package com.scorac.stockmanager.service;
 
+import com.scorac.stockmanager.model.Prep;
+import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.model.Recipe;
 import com.scorac.stockmanager.model.RecipeProduct;
 import com.scorac.stockmanager.model.TDO.ProductTDO;
@@ -19,11 +21,13 @@ public class RecipeProductService {
     private RecipeProductRepository recipeProductRepository;
     private RecipeService recipeService;
     private ProductService productService;
+    private  PrepService prepService;
 
-    public RecipeProductService(RecipeProductRepository recipeProductRepository, RecipeService recipeService, ProductService productService) {
+    public RecipeProductService(RecipeProductRepository recipeProductRepository, RecipeService recipeService, ProductService productService, PrepService prepService) {
         this.recipeProductRepository = recipeProductRepository;
         this.recipeService = recipeService;
         this.productService = productService;
+        this.prepService = prepService;
     }
 
     public void save(RecipeProduct recipeProduct){
@@ -48,5 +52,22 @@ public class RecipeProductService {
         recipeTDO.setName(recipeProduct.get(0).getRecipe().getName());
         recipeTDO.setProductList(products);
         return recipeTDO;
+    }
+
+    public void updatestock(Long recipieid, int times){
+        List<RecipeProduct> recipeProduct = listforRecipe(recipieid);
+        for(int i =0; i< recipeProduct.size(); i++){
+            Product product=  recipeProduct.get(i).getProduct();
+            Prep prep = prepService.findPrepWithProductId(product.getId());
+            if(prep.getAmount() >0) {
+                int updateAmount = prep.getAmount() - (recipeProduct.get(i).getQuantity() * times);
+                if (updateAmount < 0) {
+                    prepService.deletePrep(prep.getId());
+                } else {
+                    prep.setAmount(updateAmount);
+                    prepService.save(prep);
+                }
+            }
+        }
     }
 }

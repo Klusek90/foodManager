@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,6 +25,7 @@ public class mainControl {
     private ProductService productService;
     private DayEventService dayEventService;
     private SetupService setupService;
+
 
     public mainControl(StockService stockService, WeatherService weatherService, ProductService productService, DayEventService dayEventService, SetupService setupService) {
         this.stockService = stockService;
@@ -108,4 +110,6 @@ public class mainControl {
     public String logout(){
         return "login";
     }
+
+
 }

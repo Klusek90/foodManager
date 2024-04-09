@@ -4,16 +4,17 @@ package com.scorac.stockmanager.controller;
 import com.scorac.stockmanager.model.Prep;
 import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.model.RecipeProduct;
+import com.scorac.stockmanager.model.Sale;
 import com.scorac.stockmanager.service.PrepService;
 import com.scorac.stockmanager.service.ProductService;
 import com.scorac.stockmanager.service.Repository.PrepRepository;
+import com.scorac.stockmanager.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -25,9 +26,12 @@ public class prepControl {
     private ProductService productService;
     private PrepService prepService;
 
-    public prepControl(ProductService productService, PrepService prepService) {
+    private SaleService saleService;
+
+    public prepControl(ProductService productService, PrepService prepService, SaleService saleService) {
         this.productService = productService;
         this.prepService = prepService;
+        this.saleService = saleService;
     }
 
     @GetMapping("/prep")
@@ -56,5 +60,16 @@ public class prepControl {
         }
         redirectAttributes.addFlashAttribute("message", "Product preparation status saved");
         return "redirect:/prep";
+    }
+
+    @GetMapping("/sale")
+    public String addSale() {
+        return "sale";
+    }
+    @PostMapping("/addsale")
+    public String addSale(Sale sale, RedirectAttributes redirectAttributes) {
+        saleService.save(sale);
+        redirectAttributes.addFlashAttribute("message", "Sale added");
+        return "redirect:/sale";
     }
 }

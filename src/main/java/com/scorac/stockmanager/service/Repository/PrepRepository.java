@@ -8,4 +8,5 @@ import java.util.List;
 public interface PrepRepository extends JpaRepository <Prep, Long> {
 
     List<Prep> findAll();
+    List<Prep> findAllByProductid(Long id);
 }
