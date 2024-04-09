@@ -38,14 +38,17 @@ public class PrepService {
      }
 
     public Prep findPrepWithSmallestDate(List<Prep> preps) {
-        // Sort the list based on productionDate in ascending order
-        Collections.sort(preps, (p1, p2) -> p1.getProductionDate().compareTo(p2.getProductionDate()));
+         Prep comaprePrep= new Prep();
 
         // Retrieve the first element if the list is not empty
         if (!preps.isEmpty()) {
-            return preps.get(0);
-        } else {
-            return new Prep();
+            comaprePrep =preps.get(0);
+            for (int i =0; i < preps.size();i++){
+                if(comaprePrep.getExpireDate().isAfter(preps.get(i).getExpireDate())){
+                    comaprePrep = preps.get(i);
+                }
+            }
         }
+        return comaprePrep;
     }
 }
