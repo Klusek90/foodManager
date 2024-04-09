@@ -85,7 +85,7 @@ public class managementControl {
     }
 
     @GetMapping("/recipe/{id}")
-    public String singleRecipe(@PathVariable Long id, Model model) {
+    public String singleRecipe(@PathVariable("id") Long id, Model model) {
         RecipeTDO recipe = recipeProductService.fullRecipe(id);
         model.addAttribute("recipe", recipe);
         return "recipeSingle";
