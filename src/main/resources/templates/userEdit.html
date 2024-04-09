@@ -7,10 +7,23 @@
     <div class="row bg">
         <div th:replace="~{fragments/sidebar :: sidebar('users')}"></div>
         <main class="col-md-8 px-md-3 mt-4">
-                <h1 class="col my-2">Edit User <span th:text="${user.username}"></span></h1>
-                <a href="/users/list" class="btn btn-secondary p-2 my-2">Back</a>
+            <h1 class="my-2">Edit User <span th:text="${user.username}"></span></h1>
+            <div class="row">
+                   <div class="col col-md-6 pt-3">
+                     <a href="/users/list" class="btn btn-secondary">Back</a>
+                   </div>
+                    <div class="col col-md-6">
+                        <form th:action="@{/users/delete/{username}(username=*{username})}" method="post">
+                            <button type="submit" class="btn btn-danger" id="deleteUser">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+            </div>
                 <div class="row py-2">
-<!--                    <div id="editUserForm">-->
                     <form th:action="@{/users/updateuser}" th:object="${user}" method="post" class="container mt-3" >
                     <div>
                         <input th:field="*{username}" type="hidden" name="username" class="textfield">
@@ -23,17 +36,17 @@
 
                     <div>
                         <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" th:field="*{name}" class="form-control textfield">
+                        <input type="text" id="name" name="name" th:field="*{name}" class="form-control textfield" required>
                     </div>
 
                     <div >
                         <label for="surname">Surname:</label>
-                        <input type="text" id="surname" name="surname" th:field="*{surname}" class="form-control textfield">
+                        <input type="text" id="surname" name="surname" th:field="*{surname}" class="form-control textfield" required>
                     </div>
 
                     <div >
                         <label for="position">Position:</label>
-                        <input type="text" id="position" name="position" th:field="*{position}" class="form-control textfield">
+                        <input type="text" id="position" name="position" th:field="*{position}" class="form-control textfield" required>
                     </div>
 
                     <div>
@@ -47,15 +60,9 @@
                     <div>
                         <input type="submit" value="Update" class="btn btn-primary" id="updateUser">
                     </div>
-                </form>
 
-                <div class="text-end">
-                    <form th:action="@{/users/delete/{username}(username=*{username})}" method="post">
-                        <button type="submit" class="btn btn-danger" id="deleteUser">Delete User</button>
-                    </form>
+                </form>
                 </div>
-                </div>
-<!--                </div>-->
             </main>
             <div class="col"></div>
         </div>

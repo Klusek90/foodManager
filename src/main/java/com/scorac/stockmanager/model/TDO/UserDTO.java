@@ -1,4 +1,4 @@
-package com.scorac.stockmanager.model;
+package com.scorac.stockmanager.model.TDO;
 
 import lombok.Data;
 

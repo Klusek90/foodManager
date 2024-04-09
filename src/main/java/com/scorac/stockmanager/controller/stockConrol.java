@@ -42,24 +42,11 @@ public class stockConrol {
         return stock;
     }
 
-//    @PostMapping("/deleteExpire")
-//    public String deleteExpireProduct(@RequestParam Long productId, HttpServletRequest request) {
-//        System.out.println("Received productId: " + productId);
-//
-//        String currentUrl = request.getRequestURI();
-//        // Return to the current page
-//        return  "redirect:" + currentUrl;
-//    }
-
     @PostMapping("/deleteExpire")
     public String handleDeleteExpire(@RequestParam("productId") Long productId) {
         // Handle the form submission
         System.out.println("Deleting product with ID: " + productId);
         prepService.deletePrep(productId);
-
-
-
-
         return "redirect:/index";
     }
 }

@@ -1,6 +1,6 @@
 package com.scorac.stockmanager.service;
 
-import com.scorac.stockmanager.model.UserDTO;
+import com.scorac.stockmanager.model.TDO.UserDTO;
 import com.scorac.stockmanager.model.Users;
 import com.scorac.stockmanager.service.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

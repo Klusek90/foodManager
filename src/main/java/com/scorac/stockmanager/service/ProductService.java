@@ -59,4 +59,9 @@ public class ProductService {
         Optional<Product> product = productRepository.findById(id);
         return product;
     }
+
+    public   String findProductName(Long id){
+        String name= findProductName(id);
+        return name;
+    }
 }

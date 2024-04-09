@@ -3,18 +3,18 @@ package com.scorac.stockmanager.controller;
 import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.model.Recipe;
 import com.scorac.stockmanager.model.RecipeProduct;
+import com.scorac.stockmanager.model.TDO.ProductTDO;
+import com.scorac.stockmanager.model.TDO.RecipeTDO;
 import com.scorac.stockmanager.service.ProductService;
 import com.scorac.stockmanager.service.RecipeProductService;
 import com.scorac.stockmanager.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,37 +34,38 @@ public class managementControl {
 
 
     @GetMapping("/recipes")
-    public String recipes(Model model){
-        List<Recipe> recipe= recipeService.getAll();
+    public String recipes(Model model) {
+        List<Recipe> recipe = recipeService.getAll();
         model.addAttribute("recipe", recipe);
         return "recipes";
     }
 
 
     @GetMapping("/newproduct")
-    public String newProduct(Model model){
-        List<String> productList= productService.productSearch();
+    public String newProduct(Model model) {
+        List<String> productList = productService.productSearch();
         model.addAttribute("itemsName", productList);
         return "recipesNewProduct";
     }
 
     @PostMapping("/addProduct")
     public String addProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-        String respond =productService.save(product);
+        String respond = productService.save(product);
         redirectAttributes.addFlashAttribute("message", respond);
         return "redirect:/newproduct"; // Redirect to prevent duplicate submissions
     }
 
     @GetMapping("/newrecipe")
-    public String addRecipes(Model model){
+    public String addRecipes(Model model) {
 //        List<String> productList= productService.productSearch();
         List<Product> whole = productService.getAllIngredients();
-        List<String> productNames= productService.productSearch();
+        List<String> productNames = productService.productSearch();
         model.addAttribute("itemsName", productNames);
         model.addAttribute("recipe", new Recipe());
         model.addAttribute("products", whole);
         return "recipesAdd";
     }
+
     @PostMapping("/addRecipe")
     public String addRecipe(@ModelAttribute Recipe recipe, @RequestParam(value = "productIds") List<Long> productIds, @RequestParam(value = "quantities") List<Integer> quantities, RedirectAttributes redirectAttributes) {
         // Retrieve products by their IDs
@@ -86,5 +87,16 @@ public class managementControl {
 
         redirectAttributes.addFlashAttribute("message", "New recipe added");
         return "redirect:/newrecipe";
+    }
+
+    @GetMapping("/recipe/{id}")
+    public String singleRecipe(@PathVariable Long id, Model model) {
+        RecipeTDO recipe = recipeProductService.fullRecipe(id);
+//        List<ProductTDO> product= new ArrayList<>();
+//        RecipeTDO recipe = new RecipeTDO("name", product);
+
+        model.addAttribute("recipe", recipe);
+
+        return "recipeSingle";
     }
 }
