@@ -1,5 +1,5 @@
-<div class="col" th:fragment="expireTable">
-  <h4 class="py-2">Product near expire date:</h4>
+<div class="col" th:fragment="expireTable(tableheader,value)">
+  <h4 class="py-2 back" th:text="${tableheader}">Product near expire date:</h4>
   <table id="expiresTable">
     <thead>
     <tr>
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     <!-- Iterate over the list of expires -->
-    <tr th:each="expiring : ${expires}" class="p-3 border-bottom">
+    <tr th:each="expiring : ${expires}" class="border-bottom back">
       <!-- Display the properties of each expiring object -->
       <td th:text="${expiring.name}"></td>
       <td th:text="${expiring.productid}"></td>
@@ -20,7 +20,7 @@
       <td th:text="${expiring.expire}"></td>
       <td th:text="${expiring.daysLeft}"></td>
 
-      <td>
+      <td th:if="${value eq 'true'}">
         <form th:action="@{/stock/deleteExpire}" method="post">
           <input type="hidden" name="productId" th:value="${expiring.prepid}">
           <button class="btn btn-danger" type="submit">

@@ -164,6 +164,11 @@ table, card{
     text-decoration: none;
 }
 
+.back{
+    background-color: rgba(255, 252, 239, 0.5)
+
+}
+
 @media (max-width: 767.98px) {
     .sidebar {
         width: 100vw;
