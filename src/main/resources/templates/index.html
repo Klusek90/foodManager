@@ -56,7 +56,13 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col">
-                        <p>If you don't have a plan but you dont want to waste it and check for <a href="/chatquery">Ideas</a></p>
+                        <div th:if="${expires.isEmpty()}">
+                            <p>There are items in stock that are about to expire</p>
+                        </div>
+                        <div th:if="${ not expires.isEmpty()}">
+                            <p>If you don't have a plan but you dont want to waste it and check for <a href="/chatquery">Ideas</a></p>
+                        </div>
+
                     </div>
                 </div>
             </main>

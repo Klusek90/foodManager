@@ -13,16 +13,19 @@ public class Stock {
     private LocalDate productiondate;
     private LocalDate expireDate;
 
-    public Stock(String name, String type, int amount, LocalDate productiondate, LocalDate expireDate, int daysLeft) {
+    private Long productid;
+    private int daysLeft;
+
+
+    public Stock(String name, String type, int amount, LocalDate productiondate, LocalDate expireDate, int daysLeft, Long productid) {
         this.name = name;
         this.type = type;
         this.amount = amount;
         this.productiondate = productiondate;
         this.expireDate = expireDate;
         this.daysLeft = daysLeft;
+        this.productid = productid;
     }
-
-    private int daysLeft;
 
 
     public Stock() {

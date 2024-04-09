@@ -18,6 +18,8 @@ public class Expiring {
 
     private  LocalDate expire;
 
+    private Long prepid;
+
     public Expiring() {
     }
 

@@ -60,6 +60,7 @@ public class StockService {
                     Stock singlestock = new Stock();
                     Prep prep = livePrepared.get(i);
                     Product product = productService.getSingleProduct(prep.getProductid()).get();
+                    singlestock.setProductid(product.getId());
                     singlestock.setName(product.getName());
                     singlestock.setType(product.getType());
                     singlestock.setExpireDate(prep.getExpireDate());
@@ -103,6 +104,7 @@ public class StockService {
                     //calculate days
                     long differenceInDays = ChronoUnit.DAYS.between(expiring.getExpire(), today);
                     int daysleft = (int) differenceInDays;
+                    expiring.setPrepid(prep.getId());
                     expiring.setName(product.getName());
                     expiring.setProductid(product.getId());
                     expirings.add(expiring);
