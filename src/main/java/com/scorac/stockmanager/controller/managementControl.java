@@ -22,7 +22,6 @@ public class managementControl {
     @Autowired
     private ProductService productService;
     private RecipeService recipeService;
-
     private RecipeProductService recipeProductService;
 
 
@@ -32,14 +31,12 @@ public class managementControl {
         this.recipeProductService = recipeProductService;
     }
 
-
     @GetMapping("/recipes")
     public String recipes(Model model) {
         List<Recipe> recipe = recipeService.getAll();
         model.addAttribute("recipe", recipe);
         return "recipes";
     }
-
 
     @GetMapping("/newproduct")
     public String newProduct(Model model) {
@@ -57,7 +54,6 @@ public class managementControl {
 
     @GetMapping("/newrecipe")
     public String addRecipes(Model model) {
-//        List<String> productList= productService.productSearch();
         List<Product> whole = productService.getAllIngredients();
         List<String> productNames = productService.productSearch();
         model.addAttribute("itemsName", productNames);
@@ -84,7 +80,6 @@ public class managementControl {
             recipeProduct.setRecipe(recipe); // Set the recipe for the recipe product
             recipeProductService.save(recipeProduct);
         }
-
         redirectAttributes.addFlashAttribute("message", "New recipe added");
         return "redirect:/newrecipe";
     }
@@ -92,11 +87,7 @@ public class managementControl {
     @GetMapping("/recipe/{id}")
     public String singleRecipe(@PathVariable Long id, Model model) {
         RecipeTDO recipe = recipeProductService.fullRecipe(id);
-//        List<ProductTDO> product= new ArrayList<>();
-//        RecipeTDO recipe = new RecipeTDO("name", product);
-
         model.addAttribute("recipe", recipe);
-
         return "recipeSingle";
     }
 }

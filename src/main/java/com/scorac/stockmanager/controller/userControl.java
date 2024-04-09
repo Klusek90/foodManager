@@ -17,7 +17,6 @@ public class userControl {
 
     @Autowired
     private UserRepository userRepository;
-
     private final UserService userService;
 
     public userControl(UserService userService) {

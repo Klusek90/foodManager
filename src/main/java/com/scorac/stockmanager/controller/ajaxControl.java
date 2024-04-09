@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class ajaxControl {
-
     @GetMapping("/greenboxbooking")
     public ResponseEntity<Map<String, String>> getTestValues() {
         Map<String, String> response = new HashMap<>();

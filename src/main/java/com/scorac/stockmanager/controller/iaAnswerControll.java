@@ -8,7 +8,6 @@ import java.util.List;
 @RestController
 public class iaAnswerControll {
 
-
     private final ChatClient chatClient;
 
     public iaAnswerControll(ChatClient chatClient){

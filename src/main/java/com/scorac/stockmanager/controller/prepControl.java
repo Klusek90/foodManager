@@ -1,7 +1,6 @@
 package com.scorac.stockmanager.controller;
 
-//import com.scorac.stockmanager.model.Order;
-//import com.scorac.stockmanager.model.OrderProduct;
+
 import com.scorac.stockmanager.model.Prep;
 import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.model.RecipeProduct;
@@ -55,7 +54,6 @@ public class prepControl {
             prepProduct.setExpireDate(timestamp.plusDays(product.getLifeLength()));
             prepService.save(prepProduct);
         }
-
         redirectAttributes.addFlashAttribute("message", "Product preparation status saved");
         return "redirect:/prep";
     }

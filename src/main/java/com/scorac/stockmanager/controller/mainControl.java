@@ -43,17 +43,12 @@ public class mainControl {
     public String homePage(Model model){
         LocalDate today = LocalDate.now();
         List<Expiring> expires = stockService.expireProducts();
-        //test
-//        expires.add(new Expiring("name", 2L, 2, today, today));
         model.addAttribute("expires" , expires);
         Weather weather = weatherService.getWeather("Rugby"); // Example city
         model.addAttribute("weather", weather);
 
         return "index";
     }
-
-
-
 
     @GetMapping("/chatquery")
     public String queryChat(Model model){
@@ -62,8 +57,6 @@ public class mainControl {
         model.addAttribute("expires" , expires);
         return "queryGPT";
     }
-
-
 
     @GetMapping("/reports")
     public String reports(){
@@ -115,7 +108,4 @@ public class mainControl {
     public String logout(){
         return "login";
     }
-
-
-
 }
