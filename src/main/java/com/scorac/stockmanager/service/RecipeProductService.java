@@ -61,9 +61,23 @@ public class RecipeProductService {
             Prep prep = prepService.findPrepWithProductId(product.getId());
             if(prep.getAmount() >0) {
                 int updateAmount = prep.getAmount() - (recipeProduct.get(i).getQuantity() * times);
-                if (updateAmount < 0) {
+                if (updateAmount == 0) {
                     prepService.deletePrep(prep.getId());
-                } else {
+                } else if( updateAmount < 0) {
+                    prepService.deletePrep(prep.getId());
+                    //convert from - to +
+                    updateAmount =Math.abs(updateAmount);
+                    prep = prepService.findPrepWithProductId(product.getId());
+                    updateAmount = prep.getAmount()- updateAmount;
+
+                    if(updateAmount > 0){
+                        prep.setAmount(updateAmount);
+                        prepService.save(prep);
+                    }else {
+                        prepService.deletePrep(prep.getId());
+                    }
+
+                }else{
                     prep.setAmount(updateAmount);
                     prepService.save(prep);
                 }
