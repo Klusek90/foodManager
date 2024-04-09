@@ -12,12 +12,9 @@ public class DayEventService {
 
     @Autowired
     private DayEventRepository dayEventRepository;
-
-
     public void save(DayEvent dayEvent){
         dayEventRepository.save(dayEvent);
     }
-
     public List findAllData(){
         List <DayEvent> all = dayEventRepository.findAll();
         return  all;

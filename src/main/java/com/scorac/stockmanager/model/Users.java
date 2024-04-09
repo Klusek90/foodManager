@@ -13,17 +13,13 @@ import java.util.List;
 @Data
 @Table(name="users")
 public class Users implements UserDetails {
-
     @Id
     private String username;
-
     private String password;
     private String name;
     private String surname;
     private String position;
-
     private String role;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

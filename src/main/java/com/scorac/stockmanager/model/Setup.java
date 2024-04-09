@@ -9,7 +9,6 @@ import lombok.Data;
 @Data
 @Table(name="setup")
 public class Setup {
-
     @Id
     private String customer;
     private String restaurantName;

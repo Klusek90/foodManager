@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 @Data
 public class Stock {
-
     private String name;
     private String type;
     private int amount;
@@ -15,7 +14,6 @@ public class Stock {
 
     private Long productid;
     private int daysLeft;
-
 
     public Stock(String name, String type, int amount, LocalDate productiondate, LocalDate expireDate, int daysLeft, Long productid) {
         this.name = name;
@@ -26,7 +24,6 @@ public class Stock {
         this.daysLeft = daysLeft;
         this.productid = productid;
     }
-
 
     public Stock() {
     }

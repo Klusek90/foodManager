@@ -13,12 +13,10 @@ public class PrepService {
 
     @Autowired
     private PrepRepository prepRepository;
-
      public List<Prep> findAll(){
             List<Prep> allprep = prepRepository.findAll();
          return allprep;
      }
-
      public void deletePrep(Long id){
          prepRepository.deleteById(id);
      }
@@ -26,6 +24,5 @@ public class PrepService {
      public void save(Prep prep){
         prepRepository.save(prep);
      }
-
 
 }

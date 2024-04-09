@@ -6,10 +6,6 @@ import java.time.LocalDate;
 
 @Data
 public class Expiring {
-
-
-
-
     private String name;
     private Long productid;
     private int daysLeft;

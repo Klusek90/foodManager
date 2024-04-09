@@ -10,7 +10,6 @@ import java.util.Set;
 @Data
 @Table(name="recipe")
 public class Recipe {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="recipeid", nullable = false)

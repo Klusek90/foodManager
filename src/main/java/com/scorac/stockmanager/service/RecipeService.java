@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class RecipeService {
-
     @Autowired
     private RecipeRepository recipeRepository;
 
@@ -22,7 +21,6 @@ public class RecipeService {
         List<Recipe> all = recipeRepository.findAll();
         return all;
     }
-
     public void save(Recipe recipe){
         recipeRepository.save(recipe);
     }
@@ -30,6 +28,5 @@ public class RecipeService {
     public String findRecipeNameById(Long recipeId) {
         return recipeRepository.findNameByRecipeId(recipeId);
     }
-
 
 }

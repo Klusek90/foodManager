@@ -11,7 +11,6 @@ import java.util.Set;
 @Data
 @Table(name="product")
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)
