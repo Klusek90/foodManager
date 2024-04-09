@@ -9,4 +9,12 @@ import java.util.List;
 public class RecipeTDO {
     private String name;
     private List<ProductTDO> productList;
+
+    public RecipeTDO(String name, List<ProductTDO> productList) {
+        this.name = name;
+        this.productList = productList;
+    }
+
+    public RecipeTDO() {
+    }
 }

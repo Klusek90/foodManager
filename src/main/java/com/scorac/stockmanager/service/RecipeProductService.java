@@ -30,21 +30,22 @@ public class RecipeProductService {
         recipeProductRepository.save(recipeProduct);
     }
 
-
+    public List<RecipeProduct> listforRecipe(Long id){
+        return recipeProductRepository.findAllByRecipe_RecipeId(id);
+    }
 
     public RecipeTDO fullRecipe(Long id){
-        List<RecipeProduct> recipeProduct = recipeProductRepository.findAllByRecipe_RecipeId(id);
-
+        List<RecipeProduct> recipeProduct = listforRecipe(id);
         RecipeTDO recipeTDO= new RecipeTDO();
-        recipeTDO.setName(recipeService.findRecipeNameById(id));
         List<ProductTDO> products= new ArrayList<>();
 
         for(int i =0; i < recipeProduct.size(); i++){
             ProductTDO productTDO = new ProductTDO();
             productTDO.setQuantity(recipeProduct.get(i).getQuantity());
-            productTDO.setName(productService.findProductName(recipeProduct.get(i).getId()) );
+            productTDO.setName(recipeProduct.get(i).getProduct().getName());
             products.add(productTDO);
         }
+        recipeTDO.setName(recipeProduct.get(0).getRecipe().getName());
         recipeTDO.setProductList(products);
         return recipeTDO;
     }
