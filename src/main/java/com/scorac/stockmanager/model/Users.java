@@ -15,9 +15,7 @@ import java.util.List;
 @Table(name="users")
 public class Users implements UserDetails {
     @Id
-    @Size(min=6, message="Minimum length is 6 characters")
     private String username;
-    @Size(min=6, message="Minimum length is 6 characters")
     private String password;
     private String name;
     private String surname;

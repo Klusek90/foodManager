@@ -84,6 +84,7 @@ public class mainControl {
     @PostMapping("/updateSetup")
     public String updateSetup(@ModelAttribute Setup setup, RedirectAttributes redirectAttributes) {
         setupService.updateSetup(setup);
+
         redirectAttributes.addFlashAttribute("message", "Setup Updated");
         return "redirect:/setup";
     }

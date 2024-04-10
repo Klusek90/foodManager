@@ -13,7 +13,8 @@
                 </div>
                 <div class="col col-md-1 blank"></div>
                 <div class="col col-md-6 mt-5 ml-4">
-                    <div th:if="${message}" th:text="${message}"></div>
+                    <h6><div th:if="${message}" th:text="${message}" style="color:green; text-align: center;"></div></h6>
+                    <h6><div th:if="${error}" th:text="${error}" style="color:red; text-align: center;"></div></h6>
                     <div class="showform">
                     <form action="#" th:action="@{/addPrep}" th:object="${prep}" method="post">
                         <div class="longlist">

@@ -46,7 +46,11 @@ public class managementControl {
     @PostMapping("/addProduct")
     public String addProduct(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
         String respond = productService.save(product);
-        redirectAttributes.addFlashAttribute("message", respond);
+        if(respond.contains("Faild")){
+            redirectAttributes.addFlashAttribute("message", respond);
+        }else {
+            redirectAttributes.addFlashAttribute("message", respond);
+        }
         return "redirect:/newproduct"; // Redirect to prevent duplicate submissions
     }
 
