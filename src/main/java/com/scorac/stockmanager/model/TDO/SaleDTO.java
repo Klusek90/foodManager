@@ -11,4 +11,7 @@ public class SaleDTO {
         this.multiplicity = multiplicity;
         this.recipeid = recipeid;
     }
+
+    public SaleDTO() {
+    }
 }

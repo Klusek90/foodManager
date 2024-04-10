@@ -7,7 +7,18 @@
     <div class="row bg">
         <div th:replace="~{fragments/sidebar :: sidebar('reports')}"></div>
         <main class="col-md-8 px-md-3 mt-4">
-            <canvas id="salesChart" width="400" height="400"></canvas>
+            <div class="row">
+                <div class="col">
+                    <button id="monthBtn" class="btn-primary btn m-1 p-1 chartbtn">Month</button>
+                    <button id="weekBtn" class="btn-primary btn m-1 p-1 chartbtn">Week</button>
+                    <button id="dayBtn" class="btn-primary btn m-1 p-1 chartbtn">Day</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+                </div>
+            </div>
         </main>
         <div class="col"></div>
     </div>
@@ -15,40 +26,8 @@
 
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 <script th:src="@{/scripts/formPopulator.js}"></script>
+<script th:src="@{/scripts/saleChart.js}"></script>
 
-<script th:inline="javascript">
-    /* Retrieve sales data from model and prepare it for the chart */
-    var salesData = /*[[${sales}]]*/;
-
-    // Extracting dates and multiplicities for chart labels and data
-    var dates = salesData.map(function(sale) { return sale.date; });
-    var multiplicities = salesData.map(function(sale) { return sale.multiplicity; });
-
-    // Create chart
-    var ctx = document.getElementById('salesChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: dates,
-            datasets: [{
-                label: 'Sales',
-                data: multiplicities,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-</script>
 </body>
 
 </html>
