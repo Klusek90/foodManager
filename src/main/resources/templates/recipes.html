@@ -17,9 +17,9 @@
                 <div class="col mt-5">
                     <input type="text" id="searchInput" class="form-control mb-3 textfield" placeholder="Search for recipe...">
                     <h6>Recipes:</h6>
-                    <ul class="list-group">
+                    <ul id="itemsList" class="list-group">
                         <!-- Iterate over the list of recipes -->
-                        <li th:each="recipe : ${recipe}" class="list-group-item p-4 m-2">
+                        <li th:each="recipe : ${recipe}" class="list-group-item p-4 m-1">
                             <!-- Display the name of each recipe -->
                             <a class="recipelink" th:href="@{'/recipe/' + ${recipe.recipeId}}" th:text="${recipe.name}"></a>
                         </li>
@@ -35,15 +35,25 @@
 </div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
 <script>
-    // Capture click event on recipe names
-    $('.list-group').on('click', 'li', function() {
-        // Extract recipe ID from the ID attribute
-        var recipeId = $(this).attr('id').split('-')[1];
-        // Construct the URL with the recipe ID
-        var url = 'recipe/' + recipeId;
-        // Navigate user to the URL
-        window.location.href = url;
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById('searchInput');
+        const recipeList = document.getElementById('recipeList').getElementsByTagName('li');
+
+        searchInput.addEventListener('keyup', function() {
+            const searchText = searchInput.value.toLowerCase();
+
+            // Iterate over the recipe list and filter
+            for (let i = 0; i < recipeList.length; i++) {
+                const recipeLink = recipeList[i].getElementsByClassName('recipelink')[0];
+                const recipeName = recipeLink.textContent || recipeLink.innerText;
+                if (recipeName.toLowerCase().indexOf(searchText) > -1) {
+                    recipeList[i].style.display = "";
+                } else {
+                    recipeList[i].style.display = "none";
+                }
+            }
         });
+    });
 </script>
 </body>
 </html>

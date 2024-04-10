@@ -16,6 +16,7 @@ public class Waste {
     @Column(name="id", nullable = false)
     private Long id;
     private Date date;
+    private int quantity;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

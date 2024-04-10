@@ -13,7 +13,7 @@
                     </div>
                     <div class="col col-md-1 blank"></div>
                     <div class="col col-md-6 mt-5 ml-4 showform">
-                        <form th:action="@{/submit-form}" method="post">
+                        <form th:action="@{/submit-form}" th:object="waste" method="post">
                             <div class="longlist">
                                 <table id="targetTable">
                                     <thead>
@@ -38,23 +38,6 @@
         </div>
     </div>
 
-<div class="modal fade" id="waste" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content"> <!-- Corrected class name -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal-title">Waste report</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consectetur ducimus eaque eum facere in iste perferendis possimus repellat sit!</p>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </div>
-</div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
     <script th:src="@{/scripts/formPopulator.js}"></script>
 </body>

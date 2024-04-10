@@ -32,17 +32,21 @@ public class RecipeProductService {
         List<RecipeProduct> recipeProduct = listforRecipe(id);
         RecipeTDO recipeTDO= new RecipeTDO();
         List<ProductTDO> products= new ArrayList<>();
-
-        for(int i =0; i < recipeProduct.size(); i++){
-            ProductTDO productTDO = new ProductTDO();
-            productTDO.setQuantity(recipeProduct.get(i).getQuantity());
-            productTDO.setName(recipeProduct.get(i).getProduct().getName());
-            productTDO.setProductid(recipeProduct.get(i).getProduct().getId());
-            products.add(productTDO);
+        if( recipeProduct.size()>0){
+            for(int i =0; i < recipeProduct.size(); i++){
+                ProductTDO productTDO = new ProductTDO();
+                productTDO.setQuantity(recipeProduct.get(i).getQuantity());
+                productTDO.setName(recipeProduct.get(i).getProduct().getName());
+                productTDO.setProductid(recipeProduct.get(i).getProduct().getId());
+                products.add(productTDO);
+            }
+            recipeTDO.setName(recipeProduct.get(0).getRecipe().getName());
+            recipeTDO.setProductList(products);
+            return recipeTDO;
         }
-        recipeTDO.setName(recipeProduct.get(0).getRecipe().getName());
-        recipeTDO.setProductList(products);
-        return recipeTDO;
+        else {
+            return recipeTDO;
+        }
     }
 
 

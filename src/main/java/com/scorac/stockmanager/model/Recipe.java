@@ -15,5 +15,6 @@ public class Recipe {
     @Column(name ="recipeid", nullable = false)
     private Long recipeId;
     private String name;
+    private float price;
 
 }
