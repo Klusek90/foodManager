@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('SCORAC Sale Report')}"/>
+<body>
+<div th:replace="~{fragments/logoBar :: logoBar('Sale Report')}"></div>
+<div class="container-fluid">
+    <div class="row bg">
+        <div th:replace="~{fragments/sidebar :: sidebar('reports')}"></div>
+        <main class="col-md-8 px-md-3 mt-4">
+            <canvas id="salesChart" width="400" height="400"></canvas>
+        </main>
+        <div class="col"></div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+<script th:src="@{/scripts/formPopulator.js}"></script>
+
+<script th:inline="javascript">
+    /* Retrieve sales data from model and prepare it for the chart */
+    var salesData = /*[[${sales}]]*/;
+
+    // Extracting dates and multiplicities for chart labels and data
+    var dates = salesData.map(function(sale) { return sale.date; });
+    var multiplicities = salesData.map(function(sale) { return sale.multiplicity; });
+
+    // Create chart
+    var ctx = document.getElementById('salesChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Sales',
+                data: multiplicities,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+</body>
+
+</html>

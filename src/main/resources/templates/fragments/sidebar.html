@@ -22,7 +22,7 @@
           <a class="nav-link" href="/users/list">Users</a>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeMenu == 'reports' ? 'active' : ''}">
-          <a class="nav-link" href="/reports">Reports</a>
+          <a class="nav-link" href="/reports/main">Reports</a>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeMenu == 'setup' ? 'active' : ''}">
           <a class="nav-link" href="/setup">Setup</a>

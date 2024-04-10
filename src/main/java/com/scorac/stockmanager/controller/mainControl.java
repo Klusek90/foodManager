@@ -60,12 +60,6 @@ public class mainControl {
         return "queryGPT";
     }
 
-    @GetMapping("/reports")
-    public String reports(){
-        return "reports";
-    }
-
-    //
     @GetMapping("/getTestValues")
     public ResponseEntity<Map<String, String>> getTestValues() {
         Map<String, String> response = new HashMap<>();

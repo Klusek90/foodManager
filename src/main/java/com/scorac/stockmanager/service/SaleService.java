@@ -23,10 +23,17 @@ public class SaleService {
     private static final Logger logger = LoggerFactory.getLogger(SaleService.class);
 
 
+
+
     public SaleService(PrepService prepService, RecipeService recipeService, RecipeProductService recipeProductService) {
         this.prepService = prepService;
         this.recipeService = recipeService;
         this.recipeProductService = recipeProductService;
+    }
+
+    public List<Sale> findAll(){
+        List<Sale> all = saleRepository.findAll();
+        return all;
     }
 
     public String save(SaleDTO saleTDO){
@@ -45,6 +52,8 @@ public class SaleService {
            sale.setDate(timestamp);
            sale.setMultiplicity(saleTDO.getMultiplicity());
            sale.setRecipe(recipe);
+           saleRepository.save(sale);
+
            logger.info("Sale added");
            return "Sale processed";
 
