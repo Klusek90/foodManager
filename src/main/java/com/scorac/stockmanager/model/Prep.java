@@ -15,6 +15,8 @@ public class Prep {
     private LocalDate productionDate;
     private LocalDate expireDate;
     private int amount;
-    private Long productid;
+    @ManyToOne
+    @JoinColumn(name = "product")
+    private Product product;
 
 }

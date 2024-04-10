@@ -1,6 +1,7 @@
 package com.scorac.stockmanager.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,7 +15,9 @@ import java.util.List;
 @Table(name="users")
 public class Users implements UserDetails {
     @Id
+    @Size(min=6, message="Minimum length is 6 characters")
     private String username;
+    @Size(min=6, message="Minimum length is 6 characters")
     private String password;
     private String name;
     private String surname;

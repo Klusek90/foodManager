@@ -13,10 +13,6 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
 
     public List<Product> findAll() {
         List<Product> all = productRepository.findAll();
@@ -55,8 +51,9 @@ public class ProductService {
         return productRepository.findAllById(productIds);
     }
 
-    public Optional<Product> getSingleProduct(Long id){
-        Optional<Product> product = productRepository.findById(id);
+    public Product getSingleProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Product not found with id: " + id));
         return product;
     }
 

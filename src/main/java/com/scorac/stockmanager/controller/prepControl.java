@@ -5,6 +5,7 @@ import com.scorac.stockmanager.model.Prep;
 import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.model.RecipeProduct;
 import com.scorac.stockmanager.model.Sale;
+import com.scorac.stockmanager.model.TDO.SaleTDO;
 import com.scorac.stockmanager.service.PrepService;
 import com.scorac.stockmanager.service.ProductService;
 import com.scorac.stockmanager.service.Repository.PrepRepository;
@@ -51,12 +52,12 @@ public class prepControl {
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             Integer amount = quantities.get(i);
-            Prep prepProduct =  new Prep();
-            prepProduct.setProductid(product.getId());
-            prepProduct.setAmount(amount);
-            prepProduct.setProductionDate(timestamp);
-            prepProduct.setExpireDate(timestamp.plusDays(product.getLifeLength()));
-            prepService.save(prepProduct);
+            Prep prepared =  new Prep();
+            prepared.setAmount(amount);
+            prepared.setProductionDate(timestamp);
+            prepared.setExpireDate(timestamp.plusDays(product.getLifeLength()));
+            prepared.setProduct(product);
+            prepService.save(prepared);
         }
         redirectAttributes.addFlashAttribute("message", "Product preparation status saved");
         return "redirect:/prep";
@@ -67,9 +68,14 @@ public class prepControl {
         return "sale";
     }
     @PostMapping("/addsale")
-    public String addSale(Sale sale, RedirectAttributes redirectAttributes) {
-        saleService.save(sale);
-        redirectAttributes.addFlashAttribute("message", "Sale added");
+    public String addSale(SaleTDO sale, RedirectAttributes redirectAttributes) {
+        String respond=  saleService.save(sale);
+        if(respond.contains("Faild")){
+            redirectAttributes.addFlashAttribute("error", respond);
+        }else{
+            redirectAttributes.addFlashAttribute("message", respond);
+        }
+
         return "redirect:/sale";
     }
 }

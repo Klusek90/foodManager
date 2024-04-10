@@ -12,6 +12,4 @@ import java.util.Optional;
 public interface StockRepository  extends JpaRepository<Product, Long> {
 
     List<Product> findAll();
-    Product findByName(String name);
-    Product findOneById(Long id);
 }

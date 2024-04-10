@@ -29,4 +29,8 @@ public class RecipeService {
         return recipeRepository.findNameByRecipeId(recipeId);
     }
 
+    public Recipe findRecipe(Long id){
+        return recipeRepository.findByRecipeId(id);
+    }
+
 }

@@ -1,12 +1,12 @@
 package com.scorac.stockmanager.service;
 
 import com.scorac.stockmanager.model.Prep;
+import com.scorac.stockmanager.model.Product;
+import com.scorac.stockmanager.model.TDO.ProductTDO;
 import com.scorac.stockmanager.service.Repository.PrepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +15,10 @@ public class PrepService {
 
     @Autowired
     private PrepRepository prepRepository;
-     public List<Prep> findAll(){
+//    private ProductService productService;
+
+
+    public List<Prep> findAll(){
             List<Prep> allprep = prepRepository.findAll();
          return allprep;
      }
@@ -27,15 +30,18 @@ public class PrepService {
         prepRepository.save(prep);
      }
 
-     public void update(Prep prep){
+     public void updateStock(Prep prep){
          prepRepository.save(prep);
      }
 
-     public Prep findPrepWithProductId(Long productId){
-         List<Prep> currentPreps = prepRepository.findAllByProductid(productId);
+
+
+    public Prep findPrepWithProduct(Long productid){
+         List<Prep> currentPreps = prepRepository.findByProduct_Id(productid);
          Prep prep =  findPrepWithSmallestDate(currentPreps);
          return prep;
      }
+
 
     public Prep findPrepWithSmallestDate(List<Prep> preps) {
          Prep comaprePrep= new Prep();
@@ -51,4 +57,34 @@ public class PrepService {
         }
         return comaprePrep;
     }
+
+    public void updatestock(ProductTDO product){
+
+            Prep prep = findPrepWithProduct(product.getProductid());
+
+            if(prep.getAmount() >0) {
+                int updateAmount = prep.getAmount() - product.getQuantity();
+                if (updateAmount == 0) {
+                    deletePrep(prep.getId());
+                } else if( updateAmount < 0) {
+                    deletePrep(prep.getId());
+                    //convert from - to +
+                    updateAmount =Math.abs(updateAmount);
+                    prep = findPrepWithProduct(product.getProductid());
+                    updateAmount = prep.getAmount()- updateAmount;
+
+                    if(updateAmount > 0){
+                        prep.setAmount(updateAmount);
+                        updateStock(prep);
+                    }else {
+                        deletePrep(prep.getId());
+                    }
+
+                }else{
+                    prep.setAmount(updateAmount);
+                    updateStock(prep);
+                }
+            }
+        }
+
 }

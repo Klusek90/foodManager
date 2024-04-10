@@ -19,16 +19,6 @@ import java.util.List;
 public class RecipeProductService {
     @Autowired
     private RecipeProductRepository recipeProductRepository;
-    private RecipeService recipeService;
-    private ProductService productService;
-    private  PrepService prepService;
-
-    public RecipeProductService(RecipeProductRepository recipeProductRepository, RecipeService recipeService, ProductService productService, PrepService prepService) {
-        this.recipeProductRepository = recipeProductRepository;
-        this.recipeService = recipeService;
-        this.productService = productService;
-        this.prepService = prepService;
-    }
 
     public void save(RecipeProduct recipeProduct){
         recipeProductRepository.save(recipeProduct);
@@ -47,6 +37,7 @@ public class RecipeProductService {
             ProductTDO productTDO = new ProductTDO();
             productTDO.setQuantity(recipeProduct.get(i).getQuantity());
             productTDO.setName(recipeProduct.get(i).getProduct().getName());
+            productTDO.setProductid(recipeProduct.get(i).getProduct().getId());
             products.add(productTDO);
         }
         recipeTDO.setName(recipeProduct.get(0).getRecipe().getName());
@@ -54,34 +45,5 @@ public class RecipeProductService {
         return recipeTDO;
     }
 
-    public void updatestock(Long recipieid, int times){
-        List<RecipeProduct> recipeProduct = listforRecipe(recipieid);
-        for(int i =0; i< recipeProduct.size(); i++){
-            Product product=  recipeProduct.get(i).getProduct();
-            Prep prep = prepService.findPrepWithProductId(product.getId());
-            if(prep.getAmount() >0) {
-                int updateAmount = prep.getAmount() - (recipeProduct.get(i).getQuantity() * times);
-                if (updateAmount == 0) {
-                    prepService.deletePrep(prep.getId());
-                } else if( updateAmount < 0) {
-                    prepService.deletePrep(prep.getId());
-                    //convert from - to +
-                    updateAmount =Math.abs(updateAmount);
-                    prep = prepService.findPrepWithProductId(product.getId());
-                    updateAmount = prep.getAmount()- updateAmount;
 
-                    if(updateAmount > 0){
-                        prep.setAmount(updateAmount);
-                        prepService.save(prep);
-                    }else {
-                        prepService.deletePrep(prep.getId());
-                    }
-
-                }else{
-                    prep.setAmount(updateAmount);
-                    prepService.save(prep);
-                }
-            }
-        }
-    }
 }

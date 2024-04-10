@@ -14,7 +14,10 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sale_id", nullable = false)
     private Long saleId;
-    private Long recipeid;
     private LocalDate date;
-    private int quantity;
+    private int multiplicity;
+
+    @ManyToOne
+    @JoinColumn(name = "recipe")
+    private Recipe recipe;
 }

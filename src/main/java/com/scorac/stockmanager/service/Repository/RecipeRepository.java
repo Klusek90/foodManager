@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     String findNameByRecipeId(Long recipeId);
+
+    Recipe findByRecipeId(Long id);
 }

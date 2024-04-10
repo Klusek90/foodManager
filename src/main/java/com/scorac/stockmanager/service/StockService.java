@@ -59,7 +59,7 @@ public class StockService {
                 }else{
                     Stock singlestock = new Stock();
                     Prep prep = livePrepared.get(i);
-                    Product product = productService.getSingleProduct(prep.getProductid()).get();
+                    Product product = prep.getProduct();
                     singlestock.setProductid(product.getId());
                     singlestock.setName(product.getName());
                     singlestock.setType(product.getType());
@@ -96,7 +96,7 @@ public class StockService {
                 if (prep.getExpireDate().isBefore(shortly)){
 
                     Expiring expiring= new Expiring();
-                    Product product = productService.getSingleProduct(prep.getId()).get();
+                    Product product = productService.getSingleProduct(prep.getId());
 
                     expiring.setCreated(prep.getProductionDate());
                     expiring.setExpire(prep.getExpireDate());
