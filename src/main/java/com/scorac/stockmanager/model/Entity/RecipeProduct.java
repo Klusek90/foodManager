@@ -1,7 +1,5 @@
-package com.scorac.stockmanager.model;
+package com.scorac.stockmanager.model.Entity;
 
-import com.scorac.stockmanager.model.Product;
-import com.scorac.stockmanager.model.Recipe;
 import jakarta.persistence.*;
 import lombok.Data;
 

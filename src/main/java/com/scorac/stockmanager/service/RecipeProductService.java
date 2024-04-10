@@ -1,6 +1,6 @@
 package com.scorac.stockmanager.service;
 
-import com.scorac.stockmanager.model.RecipeProduct;
+import com.scorac.stockmanager.model.Entity.RecipeProduct;
 import com.scorac.stockmanager.model.TDO.ProductDTO;
 import com.scorac.stockmanager.model.TDO.RecipeDTO;
 import com.scorac.stockmanager.service.Repository.RecipeProductRepository;

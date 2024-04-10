@@ -1,13 +1,10 @@
 package com.scorac.stockmanager.service;
 
 import com.scorac.stockmanager.model.Expiring;
-import com.scorac.stockmanager.model.Prep;
-import com.scorac.stockmanager.model.Product;
+import com.scorac.stockmanager.model.Entity.Prep;
+import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.Stock;
-import com.scorac.stockmanager.service.Repository.PrepRepository;
-import com.scorac.stockmanager.service.Repository.ProductRepository;
 import com.scorac.stockmanager.service.Repository.StockRepository;
-import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,5 @@
 package com.scorac.stockmanager.service.Repository;
-import com.scorac.stockmanager.model.DayEvent;
-import com.scorac.stockmanager.model.Users;
+import com.scorac.stockmanager.model.Entity.DayEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

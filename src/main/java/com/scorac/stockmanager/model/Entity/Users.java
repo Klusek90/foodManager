@@ -1,4 +1,4 @@
-package com.scorac.stockmanager.model;
+package com.scorac.stockmanager.model.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;

@@ -1,6 +1,6 @@
 package com.scorac.stockmanager.controller;
 
-import com.scorac.stockmanager.model.Sale;
+import com.scorac.stockmanager.model.Entity.Sale;
 import com.scorac.stockmanager.service.SaleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

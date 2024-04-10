@@ -1,6 +1,6 @@
 package com.scorac.stockmanager.service;
 
-import com.scorac.stockmanager.model.Recipe;
+import com.scorac.stockmanager.model.Entity.Recipe;
 import com.scorac.stockmanager.service.Repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

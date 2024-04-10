@@ -58,7 +58,7 @@ const getData = async (url = '', params = {}) => {
 
 $('#chatqueryButton').on('click', function (e) {
     if (selectedNamesSet.length === 0) {
-        alert("you cannot send empty value")
+        alert("You need to select some products")
     }
     else {
         selectedNamesSet.push($('#additionalPrompt').val())

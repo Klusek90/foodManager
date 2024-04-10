@@ -1,6 +1,6 @@
 package com.scorac.stockmanager.service;
 
-import com.scorac.stockmanager.model.Prep;
+import com.scorac.stockmanager.model.Entity.Prep;
 import com.scorac.stockmanager.model.TDO.ProductDTO;
 import com.scorac.stockmanager.service.Repository.PrepRepository;
 import org.springframework.beans.factory.annotation.Autowired;

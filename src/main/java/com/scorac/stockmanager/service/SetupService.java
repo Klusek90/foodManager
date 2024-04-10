@@ -1,6 +1,6 @@
 package com.scorac.stockmanager.service;
 
-import com.scorac.stockmanager.model.Setup;
+import com.scorac.stockmanager.model.Entity.Setup;
 import com.scorac.stockmanager.service.Repository.SetupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

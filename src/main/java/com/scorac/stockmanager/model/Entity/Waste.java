@@ -1,11 +1,10 @@
-package com.scorac.stockmanager.model;
+package com.scorac.stockmanager.model.Entity;
 
+import com.scorac.stockmanager.model.Entity.Product;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Data

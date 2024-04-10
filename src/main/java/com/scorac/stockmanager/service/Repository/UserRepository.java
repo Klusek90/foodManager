@@ -1,8 +1,7 @@
 package com.scorac.stockmanager.service.Repository;
 
-import com.scorac.stockmanager.model.Users;
+import com.scorac.stockmanager.model.Entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

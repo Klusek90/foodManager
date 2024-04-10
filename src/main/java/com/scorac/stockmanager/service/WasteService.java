@@ -1,8 +1,8 @@
 package com.scorac.stockmanager.service;
 
-import com.scorac.stockmanager.model.Product;
+import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.TDO.ProductDTO;
-import com.scorac.stockmanager.model.Waste;
+import com.scorac.stockmanager.model.Entity.Waste;
 import com.scorac.stockmanager.service.Repository.WasteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

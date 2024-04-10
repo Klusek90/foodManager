@@ -1,7 +1,9 @@
 package com.scorac.stockmanager.controller;
 
 import com.scorac.stockmanager.model.*;
-import com.scorac.stockmanager.model.TDO.ProductDTO;
+import com.scorac.stockmanager.model.Entity.Prep;
+import com.scorac.stockmanager.model.Entity.Product;
+import com.scorac.stockmanager.model.Entity.Setup;
 import com.scorac.stockmanager.service.*;
 //import com.scorac.stockmanager.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;

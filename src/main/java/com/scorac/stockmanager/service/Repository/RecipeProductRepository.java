@@ -1,7 +1,6 @@
 package com.scorac.stockmanager.service.Repository;
 
-import com.scorac.stockmanager.model.Recipe;
-import com.scorac.stockmanager.model.RecipeProduct;
+import com.scorac.stockmanager.model.Entity.RecipeProduct;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,8 @@
 package com.scorac.stockmanager.controller;
 
 
-import com.scorac.stockmanager.model.Prep;
-import com.scorac.stockmanager.model.Product;
+import com.scorac.stockmanager.model.Entity.Prep;
+import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.TDO.SaleDTO;
 import com.scorac.stockmanager.service.PrepService;
 import com.scorac.stockmanager.service.ProductService;

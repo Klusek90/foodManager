@@ -1,6 +1,6 @@
 package com.scorac.stockmanager.controller;
 
-import com.scorac.stockmanager.model.DayEvent;
+import com.scorac.stockmanager.model.Entity.DayEvent;
 import com.scorac.stockmanager.service.Repository.DayEventRepository;
 import com.scorac.stockmanager.service.DayEventService;
 import org.springframework.beans.factory.annotation.Autowired;
