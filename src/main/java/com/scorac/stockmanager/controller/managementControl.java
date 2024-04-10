@@ -3,8 +3,7 @@ package com.scorac.stockmanager.controller;
 import com.scorac.stockmanager.model.Product;
 import com.scorac.stockmanager.model.Recipe;
 import com.scorac.stockmanager.model.RecipeProduct;
-import com.scorac.stockmanager.model.TDO.ProductTDO;
-import com.scorac.stockmanager.model.TDO.RecipeTDO;
+import com.scorac.stockmanager.model.TDO.RecipeDTO;
 import com.scorac.stockmanager.service.ProductService;
 import com.scorac.stockmanager.service.RecipeProductService;
 import com.scorac.stockmanager.service.RecipeService;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -86,7 +84,7 @@ public class managementControl {
 
     @GetMapping("/recipe/{id}")
     public String singleRecipe(@PathVariable("id") Long id, Model model) {
-        RecipeTDO recipe = recipeProductService.fullRecipe(id);
+        RecipeDTO recipe = recipeProductService.fullRecipe(id);
         model.addAttribute("recipe", recipe);
         return "recipeSingle";
     }

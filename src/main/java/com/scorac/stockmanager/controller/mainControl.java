@@ -1,17 +1,14 @@
 package com.scorac.stockmanager.controller;
 
 import com.scorac.stockmanager.model.*;
+import com.scorac.stockmanager.model.TDO.ProductDTO;
 import com.scorac.stockmanager.service.*;
 //import com.scorac.stockmanager.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -26,13 +23,16 @@ public class mainControl {
     private DayEventService dayEventService;
     private SetupService setupService;
 
+    private  WasteService wasteService;
 
-    public mainControl(StockService stockService, WeatherService weatherService, ProductService productService, DayEventService dayEventService, SetupService setupService) {
+
+    public mainControl(StockService stockService, WeatherService weatherService, ProductService productService, DayEventService dayEventService, SetupService setupService, WasteService wasteService) {
         this.stockService = stockService;
         this.weatherService = weatherService;
         this.productService = productService;
         this.dayEventService = dayEventService;
         this.setupService = setupService;
+        this.wasteService = wasteService;
     }
 
     @GetMapping("/error")
@@ -93,6 +93,21 @@ public class mainControl {
         List<String> productNames= productService.productSearch();
         model.addAttribute("itemsName", productNames);
         return "wastage";
+    }
+
+    @PostMapping("/addWaste")
+    private String addWaste(@ModelAttribute Prep prep , @RequestParam(value = "productIds") List<Long> productIds, @RequestParam(value = "quantities") List<Integer> quantities, RedirectAttributes redirectAttributes){
+
+        List<Product> products = productService.getProductsByIds(productIds);
+
+        String respond = wasteService.saveWaste(products, quantities);
+
+        if(respond.contains("Faild")){
+            redirectAttributes.addFlashAttribute("error", respond);
+        }else{
+            redirectAttributes.addFlashAttribute("message", respond);
+        }
+        return "redirect:/wastage";
     }
 
     @GetMapping("/editday")

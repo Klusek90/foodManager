@@ -1,14 +1,12 @@
 package com.scorac.stockmanager.service;
 
 import com.scorac.stockmanager.model.Prep;
-import com.scorac.stockmanager.model.Product;
-import com.scorac.stockmanager.model.TDO.ProductTDO;
+import com.scorac.stockmanager.model.TDO.ProductDTO;
 import com.scorac.stockmanager.service.Repository.PrepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PrepService {
@@ -58,7 +56,7 @@ public class PrepService {
         return comaprePrep;
     }
 
-    public void updatestock(ProductTDO product){
+    public void updatestock(ProductDTO product){
 
             Prep prep = findPrepWithProduct(product.getProductid());
 

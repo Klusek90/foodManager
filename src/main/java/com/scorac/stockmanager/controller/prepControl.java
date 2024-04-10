@@ -3,16 +3,11 @@ package com.scorac.stockmanager.controller;
 
 import com.scorac.stockmanager.model.Prep;
 import com.scorac.stockmanager.model.Product;
-import com.scorac.stockmanager.model.RecipeProduct;
-import com.scorac.stockmanager.model.Sale;
-import com.scorac.stockmanager.model.TDO.SaleTDO;
+import com.scorac.stockmanager.model.TDO.SaleDTO;
 import com.scorac.stockmanager.service.PrepService;
 import com.scorac.stockmanager.service.ProductService;
-import com.scorac.stockmanager.service.Repository.PrepRepository;
 import com.scorac.stockmanager.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,7 +63,7 @@ public class prepControl {
         return "sale";
     }
     @PostMapping("/addsale")
-    public String addSale(SaleTDO sale, RedirectAttributes redirectAttributes) {
+    public String addSale(SaleDTO sale, RedirectAttributes redirectAttributes) {
         String respond=  saleService.save(sale);
         if(respond.contains("Faild")){
             redirectAttributes.addFlashAttribute("error", respond);

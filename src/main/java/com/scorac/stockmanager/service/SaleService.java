@@ -2,10 +2,9 @@ package com.scorac.stockmanager.service;
 
 import com.scorac.stockmanager.model.Recipe;
 import com.scorac.stockmanager.model.Sale;
-import com.scorac.stockmanager.model.TDO.ProductTDO;
-import com.scorac.stockmanager.model.TDO.SaleTDO;
+import com.scorac.stockmanager.model.TDO.ProductDTO;
+import com.scorac.stockmanager.model.TDO.SaleDTO;
 import com.scorac.stockmanager.service.Repository.SaleRepository;
-import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +29,14 @@ public class SaleService {
         this.recipeProductService = recipeProductService;
     }
 
-    public String save(SaleTDO saleTDO){
+    public String save(SaleDTO saleTDO){
        try{
            LocalDate timestamp = LocalDate.now();
            Recipe recipe = recipeService.findRecipe(saleTDO.getRecipeid());
-           List<ProductTDO> productList = recipeProductService.fullRecipe(saleTDO.getRecipeid()).getProductList();
+           List<ProductDTO> productList = recipeProductService.fullRecipe(saleTDO.getRecipeid()).getProductList();
            for(int i = 0; i < productList.size(); i++){
 
-               ProductTDO product =productList.get(i);
+               ProductDTO product =productList.get(i);
                int newQuantity = product.getQuantity() * saleTDO.getMultiplicity();
                product.setQuantity(newQuantity);
                prepService.updatestock(product);

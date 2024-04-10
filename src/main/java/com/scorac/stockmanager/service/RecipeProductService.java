@@ -1,14 +1,9 @@
 package com.scorac.stockmanager.service;
 
-import com.scorac.stockmanager.model.Prep;
-import com.scorac.stockmanager.model.Product;
-import com.scorac.stockmanager.model.Recipe;
 import com.scorac.stockmanager.model.RecipeProduct;
-import com.scorac.stockmanager.model.TDO.ProductTDO;
-import com.scorac.stockmanager.model.TDO.RecipeTDO;
-import com.scorac.stockmanager.service.Repository.ProductRepository;
+import com.scorac.stockmanager.model.TDO.ProductDTO;
+import com.scorac.stockmanager.model.TDO.RecipeDTO;
 import com.scorac.stockmanager.service.Repository.RecipeProductRepository;
-import com.scorac.stockmanager.service.Repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +23,13 @@ public class RecipeProductService {
         return recipeProductRepository.findAllByRecipe_RecipeId(id);
     }
 
-    public RecipeTDO fullRecipe(Long id){
+    public RecipeDTO fullRecipe(Long id){
         List<RecipeProduct> recipeProduct = listforRecipe(id);
-        RecipeTDO recipeTDO= new RecipeTDO();
-        List<ProductTDO> products= new ArrayList<>();
+        RecipeDTO recipeTDO= new RecipeDTO();
+        List<ProductDTO> products= new ArrayList<>();
         if( recipeProduct.size()>0){
             for(int i =0; i < recipeProduct.size(); i++){
-                ProductTDO productTDO = new ProductTDO();
+                ProductDTO productTDO = new ProductDTO();
                 productTDO.setQuantity(recipeProduct.get(i).getQuantity());
                 productTDO.setName(recipeProduct.get(i).getProduct().getName());
                 productTDO.setProductid(recipeProduct.get(i).getProduct().getId());
