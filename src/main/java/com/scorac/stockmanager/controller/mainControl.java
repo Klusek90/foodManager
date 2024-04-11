@@ -5,10 +5,10 @@ import com.scorac.stockmanager.model.Entity.Booking;
 import com.scorac.stockmanager.model.Entity.Prep;
 import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.Entity.Setup;
+import com.scorac.stockmanager.model.TDO.WeatherDTO;
 import com.scorac.stockmanager.service.*;
 //import com.scorac.stockmanager.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -52,9 +52,6 @@ public class mainControl {
         LocalDate today = LocalDate.now();
         List<Expiring> expires = stockService.expireProducts();
         model.addAttribute("expires" , expires);
-        Weather weather = weatherService.getWeather("Rugby"); // Example city
-        model.addAttribute("weather", weather);
-
         return "index";
     }
 

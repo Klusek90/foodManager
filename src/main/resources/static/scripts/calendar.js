@@ -105,6 +105,7 @@ $(document).ready(function () {
 
         SelectedDate =year+'-'+monthDigit.toString() +'-'+day
         updateBookings(SelectedDate)
+        updateWeather(SelectedDate)
 
         return year+'-'+monthDigit.toString() +'-'+day;
     }

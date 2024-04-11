@@ -1,37 +1,71 @@
 package com.scorac.stockmanager.service;
 
-import com.scorac.stockmanager.model.Weather;
+import com.scorac.stockmanager.model.Entity.Weather;
+import com.scorac.stockmanager.model.TDO.WeatherDTO;
+import com.scorac.stockmanager.service.Repository.WeatherRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import static java.lang.Float.parseFloat;
+import static java.lang.Integer.decode;
 import static java.lang.Integer.parseInt;
 
 @Service
 public class WeatherService {
+
+    @Autowired
+    private WeatherRepository weatherRepository;
+
     private final String apiKey = "e369dcbf19ddeb2042fe020c729ee7ec";
 
     public Weather getWeather(String city) {
+
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
         Map<String, Object> response = restTemplate.getForObject(url, Map.class);
 
 //        Weather weather = new Weather();
         Map<String, Object> main = (Map<String, Object>) response.get("main");
-        float temp =  parseFloat(main.get("temp").toString());
+        float temperature =  parseFloat(main.get("temp").toString());
         int humidity = parseInt(main.get("humidity").toString());
         int pressure = parseInt(main.get("pressure").toString());
-        String description = condition(temp, humidity, pressure);
-        String currentDate = LocalDate.now().toString();
 
-
-        Weather weather = new Weather(String.valueOf(temp), description, currentDate);
+        LocalDate timestamp = LocalDate.now();
+        Weather weather = new Weather();
+        weather.setHumidity(humidity);
+        weather.setTemperature(temperature);
+        weather.setPressure(pressure);
+        weather.setDate(timestamp);
 
         return weather;
     }
+
+    @Scheduled(cron = "0 0 17 * * ?") // Run every day at 17:00
+    public void saveWeatherDataDaily() {
+       Weather weather = getWeather("Rugby");
+       weatherRepository.save(weather);
+    }
+
+    public WeatherDTO checkWeather(LocalDate date){
+        List<Weather> weatherlist= weatherRepository.findAllByDate(date);
+        WeatherDTO weatherDTO = new WeatherDTO();
+        if(weatherlist.size()>0){
+            String description = condition(weatherlist.get(0).getTemperature(), weatherlist.get(0).getHumidity(), weatherlist.get(0).getPressure());
+            weatherDTO.setDescription(description);
+            weatherDTO.setTemp(weatherlist.get(0).getTemperature());
+            return weatherDTO;
+        }else {
+            return new WeatherDTO();
+        }
+
+    }
+
 
     private String condition(float temp, int humidity, int pressure){
 

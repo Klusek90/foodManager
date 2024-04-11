@@ -8,6 +8,7 @@ $(document).ready(function() {
 
     SelectedDate = yyyy + '-' + mm + '-' + dd;
     updateBookings(SelectedDate);
+    updateWeather(SelectedDate)
 });
 
 $("#monthBtn").click(function() {
@@ -63,4 +64,45 @@ function bookingListPopulator(bookings) {
 
     // Update total number of guests
     $("#totalBookings").text(totalnumber);
+}
+
+function updateWeather(date){
+    $.ajax({
+        url: '/weatherCondition/'+date,
+        type: 'GET',
+        success: function(weatherData) {
+            // Populate weather description
+            $('#weatherCondition').text(weatherData.description);
+
+            // Set weather image based on description
+            var imgSrc = '/img/weather/default.png';
+            switch (weatherData.description) {
+                case 'Sunny and warm':
+                    imgSrc = '/img/weather/sun.png';
+                    break;
+                case 'Rain':
+                    imgSrc = '/img/weather/rain.png';
+                    break;
+                case 'Thunderstorms':
+                    imgSrc = '/img/weather/thunder.png';
+                    break;
+                case 'Cloudy or overcast':
+                    imgSrc = '/img/weather/cloud.png';
+                    break;
+                case 'Snow':
+                    imgSrc = '/img/weather/snow.png';
+                    break;
+                case 'Fog':
+                    imgSrc = '/img/weather/fog.png';
+                    break;
+            }
+            $('.col.text-light img.weatherImg').attr('src', imgSrc);
+
+            // Populate temperature
+            $('.col.text-light span.text-center.my-3').last().text(weatherData.temperature + ' \u2103');
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching weather data:', error);
+        }
+    });
 }
