@@ -11,4 +11,7 @@ public interface PrepRepository extends JpaRepository <Prep, Long> {
 //    List<Prep> findAllByProduct(Product product);
 
     List<Prep> findByProduct_Id(Long productId);
+
+    List<Prep> findAllById(Long id);
+
 }

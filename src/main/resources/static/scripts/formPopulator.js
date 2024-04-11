@@ -19,7 +19,7 @@ $(document).ready(function() {
 
             // Item is not in the list, add a new row
             var $row = $('<tr>');
-            $row.append('<td><span>' + itemName + '</span></td><td><input type="hidden" name="productIds" value="' + index + '"/></td><td><input required name="quantities" type="number"></td><td><button class="remove-item btn btn-danger">X</button></td>');
+            $row.append('<td><span>' + itemName + '</span></td><td><input type="hidden" name="productIds" value="' + index + '"/></td><td><input required name="quantities" min="0" type="number"></td><td><button class="remove-item btn btn-danger">X</button></td>');
 
             $('#targetTable tbody').append($row);
         }

@@ -5,6 +5,8 @@ import com.scorac.stockmanager.model.Entity.Prep;
 import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.Stock;
 import com.scorac.stockmanager.service.Repository.StockRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,22 +16,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 public class StockService {
 
-    private static final Logger logger = Logger.getLogger(StockService.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(StockService.class);
 
     @Autowired
     private StockRepository stockRepository;
     private ProductService productService;
     private PrepService prepService;
 
-    public StockService(StockRepository stockRepository, ProductService productService, PrepService prepService) {
-        this.stockRepository = stockRepository;
+    private  WasteService wasteService;
+
+    public StockService(ProductService productService, PrepService prepService, WasteService wasteService) {
         this.productService = productService;
         this.prepService = prepService;
+        this.wasteService = wasteService;
     }
 
     public List<Product> listofALLSortedByName() {
@@ -73,7 +76,7 @@ public class StockService {
                 }
             }
         }catch (Exception e){
-            logger.severe("Problem with prep database in stock service");
+            logger.error("Problem with prep database in stock service");
         }
 
         return list;
@@ -110,13 +113,31 @@ public class StockService {
             }
 
         } catch(Exception e){
-            logger.severe("Problem with prep database in stock service");
+            logger.error("Problem with prep database in stock service");
         }
 
         // Sort the list based on the daysLeft field
         Collections.sort(expirings, Comparator.comparingInt(Expiring::getDaysLeft));
 
         return  expirings;
+    }
+
+    public void removePrepAsExpired(Long id){
+        try {
+            List<Prep> preps = prepService.findByIds(id);
+            List<Product> products = new ArrayList<>();
+            List<Integer> quantity = new ArrayList<>();
+            for (int i =0 ;i < preps.size(); i++){
+                products.add(preps.get(i).getProduct());
+                quantity.add(preps.get(i).getAmount());
+            }
+            wasteService.saveWaste(products, quantity);
+            prepService.deletePrep(id);
+            logger.info("Product removed and added to Wastage");
+        } catch (Exception e){
+            logger.error("Product not removed properly");
+        }
+
     }
 
 }

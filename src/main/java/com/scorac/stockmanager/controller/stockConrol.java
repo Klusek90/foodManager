@@ -37,7 +37,7 @@ public class stockConrol {
     public String handleDeleteExpire(@RequestParam("productId") Long productId) {
         // Handle the form submission
         System.out.println("Deleting product with ID: " + productId);
-        prepService.deletePrep(productId);
+        stockService.removePrepAsExpired(productId);
         return "redirect:/index";
     }
 }

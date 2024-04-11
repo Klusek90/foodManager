@@ -62,14 +62,6 @@ public class mainControl {
         return "queryGPT";
     }
 
-    @GetMapping("/getTestValues")
-    public ResponseEntity<Map<String, String>> getTestValues() {
-        Map<String, String> response = new HashMap<>();
-        response.put("id", "costam");
-        response.put("content", "costam2");
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/setup")
     public String setup(Model model){
         Setup setup = setupService.getSetup();
@@ -122,6 +114,5 @@ public class mainControl {
     public String logout(){
         return "login";
     }
-
 
 }
