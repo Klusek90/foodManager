@@ -36,7 +36,7 @@ $(document).ready(function() {
 
     $("#monthBtn").click(function() {
         totalWastege =0;
-        totalValue.css('color','blue');
+        totalValue.css('color','orange');
         selectedDate = dataPicker.val();
 
         //btn highlight
@@ -57,7 +57,7 @@ $(document).ready(function() {
                     labels: response.labels,
                     datasets: [{
                         data: response.dataset,
-                        borderColor: "blue",
+                        borderColor: "orange",
                         fill: false
                     }],
                     options: {
@@ -80,7 +80,7 @@ $(document).ready(function() {
         weekBtn.css('background', 'orange')
         monthBtn.css('background', '#0d6efd')
 
-        totalValue.css('color','green')
+        totalValue.css('color','red')
         selectedDate = dataPicker.val();
         totalWastege=0;
         $.ajax({
@@ -106,7 +106,7 @@ $(document).ready(function() {
                     labels: filteredLabels,
                     datasets: [{
                         data: filteredDataset,
-                        borderColor: "green",
+                        borderColor: "red",
                         fill: false
                     }],
                     options: {
