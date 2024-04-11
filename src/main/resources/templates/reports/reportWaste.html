@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: header('SCORAC Sale Report')}"/>
+<head th:replace="~{fragments/header :: header('SCORAC Waste Report')}"/>
 <body>
-<div th:replace="~{fragments/logoBar :: logoBar('Sale Report')}"></div>
+<div th:replace="~{fragments/logoBar :: logoBar('Waste Report')}"></div>
 <div class="container-fluid">
     <div class="row bg">
         <div th:replace="~{fragments/sidebar :: sidebar('reports')}"></div>
@@ -12,6 +12,7 @@
                     <button id="monthBtn" class="btn-primary btn m-1 p-1 chartbtn">Month</button>
                     <button id="weekBtn" class="btn-primary btn m-1 p-1 chartbtn">Week</button>
                     <button id="dayBtn" class="btn-primary btn m-1 p-1 chartbtn">Day</button>
+                    <input type="date" id="datePicker" class="p-1 date">
                 </div>
             </div>
             <div class="row">
@@ -31,7 +32,7 @@
 
 <div th:replace="~{fragments/scripts :: scripts}"></div>
 <script th:src="@{/scripts/formPopulator.js}"></script>
-<script th:src="@{/scripts/saleChart.js}"></script>
+<script th:src="@{/scripts/wasteChart.js}"></script>
 
 </body>
 

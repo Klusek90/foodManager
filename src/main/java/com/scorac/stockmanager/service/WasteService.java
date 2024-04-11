@@ -1,6 +1,9 @@
 package com.scorac.stockmanager.service;
 
+import com.scorac.stockmanager.model.ChartDataRespose;
 import com.scorac.stockmanager.model.Entity.Product;
+import com.scorac.stockmanager.model.Entity.Sale;
+import com.scorac.stockmanager.model.TDO.Meal;
 import com.scorac.stockmanager.model.TDO.ProductDTO;
 import com.scorac.stockmanager.model.Entity.Waste;
 import com.scorac.stockmanager.service.Repository.WasteRepository;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class WasteService {
@@ -27,6 +31,9 @@ public class WasteService {
 
     private static final Logger logger = LoggerFactory.getLogger(WasteService.class);
 
+    public List<Waste> findAll(){
+        return wasteRepository.findAll();
+    }
 
     public  String saveWaste(List<Product> products, List<Integer> quantities){
         try{
@@ -55,4 +62,58 @@ public class WasteService {
         }
 
     }
+
+
+    public ChartDataRespose monthlyWaste(LocalDate date){
+        List<Waste> all = findAll();
+        String[] label = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        float[] quantity= new float[12];
+        for(int i =0; i < all.size(); i++){
+            LocalDate itemDate =  all.get(i).getDate();
+            if(date.getYear() == itemDate.getYear()){
+                for(int j =0; j< 12;j++){
+                    if(itemDate.getMonth().getValue() == (j+1)){
+                        int wasteValue = all.get(i).getQuantity();
+                        quantity[j] += wasteValue;
+                    }
+                }
+            }
+        }
+        ChartDataRespose response = new ChartDataRespose();
+        response.setLabels(label);
+        response.setDataset(quantity);
+        return response;
+    }
+    public ChartDataRespose weeklyWaste(LocalDate date){
+        List<Waste> all = findAll();
+        float[] quantity = new float[7]; // Automatically initialized to 0
+        String[] label = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+
+        for (Waste waste : all) {
+            LocalDate itemDate = waste.getDate();
+            // Check if the sale date is within the past week and not in the future
+            if (itemDate.isAfter(date.minusDays(7)) && !itemDate.isAfter(date)) {
+                int dayOfWeekIndex = itemDate.getDayOfWeek().getValue() - 1; // Adjusting to 0-based index
+                int wasteValue = waste.getQuantity();
+                quantity[dayOfWeekIndex] += wasteValue;
+            }
+        }
+
+        // After today, set future sales to 0 explicitly for clarity, even though they are already 0
+        for (int i = date.getDayOfWeek().getValue(); i < 7; i++) {
+            quantity[i] = 0; // This ensures no future sales data is considered
+        }
+
+
+
+        ChartDataRespose response = new ChartDataRespose();
+        response.setLabels(label);
+        response.setDataset(quantity);
+        return response;
+    }
+
+
+//    public Map<String, Meal> dailyWaste(LocalDate date){
+//        return "wate";
+//    }
 }

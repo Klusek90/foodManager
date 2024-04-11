@@ -25,17 +25,17 @@ public class reportConrol {
     }
 
     @GetMapping("/sale")
-    public String saleReport(Model model) {
-//      List<Sale> sales= saleService.findAll();
-//       model.addAttribute("sales" , sales);
+    public String saleReport() {
         return "reports/reportSale";
     }
 
     @GetMapping("/waste")
-    public String wasteReport(Model model) {
-//        List<Sale> sales= saleService.findAll();
-//        model.addAttribute("sales" , sales);
-        return "reports/reportSale";
+    public String wasteReport() {
+        return "reports/reportWaste";
     }
 
+    @GetMapping("/expire")
+    public String expireReport() {
+        return "reports/reportExpire";
+    }
 }

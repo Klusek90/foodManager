@@ -1,7 +1,7 @@
 $(document).ready(function() {
     let chart;
     let totalValue =$("#TotalValue");
-    let totalSalePrice = 0;
+    let totalWastege = 0;
     let dataPicker=$('#datePicker');
     let selectedDate;
 
@@ -35,7 +35,7 @@ $(document).ready(function() {
     }
 
     $("#monthBtn").click(function() {
-        totalSalePrice=0;
+        totalWastege =0;
         totalValue.css('color','blue');
         selectedDate = dataPicker.val();
 
@@ -45,13 +45,13 @@ $(document).ready(function() {
         monthBtn.css('background', 'orange')
 
         $.ajax({
-            url: '/monthSale/'+selectedDate, // Adjust if you have a different base path
+            url: '/monthWaste/'+selectedDate, // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
 
                 //total sale
-                totalSalePrice = response.dataset.reduce((acc, curr) => acc + curr, 0);
+                totalWastege = response.dataset.reduce((acc, curr) => acc + curr, 0);
 
                 let monthData = {
                     labels: response.labels,
@@ -66,7 +66,7 @@ $(document).ready(function() {
                     }
                 };
                 initChart(monthData, "line");
-                totalValue.text(totalSalePrice +"£");
+                totalValue.text("Total Wastage:  "+ totalWastege);
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching data: ", error);
@@ -81,9 +81,9 @@ $(document).ready(function() {
         monthBtn.css('background', '#0d6efd')
 
         selectedDate = dataPicker.val();
-        totalSalePrice=0;
+        totalWastege=0;
         $.ajax({
-            url: '/weekSale/'+ selectedDate, // Adjust if you have a different base path
+            url: '/weekWaste/'+ selectedDate, // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
@@ -99,7 +99,7 @@ $(document).ready(function() {
                 });
 
                 // Calculate total sales after filtering
-                totalSalePrice = filteredDataset.reduce((acc, curr) => acc + curr, 0);
+                totalWastege = filteredDataset.reduce((acc, curr) => acc + curr, 0);
 
                 let monthData = {
                     labels: filteredLabels,
@@ -114,7 +114,7 @@ $(document).ready(function() {
                     }
                 };
                 initChart(monthData, "line");
-                totalValue.text(totalSalePrice +"£");
+                totalValue.text("Total Wastage:  "+ totalWastege);
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching data: ", error);
@@ -129,10 +129,10 @@ $(document).ready(function() {
         monthBtn.css('background', '#0d6efd')
 
         selectedDate = dataPicker.val();
-        totalSalePrice=0;
+        totalWastege=0;
         totalValue.css('color','black')
         $.ajax({
-            url: '/dailySale/'+ selectedDate, // Adjust to your actual endpoint
+            url: '/dailyWaste/'+ selectedDate, // Adjust to your actual endpoint
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
@@ -200,7 +200,7 @@ $(document).ready(function() {
                     }
                 };
                 initChart(dayData, "doughnut");
-                totalValue.text(totalSalePrice +"£");
+                totalValue.text("Total Wastage:  "+ totalWastege);
 
             },
             error: function(xhr, status, error) {
