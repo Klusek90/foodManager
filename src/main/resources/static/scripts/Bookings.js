@@ -36,6 +36,7 @@ function updateBookings(date) {
 }
 
 function bookingListPopulator(bookings){
+    let totalnumber = 0;
     let bookingList = $('#bookingList');
     bookingList.empty(); // Clear existing content
 
@@ -46,5 +47,8 @@ function bookingListPopulator(bookings){
 
         bookingDiv.append(name, numberOfGuest);
         bookingList.append(bookingDiv);
+
+        totalnumber += booking.numberOfGuest;
+        $("#totalBookings").text(totalnumber)
     });
 }
