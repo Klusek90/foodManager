@@ -4,6 +4,7 @@ import com.scorac.stockmanager.model.ChartDataRespose;
 import com.scorac.stockmanager.model.TDO.Meal;
 import com.scorac.stockmanager.service.SaleService;
 import com.scorac.stockmanager.service.WasteService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,9 +32,9 @@ public class WasteREST {
         return weekly;
     }
 
-//    @GetMapping("/dailyWaste/{date}")
-//    public Map<String, Meal> dailyWaste(@PathVariable LocalDate date){
-//        Map<String, Meal> daily= wasteService.dailyWaste(date);
-//        return daily;
-//    }
+    @GetMapping("/dailyWaste/{date}")
+    public Map<String, Integer> dailyWaste(@PathVariable LocalDate date){
+        Map<String, Integer> daily= wasteService.dailyWaste(date);
+        return daily;
+    }
 }

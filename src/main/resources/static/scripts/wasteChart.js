@@ -80,6 +80,7 @@ $(document).ready(function() {
         weekBtn.css('background', 'orange')
         monthBtn.css('background', '#0d6efd')
 
+        totalValue.css('color','green')
         selectedDate = dataPicker.val();
         totalWastege=0;
         $.ajax({
@@ -132,38 +133,17 @@ $(document).ready(function() {
         totalWastege=0;
         totalValue.css('color','black')
         $.ajax({
-            url: '/dailyWaste/'+ selectedDate, // Adjust to your actual endpoint
+            url: '/dailyWaste/' + selectedDate, // Adjust to your actual endpoint
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
-                // Merge meals with the same name
-                let mergedMeals = {};
-                for (let key in response) {
-                    let meal = response[key];
-                    if (mergedMeals.hasOwnProperty(meal.name)) {
-                        mergedMeals[meal.name].quantity += meal.quantity;
-                        mergedMeals[meal.name].price += meal.price;
-                    } else {
-                        mergedMeals[meal.name] = meal;
-                    }
-                }
-                //total sale
-                for (let key in response) {
-                    let meal = response[key];
-                    totalSalePrice += meal.quantity * meal.price;
-                }
+                // Directly using 'response' assuming it's the object e.g., {Cooked Spaghetti: 23, Cooked Penne: 80, Bolognese Sauce: 234}
 
-                // Extract merged meal data
-                let labels = [];
-                let quantities = [];
-                for (var name in mergedMeals) {
-                    labels.push(name);
-                    quantities.push(mergedMeals[name].quantity);
-                }
+                let labels = Object.keys(response); // Get meal names as labels
+                let quantities = Object.values(response); // Get quantities as data for the chart
 
-                let totalSales = quantities.reduce((acc, curr) => acc + curr, 0);
-                // Create an array with the total sales for each item
-                let totalSalesArray = Array(labels.length).fill(totalSales);
+                // Calculate total wastage
+                let totalWastage = quantities.reduce((acc, curr) => acc + curr, 0);
 
                 let dayData = {
                     labels: labels,
@@ -173,39 +153,43 @@ $(document).ready(function() {
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
+                            'rgba(54, 206, 86, 0.2)',
+                            'rgba(255, 259, 286, 0.2)',
                             'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(199, 199, 199, 0.2)'
+                            'rgba(15, 59, 286, 0.2)',
+                            'rgba(100, 159, 286, 0.2)',
+                            'rgba(130, 100, 186, 0.2)',
+                            'rgba(255, 59, 86, 0.2)',
+                            'rgba(10, 259, 186, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(255,99,132,1)',
+                            'rgba(255, 99, 132, 1)',
                             'rgba(54, 162, 235, 1)',
                             'rgba(255, 206, 86, 1)',
+                            'rgba(54, 206, 86, 1)',
+                            'rgba(0, 0, 0, 1)',
                             'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)',
-                            'rgba(199, 199, 199, 1)'
+                            'rgba(255, 59, 86, 1)',
+                            'rgba(100, 159, 286, 1)',
+                            'rgba(130, 100, 186, 1)',
+                            'rgba(255, 59, 86, 1)',
+                            'rgba(10, 259, 186, 1)'
                         ],
                         borderWidth: 1
-                    }, {
-                        data: totalSalesArray,
-                        backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent color
-                        borderColor: 'rgba(0, 0, 0, 0)', // Transparent color
-                        borderWidth: 0
-                    }],
-                    options: {
-                        title: {display:true, text:" Daily sale"},
-                        legend: {display: false}
-                    }
+                    }]
                 };
-                initChart(dayData, "doughnut");
-                totalValue.text("Total Wastage:  "+ totalWastege);
 
+                // Assuming 'initChart' is a function defined elsewhere to initialize the chart
+                initChart(dayData, "doughnut");
+
+                // Assuming 'totalValue' is a jQuery selector for an element where you want to display total wastage
+                totalValue.text("Total Wastage: " + totalWastage);
             },
             error: function(xhr, status, error) {
-                console.error("Error fetching recipe sales data: ", error);
+                console.error("Error fetching daily waste data: ", error);
             }
         });
+
+
     });
 });

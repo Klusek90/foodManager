@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -113,7 +115,32 @@ public class WasteService {
     }
 
 
-//    public Map<String, Meal> dailyWaste(LocalDate date){
-//        return "wate";
-//    }
+    public Map<String, Integer> dailyWaste(LocalDate date){
+        List<Waste> all = findAll();
+        List<Meal> wastes =  new ArrayList<>();
+        for (int i=0 ;i< all.size(); i++){
+            if(date.isEqual(all.get(i).getDate())){
+                Meal object = new Meal();
+                object.setName(all.get(i).getProduct().getName());
+                object.setQuantity(all.get(i).getQuantity());
+                wastes.add(object);
+            }
+        }
+
+        Map<String, Integer> todayWaste = new HashMap<>();
+        for (Meal waste : wastes) {
+            String name = waste.getName();
+            int quantity = waste.getQuantity();
+            if (todayWaste.containsKey(name)) {
+                // If the name already exists in the map, add the quantity to the existing value
+                int existingQuantity = todayWaste.get(name);
+                todayWaste.put(name, existingQuantity + quantity);
+            } else {
+                // If the name doesn't exist in the map, add it with the quantity as the value
+                todayWaste.put(name, quantity);
+            }
+        }
+
+        return todayWaste ;
+    }
 }

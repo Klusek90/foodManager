@@ -80,6 +80,7 @@ $(document).ready(function() {
         weekBtn.css('background', 'orange')
         monthBtn.css('background', '#0d6efd')
 
+        totalValue.css('color','green')
         selectedDate = dataPicker.val();
         totalSalePrice=0;
         $.ajax({
