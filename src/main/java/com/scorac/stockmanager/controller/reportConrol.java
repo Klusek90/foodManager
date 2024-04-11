@@ -31,4 +31,11 @@ public class reportConrol {
         return "reports/reportSale";
     }
 
+    @GetMapping("/waste")
+    public String wasteReport(Model model) {
+//        List<Sale> sales= saleService.findAll();
+//        model.addAttribute("sales" , sales);
+        return "reports/reportSale";
+    }
+
 }

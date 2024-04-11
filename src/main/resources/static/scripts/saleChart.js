@@ -2,6 +2,17 @@ $(document).ready(function() {
     let chart;
     let totalValue =$("#TotalValue");
     let totalSalePrice = 0;
+    let dataPicker=$('#datePicker');
+    let selectedDate;
+
+    //today date
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    dataPicker.val(today);
 
     function initChart(data, chartType) {
         $('.showform').css('display', 'block');
@@ -20,9 +31,11 @@ $(document).ready(function() {
 
     $("#monthBtn").click(function() {
         totalSalePrice=0;
-        totalValue.css('color','blue')
+        totalValue.css('color','blue');
+        selectedDate = dataPicker.val();
+        console.log(selectedDate);
         $.ajax({
-            url: '/monthSale', // Adjust if you have a different base path
+            url: '/monthSale/'+selectedDate, // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
@@ -36,7 +49,11 @@ $(document).ready(function() {
                         data: response.dataset,
                         borderColor: "blue",
                         fill: false
-                    }]
+                    }],
+                    options: {
+                        legend: {display: false},
+                        title: {display:true, text:" Monthly sale"}
+                    }
                 };
                 initChart(monthData, "line");
                 totalValue.text(totalSalePrice +"£");
@@ -48,23 +65,38 @@ $(document).ready(function() {
     });
 
     $("#weekBtn").click(function() {
+        selectedDate = dataPicker.val();
         totalSalePrice=0;
-        totalValue.css('color','green')
         $.ajax({
-            url: '/weekSale', // Adjust if you have a different base path
+            url: '/weekSale/'+ selectedDate, // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
-                //total sale
-                totalSalePrice = response.dataset.reduce((acc, curr) => acc + curr, 0);
+                // Filter out days with 0 sales
+                let filteredLabels = [];
+                let filteredDataset = [];
+
+                response.dataset.forEach((sale, index) => {
+                    if(sale > 0) { // Only include days with sales > 0
+                        filteredLabels.push(response.labels[index]);
+                        filteredDataset.push(sale);
+                    }
+                });
+
+                // Calculate total sales after filtering
+                totalSalePrice = filteredDataset.reduce((acc, curr) => acc + curr, 0);
 
                 let monthData = {
-                    labels: response.labels,
+                    labels: filteredLabels,
                     datasets: [{
-                        data: response.dataset,
+                        data: filteredDataset,
                         borderColor: "green",
                         fill: false
-                    }]
+                    }],
+                    options: {
+                        legend: {display: false },
+                        title: {display:true, text:" Weekly sale"}
+                    }
                 };
                 initChart(monthData, "line");
                 totalValue.text(totalSalePrice +"£");
@@ -76,10 +108,11 @@ $(document).ready(function() {
     });
 
     $("#dayBtn").click(function() {
+        selectedDate = dataPicker.val();
         totalSalePrice=0;
         totalValue.css('color','black')
         $.ajax({
-            url: '/dailySale', // Adjust to your actual endpoint
+            url: '/dailySale/'+ selectedDate, // Adjust to your actual endpoint
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
@@ -140,7 +173,11 @@ $(document).ready(function() {
                         backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent color
                         borderColor: 'rgba(0, 0, 0, 0)', // Transparent color
                         borderWidth: 0
-                    }]
+                    }],
+                    options: {
+                        title: {display:true, text:" Daily sale"},
+                        legend: {display: false}
+                    }
                 };
                 initChart(dayData, "doughnut");
                 totalValue.text(totalSalePrice +"£");

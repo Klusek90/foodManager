@@ -72,17 +72,16 @@ public class SaleService {
 
     }
 
-    public ChartDataRespose saleMonthly(){
-        today= LocalDate.now();
+    public ChartDataRespose saleMonthly(LocalDate date){
         List<Sale> all = findAll();
         String[] label = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         float[] sale= new float[12];
 
          for (int i =0; i < all.size(); i++) {
-            LocalDate date =  all.get(i).getDate();
-                if(date.getYear() == today.getYear()){
+            LocalDate itemDate =  all.get(i).getDate();
+                if(itemDate.getYear() == date.getYear()){
                     for (int j = 0; j < 12; j++) {
-                        if(date.getMonth().getValue() == (j+1)){
+                        if(itemDate.getMonth().getValue() == (j+1)){
                             float price = all.get(i).getRecipe().getPrice() * all.get(i).getMultiplicity();
                             sale[j] += price;
                         }
@@ -96,25 +95,24 @@ public class SaleService {
         return chartdata;
     }
 
-    public ChartDataRespose saleWeekly() {
-        LocalDate today = LocalDate.now();
+    public ChartDataRespose saleWeekly(LocalDate date ) {
         List<Sale> all = findAll();
         float[] sale = new float[7]; // Automatically initialized to 0
         String[] label = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
         // Iterate over each sale
         for (Sale saleItem : all) {
-            LocalDate date = saleItem.getDate();
+            LocalDate itemDate = saleItem.getDate();
             // Check if the sale date is within the past week and not in the future
-            if (date.isAfter(today.minusDays(7)) && !date.isAfter(today)) {
-                int dayOfWeekIndex = date.getDayOfWeek().getValue() - 1; // Adjusting to 0-based index
+            if (itemDate.isAfter(date.minusDays(7)) && !itemDate.isAfter(date)) {
+                int dayOfWeekIndex = itemDate.getDayOfWeek().getValue() - 1; // Adjusting to 0-based index
                 float price = saleItem.getRecipe().getPrice() * saleItem.getMultiplicity();
                 sale[dayOfWeekIndex] += price;
             }
         }
 
         // After today, set future sales to 0 explicitly for clarity, even though they are already 0
-        for (int i = today.getDayOfWeek().getValue(); i < 7; i++) {
+        for (int i = date.getDayOfWeek().getValue(); i < 7; i++) {
             sale[i] = 0; // This ensures no future sales data is considered
         }
 
@@ -125,13 +123,12 @@ public class SaleService {
     }
 
 
-    public Map<String, Meal> saleDaily() {
-        today= LocalDate.now();
+    public Map<String, Meal> saleDaily(LocalDate date) {
         List<Sale> all = findAll();
         ArrayList<Meal> meals = new ArrayList<>();
 
         for(int i =0;i<all.size();i++){
-            if(all.get(i).getDate().isEqual(today)){
+            if(all.get(i).getDate().isEqual(date)){
 
                 Meal meal = new Meal();
                 meal.setName(all.get(i).getRecipe().getName());
