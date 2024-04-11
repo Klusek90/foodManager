@@ -8,11 +8,8 @@ import java.util.List;
 public class RecipeDTO {
     private String name;
     private List<ProductDTO> productList;
+    private float price;
 
-    public RecipeDTO(String name, List<ProductDTO> productList) {
-        this.name = name;
-        this.productList = productList;
-    }
 
     public RecipeDTO() {
     }

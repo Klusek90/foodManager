@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    var chart;
+    let chart;
+    let totalValue =$("#TotalValue");
 
     function initChart(data, chartType) {
         if (chart) { // If chart already exists, destroy it before creating a new one
@@ -16,6 +17,7 @@ $(document).ready(function() {
     }
 
     $("#monthBtn").click(function() {
+
         $.ajax({
             url: '/monthSale', // Adjust if you have a different base path
             type: 'GET',
@@ -25,7 +27,7 @@ $(document).ready(function() {
                     labels: response.labels,
                     datasets: [{
                         data: response.dataset,
-                        borderColor: "red",
+                        borderColor: "blue",
                         fill: false
                     }]
                 };
@@ -47,7 +49,7 @@ $(document).ready(function() {
                     labels: response.labels,
                     datasets: [{
                         data: response.dataset,
-                        borderColor: "red",
+                        borderColor: "green",
                         fill: false
                     }]
                 };
@@ -66,16 +68,18 @@ $(document).ready(function() {
             dataType: 'json', // Expecting JSON response
             success: function(response) {
                 // The response is an object, not an array
-                var labels = Object.keys(response); // Gets all recipe names (keys of the object)
-                var quantities = Object.values(response); // Gets all quantities (values of the object)
+                let labels = Object.keys(response); // Gets all recipe names (keys of the object)
+                let quantities = Object.values(response); // Gets all quantities (values of the object)
 
-                var totalSales = quantities.reduce((acc, curr) => acc + curr, 0);
-                var percentages = quantities.map(quantity => (quantity / totalSales) * 100);
+                let totalSales = quantities.reduce((acc, curr) => acc + curr, 0);
+                // Create an array with the total sales for each item
+                let totalSalesArray = Array(labels.length).fill(totalSales);
 
-                var dayData = {
+
+                let dayData = {
                     labels: labels,
                     datasets: [{
-                        data: percentages,
+                        data: quantities,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
@@ -95,13 +99,21 @@ $(document).ready(function() {
                             'rgba(199, 199, 199, 1)'
                         ],
                         borderWidth: 1
+                    }, {
+                        data: totalSalesArray,
+                        backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent color
+                        borderColor: 'rgba(0, 0, 0, 0)', // Transparent color
+                        borderWidth: 0
                     }]
                 };
                 initChart(dayData, "doughnut");
+                totalValue.text(totalSales +"£")
+
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching recipe sales data: ", error);
             }
         });
+
     });
 });

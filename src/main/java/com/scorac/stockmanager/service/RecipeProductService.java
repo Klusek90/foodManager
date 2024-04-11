@@ -37,6 +37,7 @@ public class RecipeProductService {
             }
             recipeTDO.setName(recipeProduct.get(0).getRecipe().getName());
             recipeTDO.setProductList(products);
+            recipeTDO.setPrice(recipeProduct.get(0).getRecipe().getPrice());
             return recipeTDO;
         }
         else {
