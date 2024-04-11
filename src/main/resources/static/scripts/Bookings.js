@@ -41,11 +41,9 @@ function bookingListPopulator(bookings){
     bookingList.empty(); // Clear existing content
 
     bookings.forEach(function(booking) {
-        let bookingDiv = $('<div class="booking"></div>');
-        let name = $('<p><span>Surname:</span> ' + booking.name + '<span>'+ +'</span></p>');
-        let numberOfGuest = $('<p>Number of Guests: ' + booking.numberOfGuest + '</p>');
-
-        bookingDiv.append(name, numberOfGuest);
+        let bookingDiv = $('<table class="booking"></table>');
+        let name = $('<tr><td> Surname:</td><td>' + booking.name +'</td><td>'+ booking.numberOfGuest+'</td><td><button class="bookingDel">X</button></td></tr> ');
+        bookingDiv.append(name);
         bookingList.append(bookingDiv);
 
         totalnumber += booking.numberOfGuest;
