@@ -1,6 +1,7 @@
 package com.scorac.stockmanager.controllerREST;
 
 import com.scorac.stockmanager.model.ChartDataRespose;
+import com.scorac.stockmanager.model.TDO.Meal;
 import com.scorac.stockmanager.service.SaleService;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +29,8 @@ public class SaleREST {
     }
 
     @GetMapping("/dailySale")
-    public Map<String, Integer> dailySale(){
-        Map<String,Integer> daily= saleService.saleDaily();
+    public Map<String, Meal> dailySale(){
+        Map<String, Meal> daily= saleService.saleDaily();
         return daily;
     }
 }

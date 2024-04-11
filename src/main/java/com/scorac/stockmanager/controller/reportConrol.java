@@ -26,8 +26,9 @@ public class reportConrol {
 
     @GetMapping("/sale")
     public String saleReport(Model model) {
-      List<Sale> sales= saleService.findAll();
-       model.addAttribute("sales" , sales);
+//      List<Sale> sales= saleService.findAll();
+//       model.addAttribute("sales" , sales);
         return "reports/reportSale";
     }
+
 }

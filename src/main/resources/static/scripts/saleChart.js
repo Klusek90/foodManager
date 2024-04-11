@@ -1,8 +1,10 @@
 $(document).ready(function() {
     let chart;
     let totalValue =$("#TotalValue");
+    let totalSalePrice = 0;
 
     function initChart(data, chartType) {
+        $('.showform').css('display', 'block');
         if (chart) { // If chart already exists, destroy it before creating a new one
             chart.destroy();
         }
@@ -17,13 +19,18 @@ $(document).ready(function() {
     }
 
     $("#monthBtn").click(function() {
-
+        totalSalePrice=0;
+        totalValue.css('color','blue')
         $.ajax({
             url: '/monthSale', // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
-                var monthData = {
+
+                //total sale
+                totalSalePrice = response.dataset.reduce((acc, curr) => acc + curr, 0);
+
+                let monthData = {
                     labels: response.labels,
                     datasets: [{
                         data: response.dataset,
@@ -32,6 +39,7 @@ $(document).ready(function() {
                     }]
                 };
                 initChart(monthData, "line");
+                totalValue.text(totalSalePrice +"£");
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching data: ", error);
@@ -40,12 +48,17 @@ $(document).ready(function() {
     });
 
     $("#weekBtn").click(function() {
+        totalSalePrice=0;
+        totalValue.css('color','green')
         $.ajax({
             url: '/weekSale', // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
-                var monthData = {
+                //total sale
+                totalSalePrice = response.dataset.reduce((acc, curr) => acc + curr, 0);
+
+                let monthData = {
                     labels: response.labels,
                     datasets: [{
                         data: response.dataset,
@@ -54,6 +67,7 @@ $(document).ready(function() {
                     }]
                 };
                 initChart(monthData, "line");
+                totalValue.text(totalSalePrice +"£");
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching data: ", error);
@@ -62,19 +76,41 @@ $(document).ready(function() {
     });
 
     $("#dayBtn").click(function() {
+        totalSalePrice=0;
+        totalValue.css('color','black')
         $.ajax({
             url: '/dailySale', // Adjust to your actual endpoint
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
-                // The response is an object, not an array
-                let labels = Object.keys(response); // Gets all recipe names (keys of the object)
-                let quantities = Object.values(response); // Gets all quantities (values of the object)
+                // Merge meals with the same name
+                let mergedMeals = {};
+                for (let key in response) {
+                    let meal = response[key];
+                    if (mergedMeals.hasOwnProperty(meal.name)) {
+                        mergedMeals[meal.name].quantity += meal.quantity;
+                        mergedMeals[meal.name].price += meal.price;
+                    } else {
+                        mergedMeals[meal.name] = meal;
+                    }
+                }
+                //total sale
+                for (let key in response) {
+                    let meal = response[key];
+                    totalSalePrice += meal.quantity * meal.price;
+                }
+
+                // Extract merged meal data
+                let labels = [];
+                let quantities = [];
+                for (var name in mergedMeals) {
+                    labels.push(name);
+                    quantities.push(mergedMeals[name].quantity);
+                }
 
                 let totalSales = quantities.reduce((acc, curr) => acc + curr, 0);
                 // Create an array with the total sales for each item
                 let totalSalesArray = Array(labels.length).fill(totalSales);
-
 
                 let dayData = {
                     labels: labels,
@@ -107,13 +143,12 @@ $(document).ready(function() {
                     }]
                 };
                 initChart(dayData, "doughnut");
-                totalValue.text(totalSales +"£")
+                totalValue.text(totalSalePrice +"£");
 
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching recipe sales data: ", error);
             }
         });
-
     });
 });

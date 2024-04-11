@@ -5,7 +5,7 @@ import com.scorac.stockmanager.model.Entity.Recipe;
 import com.scorac.stockmanager.model.Entity.Sale;
 import com.scorac.stockmanager.model.TDO.ProductDTO;
 import com.scorac.stockmanager.model.TDO.SaleDTO;
-import com.scorac.stockmanager.model.TDO.TodayMeal;
+import com.scorac.stockmanager.model.TDO.Meal;
 import com.scorac.stockmanager.service.Repository.SaleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,51 +96,64 @@ public class SaleService {
         return chartdata;
     }
 
-    public ChartDataRespose saleWeekly(){
-        today= LocalDate.now();
+    public ChartDataRespose saleWeekly() {
+        LocalDate today = LocalDate.now();
         List<Sale> all = findAll();
-        float[] sale= new float[7];
-        String[] label= {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        float[] sale = new float[7]; // Automatically initialized to 0
+        String[] label = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
-         for (int i =0; i < all.size(); i++) {
-            LocalDate date =  all.get(i).getDate();
-            if(date.isAfter(today.minusWeeks(1))){
-                for (int j = 0; j < date.getDayOfWeek().getValue(); j++) {
-                    if(date.getDayOfWeek().getValue()== (j+1)){
-                        float price = all.get(i).getRecipe().getPrice() * all.get(i).getMultiplicity();
-                        sale[j] += price;
-                        }
-                    }
-                }
+        // Iterate over each sale
+        for (Sale saleItem : all) {
+            LocalDate date = saleItem.getDate();
+            // Check if the sale date is within the past week and not in the future
+            if (date.isAfter(today.minusDays(7)) && !date.isAfter(today)) {
+                int dayOfWeekIndex = date.getDayOfWeek().getValue() - 1; // Adjusting to 0-based index
+                float price = saleItem.getRecipe().getPrice() * saleItem.getMultiplicity();
+                sale[dayOfWeekIndex] += price;
             }
+        }
 
-         ChartDataRespose chartdata= new ChartDataRespose();
-         chartdata.setDataset(sale);
-         chartdata.setLabels(label);
-        return chartdata;
+        // After today, set future sales to 0 explicitly for clarity, even though they are already 0
+        for (int i = today.getDayOfWeek().getValue(); i < 7; i++) {
+            sale[i] = 0; // This ensures no future sales data is considered
+        }
+
+        ChartDataRespose chartData = new ChartDataRespose();
+        chartData.setDataset(sale);
+        chartData.setLabels(label);
+        return chartData;
     }
 
 
-    public Map<String, Integer> saleDaily() {
+    public Map<String, Meal> saleDaily() {
         today= LocalDate.now();
         List<Sale> all = findAll();
-        ArrayList<TodayMeal> names = new ArrayList<>();
+        ArrayList<Meal> meals = new ArrayList<>();
+
         for(int i =0;i<all.size();i++){
             if(all.get(i).getDate().isEqual(today)){
 
-                TodayMeal meal = new TodayMeal();
+                Meal meal = new Meal();
                 meal.setName(all.get(i).getRecipe().getName());
                 meal.setQuantity(all.get(i).getMultiplicity());
-                names.add(meal);
+                meal.setPrice(all.get(i).getRecipe().getPrice());
+                meals.add(meal);
+            }
+        }
+        Map<String, Meal> mergedMeals = new HashMap<>();
+
+        for (Meal meal : meals) {
+            if (mergedMeals.containsKey(meal.getName())) {
+                // If the map already contains a meal with the same name, merge them
+                Meal existingMeal = mergedMeals.get(meal.getName());
+                existingMeal.setQuantity(existingMeal.getQuantity() + meal.getQuantity());
+                existingMeal.setPrice(existingMeal.getPrice() + meal.getPrice());
+            } else {
+                // If the map doesn't contain a meal with the same name, add it
+                mergedMeals.put(meal.getName(), new Meal(meal.getName(), meal.getQuantity(), meal.getPrice()));
             }
         }
 
-        // Use a map to sum quantities by name
-        Map<String, Integer> recipeSums = new HashMap<>();
-        for (TodayMeal name : names) {
-            recipeSums.merge(name.getName(), name.getQuantity(), Integer::sum);
-        }
-
-        return recipeSums;
+        return mergedMeals;
     }
 }
