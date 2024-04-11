@@ -18,8 +18,6 @@ $(document).ready(function () {
                 $('#dayEventForm').removeClass('hidden');
                 $(this).addClass("selected-day"); // Highlight clicked day
                 $('#date').val(getSelectedDate());
-                updateNotes();
-                // alert(`You clicked: ${year}-${month + 1}-${day}`); // Alert or any other action
             });
             $("#calendarDays").append(dayElement);
         }
@@ -105,27 +103,11 @@ $(document).ready(function () {
         }
         let year= $('#yearSelect').val();
 
+        SelectedDate =year+'-'+monthDigit.toString() +'-'+day
+        updateBookings(SelectedDate)
+
         return year+'-'+monthDigit.toString() +'-'+day;
     }
 
 
-    function updateNotes() {
-        let date = getSelectedDate(); // Example date, make sure it's a valid id format
-        let dateId = date.replace(/-/g, ''); // Replace dashes to ensure the id is valid if needed
-        let paragraphs = $('#' + dateId + ' p'); // Select paragraphs within the div
-        let contents = [];
-
-        paragraphs.each(function() {
-            contents.push($(this).text()); // Collect each paragraph's content
-        });
-
-        console.log(contents);}
-
-
-        $.ajax({
-            url: "/greenboxbooking" // Adjust the URL to where your Spring Boot app is hosted
-        }).then(function(data) {
-            $('.booking-number').append(data.booking);
-            $('.today-notes').append(data.notes);
-        });
 });

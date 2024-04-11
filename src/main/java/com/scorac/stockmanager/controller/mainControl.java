@@ -1,6 +1,7 @@
 package com.scorac.stockmanager.controller;
 
 import com.scorac.stockmanager.model.*;
+import com.scorac.stockmanager.model.Entity.Booking;
 import com.scorac.stockmanager.model.Entity.Prep;
 import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.Entity.Setup;
@@ -24,16 +25,19 @@ public class mainControl {
     private ProductService productService;
     private DayEventService dayEventService;
     private SetupService setupService;
-
+    private BookingService bookingService;
     private  WasteService wasteService;
 
 
-    public mainControl(StockService stockService, WeatherService weatherService, ProductService productService, DayEventService dayEventService, SetupService setupService, WasteService wasteService) {
+    public mainControl(StockService stockService, WeatherService weatherService,
+                       ProductService productService, DayEventService dayEventService,
+                       SetupService setupService, BookingService bookingService, WasteService wasteService) {
         this.stockService = stockService;
         this.weatherService = weatherService;
         this.productService = productService;
         this.dayEventService = dayEventService;
         this.setupService = setupService;
+        this.bookingService = bookingService;
         this.wasteService = wasteService;
     }
 
@@ -99,6 +103,12 @@ public class mainControl {
         return "redirect:/wastage";
     }
 
+    @PostMapping("/addBooking")
+    public String addBooking(Booking booking) {
+        bookingService.saveBooking(booking);
+        return "redirect:/index";
+    }
+
     @GetMapping("/editday")
     public String editday(){
         return "editday";
@@ -114,5 +124,7 @@ public class mainControl {
     public String logout(){
         return "login";
     }
+
+
 
 }

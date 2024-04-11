@@ -177,6 +177,15 @@ table, card{
     border-color: #27ad23;
 }
 
+.first-column {
+    width: 10%;
+}
+
+#bookingList {
+    max-height: 150px;
+    overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
+}
+
 
 @media (max-width: 767.98px) {
     .sidebar {
