@@ -67,15 +67,16 @@ function bookingListPopulator(bookings) {
 }
 
 function updateWeather(date){
+    $('#weatherCondition').text("Unknown");
+    $('#weatherImage').attr('src', "");
+    $('#weatherTemp').text("");
     $.ajax({
         url: '/weatherCondition/'+date,
         type: 'GET',
         success: function(weatherData) {
             // Populate weather description
-            $('#weatherCondition').text(weatherData.description);
-
             // Set weather image based on description
-            var imgSrc = '/img/weather/default.png';
+            var imgSrc;
             switch (weatherData.description) {
                 case 'Sunny and warm':
                     imgSrc = '/img/weather/sun.png';
@@ -96,10 +97,18 @@ function updateWeather(date){
                     imgSrc = '/img/weather/fog.png';
                     break;
             }
-            $('.col.text-light img.weatherImg').attr('src', imgSrc);
 
-            // Populate temperature
-            $('.col.text-light span.text-center.my-3').last().text(weatherData.temperature + ' \u2103');
+                //populate condition
+                $('#weatherCondition').text(weatherData.description);
+                //populate image
+                $('#weatherImage').attr('src', imgSrc);
+                // Populate temperature
+                if(weatherData.description === "Unknown"){
+                    $('#weatherTemp').text("");
+                }else{
+                    $('#weatherTemp').text(' ' + weatherData.temp + ' \u2103');
+                }
+
         },
         error: function(xhr, status, error) {
             console.error('Error fetching weather data:', error);
