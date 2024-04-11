@@ -182,13 +182,15 @@ table, card{
 }
 
 #bookingList {
-    max-height: 150px;
+    max-height: 35%;
     overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
 }
 .bookingDel{
     background-color: darkred;
     color: white;
     border-radius: 5px ;
+    width: 20px;
+    height: 20px;
 }
 
 @media (max-width: 767.98px) {

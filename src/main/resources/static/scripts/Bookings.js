@@ -35,18 +35,32 @@ function updateBookings(date) {
     });
 }
 
-function bookingListPopulator(bookings){
+function bookingListPopulator(bookings) {
     let totalnumber = 0;
     let bookingList = $('#bookingList');
     bookingList.empty(); // Clear existing content
 
-    bookings.forEach(function(booking) {
-        let bookingDiv = $('<table class="booking"></table>');
-        let name = $('<tr><td> Surname:</td><td>' + booking.name +'</td><td>'+ booking.numberOfGuest+'</td><td><button class="bookingDel">X</button></td></tr> ');
-        bookingDiv.append(name);
-        bookingList.append(bookingDiv);
+    // Create table element
+    let table = $('<table class="bookingTable"></table>');
 
+    bookings.forEach(function (booking) {
+        // Create table row for each booking
+        let row = $('<tr></tr>');
+
+        // Populate table row with booking details
+        row.append('<td>' + booking.name + '</td>');
+        row.append('<td>' + booking.numberOfGuest + '</td>');
+
+        // Append row to table
+        table.append(row);
+
+        // Increment total number of guests
         totalnumber += booking.numberOfGuest;
-        $("#totalBookings").text(totalnumber)
     });
+
+    // Append table to bookingList div
+    bookingList.append(table);
+
+    // Update total number of guests
+    $("#totalBookings").text(totalnumber);
 }
