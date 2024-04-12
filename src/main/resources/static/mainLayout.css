@@ -184,7 +184,6 @@ table, card{
 #bookingList {
     max-height: 43%;
     overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
-    background-color: #124413;
 }
 .bookingDel{
     background-color: darkred;
@@ -197,6 +196,10 @@ table, card{
 #weatherImage{
     width: 50px;
     height: auto;
+}
+
+#greenBoxButtons{
+    text-align: center;
 }
 
 @media (max-width: 767.98px) {
@@ -245,6 +248,9 @@ table, card{
         display: none;
     }
 
+    .greenboxButton{
+        width: 30%;
+    }
 
 }
 
