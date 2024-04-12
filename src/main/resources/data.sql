@@ -71,7 +71,7 @@ WHERE NOT EXISTS (SELECT 1 FROM recipe);
 
 
 SELECT COUNT(*) FROM recipe_product;
-INSERT INTO recipe_product (recipe_id, product_id, quantity) VALUES
+INSERT INTO recipe_product (recipe_id, product_id, quantity)
 SELECT 1, 2, 200 UNION ALL -- 200g Cooked Spaghetti
 SELECT 1, 3, 150 UNION ALL -- 150g Bolognese Sauce
 SELECT 1, 19, 20 UNION ALL -- 20g Parmesan Grated
