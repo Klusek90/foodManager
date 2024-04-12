@@ -1,9 +1,11 @@
 package com.scorac.stockmanager.service;
 
+import com.scorac.stockmanager.model.Entity.Made;
 import com.scorac.stockmanager.model.Entity.Prep;
 import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.Entity.Waste;
 import com.scorac.stockmanager.model.TDO.ProductDTO;
+import com.scorac.stockmanager.service.Repository.PrepCreatedRepository;
 import com.scorac.stockmanager.service.Repository.PrepRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ public class PrepService {
 
     @Autowired
     private PrepRepository prepRepository;
+    private PrepCreatedRepository prepCreatedRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(PrepService.class);
 
@@ -39,7 +42,11 @@ public class PrepService {
      }
 
      public void save(Prep prep){
-
+        Made made = new Made();
+        made.setCreated(prep.getProductionDate());
+        made.setAmount(prep.getAmount());
+        made.setProduct(prep.getProduct());
+        prepCreatedRepository.save(made);
         prepRepository.save(prep);
      }
 
