@@ -18,7 +18,7 @@
                     <div class="showform">
                     <form action="#" th:action="@{/addRecipe}" th:object="${recipe}" method="post">
                         <p>Name: <input type="text" th:field="*{name}" required/></p>
-                        <p>Meal Price: <input type="number" th:field="*{price}" step="0.5" required/></p>
+                        <p>Meal Price: <input type="number"  min="0.1" th:field="*{price}" step="0.5" required/></p>
                         <div class="longlist">
                             <table id="targetTable">
                                 <thead>
