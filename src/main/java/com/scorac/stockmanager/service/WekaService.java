@@ -30,12 +30,14 @@ public class WekaService {
         List<Booking> bookings = bookingRepository.findAll();
         List<Waste> wastes = wasteRepository.findAll();
 
-
-
-
-
-
         List<BigData> dataset= new ArrayList<>();
+
+
+
+
+
+
+
         return  dataset;
 
     }
