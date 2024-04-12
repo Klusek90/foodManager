@@ -45,6 +45,8 @@ dependencies {
     runtimeOnly('io.jsonwebtoken:jjwt-orgjson:0.11.2') {
         exclude group: 'org.json', module: 'json' // Exclude org.json if you already have it or don't need it
     }
+    // WEKA
+    implementation 'nz.ac.waikato.cms.weka:weka-stable:3.8.5'
 }
 
 tasks.named('test') {
