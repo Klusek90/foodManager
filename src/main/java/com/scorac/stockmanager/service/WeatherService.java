@@ -8,7 +8,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -27,16 +30,45 @@ public class WeatherService {
     public Weather getWeather(String city) {
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
+        //todays weather
+    //        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric";
+
+        //weather for tommorow
+        String url = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=metric";
+
         Map<String, Object> response = restTemplate.getForObject(url, Map.class);
 
-//        Weather weather = new Weather();
-        Map<String, Object> main = (Map<String, Object>) response.get("main");
-        float temperature =  parseFloat(main.get("temp").toString());
-        int humidity = parseInt(main.get("humidity").toString());
-        int pressure = parseInt(main.get("pressure").toString());
+        float temperature = 0;
+        int humidity = 0;
+        int pressure = 0;
 
-        LocalDate timestamp = LocalDate.now();
+        if (response != null && response.containsKey("list")) {
+            List<Map<String, Object>> forecastList = (List<Map<String, Object>>) response.get("list");
+            for (Map<String, Object> forecast : forecastList) {
+                // Extract the weather data for today
+                Instant forecastDateTime = Instant.ofEpochSecond((Integer) forecast.get("dt"));
+                ZonedDateTime forecastZonedDateTime = forecastDateTime.atZone(ZoneId.systemDefault());
+                LocalDate forecastDate = forecastZonedDateTime.toLocalDate();
+                LocalDate today = LocalDate.now();
+
+                if (forecastDate.equals(today)) {
+                    // Extract temperature, humidity, and pressure from this forecast entry
+                    Map<String, Object> mainData = (Map<String, Object>) forecast.get("main");
+                    temperature = ((Number) mainData.get("temp")).floatValue();
+                    humidity = ((Number) mainData.get("humidity")).intValue();
+                    pressure = ((Number) mainData.get("pressure")).intValue();
+
+                    // Output the weather data for today
+                    System.out.println("Today's weather forecast:");
+                    System.out.println("Temperature: " + temperature);
+                    System.out.println("Humidity: " + humidity);
+                    System.out.println("Pressure: " + pressure);
+                    break; // Exit the loop once today's forecast is found
+                }
+            }
+        }
+
+        LocalDate timestamp = LocalDate.now().plusDays(1);
         Weather weather = new Weather();
         weather.setHumidity(humidity);
         weather.setTemperature(temperature);
@@ -46,7 +78,8 @@ public class WeatherService {
         return weather;
     }
 
-    @Scheduled(cron = "0 0 17 * * ?") // Run every day at 17:00
+    //Weather for next day- run every day at 17:00
+    @Scheduled(cron = "0 0 17 * * ?")
     public void saveWeatherDataDaily() {
        Weather weather = getWeather("Rugby");
        weatherRepository.save(weather);
