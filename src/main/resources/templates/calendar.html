@@ -43,14 +43,8 @@
 
             </form>
         </main>
-<!--        <div  th:each="event : ${dayEvents}">-->
-<!--            <div th:id="${event.date}">-->
-<!--                <p th:text="${event.note}"></p>-->
-<!--                <p th:text="${event.participants}"></p>-->
-<!--            </div>-->
-<!--            <p th:text="${event.date}"></p>-->
-<!--        </div>-->
     </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
     <script th:src="@{/scripts/calendar.js}"></script>

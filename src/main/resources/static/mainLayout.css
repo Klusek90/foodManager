@@ -201,6 +201,13 @@ table, card{
 #greenBoxButtons{
     text-align: center;
 }
+#weatherDisplay{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.greenboxButton{
+    width: 100%;
+}
 
 @media (max-width: 767.98px) {
     .sidebar {
@@ -248,10 +255,14 @@ table, card{
         display: none;
     }
 
-    .greenboxButton{
-        width: 30%;
+    #weatherDisplay{
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
+    #bookingList {
+        max-height: 40%;
+    }
 }
 
 

@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col col-md-4 mt-5 ml-4">
+                <div class="col col-md-4 mt-5 ml-4 back">
                     <form th:action="@{/addProduct}" th:object="${product}" method="post">
                         <div>
                             <label for="name">Product name:</label>
@@ -36,14 +36,15 @@
                 </div>
                 <div class="col col-md-1 blank"></div>
                 <div class="col col-md-4 mt-5">
+                    <h6>List of Current Products:</h6>
                     <div th:replace="~{fragments/productList :: productList}"></div>
                 </div>
             </div>
         </main>
         <div class="col"></div>
     </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </div>
     <div th:replace="~{fragments/scripts :: scripts}"></div>
-<!--    <script th:src="@{/scripts/formPopulator.js}"></script>-->
 </body>
 </html>

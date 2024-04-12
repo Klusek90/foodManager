@@ -44,10 +44,4 @@
     height: 285px;
 }
 
-@media (max-width: 500px) {
-  .calendar-right {
-      width: 100vw;
-      margin: 0;
-  }
-}
 
