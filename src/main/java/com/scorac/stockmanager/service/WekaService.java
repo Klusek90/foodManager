@@ -60,13 +60,13 @@ public class WekaService {
             for(int x=0; x< allproducts.size() ;x++){
                 BigData bigDataRow = new BigData();
                 bigDataRow.setProductid( allproducts.get(x).getId());
-                bigDataRow.setDayOfMonth(dateToValidate.getDayOfMonth());
+                bigDataRow.setMonthNumber(dateToValidate.getMonth().getValue());
                 bigDataRow.setDayOfWeek(dateToValidate.getDayOfWeek().getValue());
 
                 int made=0;
                 for (int j = 0; j < preparationMode.size(); j++) {
 
-                    if (preparationMode.get(j).getCreated().isEqual(dateToValidate) && preparationMode.get(j).getId() == allproducts.get(x).getId()) {
+                    if (preparationMode.get(j).getCreated().isEqual(dateToValidate) && allproducts.get(x).getId() == preparationMode.get(j).getProduct().getId()) {
                         made += preparationMode.get(j).getAmount();
                     }
                 }
@@ -152,7 +152,7 @@ public class WekaService {
             csvWriter.append(",");
             csvWriter.append(String.valueOf(data.getDayOfWeek()));
             csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getDayOfMonth()));
+            csvWriter.append(String.valueOf(data.getMonthNumber()));
             csvWriter.append(",");
             csvWriter.append(String.valueOf(data.getWaste()));
             csvWriter.append("\n");
