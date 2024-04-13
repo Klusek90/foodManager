@@ -1,8 +1,11 @@
 package com.scorac.stockmanager;
 
+import com.scorac.stockmanager.model.BigData;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import java.util.List;
 
 @SpringBootApplication
 @EnableScheduling
@@ -12,12 +15,5 @@ public class StockManagerApplication {
         SpringApplication.run(StockManagerApplication.class, args);
     }
 
-//
-//     try {
-//        List<BigData> dataList = bigDataSet(); // Assuming this method returns your data
-//        writeListToCSV(dataList, "path/to/your/output.csv");
-//        System.out.println("Data exported successfully.");
-//    } catch (IOException e) {
-//        System.out.println("Error writing to CSV: " + e.getMessage());
-//    }
+
 }

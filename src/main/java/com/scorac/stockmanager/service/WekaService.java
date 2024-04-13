@@ -148,6 +148,16 @@ public class WekaService {
         csvWriter.close();
     }
 
+    public void createCSV(){
+        try {
+            List<BigData> dataList = bigDataSet(); // Assuming this method returns your data
+            writeListToCSV(dataList, "output.csv");
+            System.out.println("Data exported successfully.");
+        } catch (IOException e) {
+            System.out.println("Error writing to CSV: " + e.getMessage());
+        }
+    }
+
 }
 
 
