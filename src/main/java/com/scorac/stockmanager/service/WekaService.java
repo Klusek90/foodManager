@@ -54,10 +54,10 @@ public class WekaService {
         for (int i = 0; i < 730; i++) {
             dateToValidate = today.minusDays(i);
 
-
+            BigData bigDataRow = new BigData();
             for (int j = 0; j < preparationMode.size(); j++) {
                 if (preparationMode.get(j).getCreated().isEqual(dateToValidate)) {
-                    BigData bigDataRow = new BigData();
+
                     bigDataRow.setDayOfWeek(dateToValidate.getDayOfMonth());
                     bigDataRow.setDayOfMonth(dateToValidate.getDayOfMonth());
 
@@ -103,8 +103,9 @@ public class WekaService {
                     bigDataRow.setSaleQuantity(sold);
                     bigDataRow.setProductid(preparationMode.get(j).getId());
 
-                    bigDataSet.add(bigDataRow);
+
                 }
+                bigDataSet.add(bigDataRow);
             }
 
 
@@ -114,14 +115,20 @@ public class WekaService {
 
 
     // creating csv
-    public static void writeListToCSV(List<BigData> dataList, String path) throws IOException {
-        FileWriter csvWriter = new FileWriter(path);
+    public void writeListToCSV() {
+
+        try {
+
+
+        List<BigData> alldata = bigDataSet();
+
+        FileWriter csvWriter = new FileWriter("BigData.scv");
 
         // Write header
         csvWriter.append("ProductID,WeatherTemp,WeatherHumidity,WeatherPressure,MadeQuantity,SaleQuantity,Bookings,DayOfWeek,DayOfMonth,Waste\n");
 
         // Write data
-        for (BigData data : dataList) {
+        for (BigData data : alldata) {
             csvWriter.append(String.valueOf(data.getProductid()));
             csvWriter.append(",");
             csvWriter.append(String.valueOf(data.getWeatherTemp()));
@@ -146,15 +153,8 @@ public class WekaService {
 
         csvWriter.flush();
         csvWriter.close();
-    }
-
-    public void createCSV(){
-        try {
-            List<BigData> dataList = bigDataSet(); // Assuming this method returns your data
-            writeListToCSV(dataList, "output.csv");
-            System.out.println("Data exported successfully.");
-        } catch (IOException e) {
-            System.out.println("Error writing to CSV: " + e.getMessage());
+    }catch (Exception e){
+            System.out.println("Error while creating CSV ");
         }
     }
 
