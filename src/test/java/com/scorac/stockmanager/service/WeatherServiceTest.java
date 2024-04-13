@@ -32,6 +32,8 @@ class WeatherServiceTest {
     public void weatherTest() {
         LocalDate today = LocalDate.now();
         Weather weather= weatherService.getWeather("Rugby");
+
         assertEquals(weather.getDate(), today.plusDays(1));
+
     }
 }

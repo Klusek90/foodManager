@@ -76,38 +76,64 @@ function updateWeather(date){
         success: function(weatherData) {
             // Populate weather description
             // Set weather image based on description
+            let condition = "unknown";
+            if (weatherData.description !== null && weatherData.description !== undefined) {
+                var description = weatherData.description.toString(); // Convert to string to safely use 'includes'.
+                console.log(description);
+            }
+
             var imgSrc;
-            switch (weatherData.description) {
-                case 'Sunny and warm':
+
+            if (description !== undefined) {
+                if (description.includes("rain")) {
+                    condition = "rain";
+                } else if (description.includes("thunder")) {
+                    condition = "thunder";
+                } else if (description.includes("cloud")) {
+                    condition = "cloud";
+                } else if (description.includes("snow")) {
+                    condition = "snow";
+                } else if (description.includes("clear")) {
+                    condition = "clear";
+                } else if (description.includes("fog")) {
+                    condition = "fog";
+                }
+            }
+
+            switch (condition) {
+                case 'clear':
                     imgSrc = '/img/weather/sun.png';
                     break;
-                case 'Rain':
+                case 'rain':
                     imgSrc = '/img/weather/rain.png';
                     break;
-                case 'Thunderstorms':
+                case 'thunder':
                     imgSrc = '/img/weather/thunder.png';
                     break;
-                case 'Cloudy or overcast':
+                case 'cloud':
                     imgSrc = '/img/weather/cloud.png';
                     break;
-                case 'Snow':
+                case 'snow':
                     imgSrc = '/img/weather/snow.png';
                     break;
-                case 'Fog':
+                case 'fog':
                     imgSrc = '/img/weather/fog.png';
+                    break;
+                case 'unknown':
+                    imgSrc = '/img/weather/default.png';
                     break;
             }
 
                 //populate condition
-                $('#weatherCondition').text(weatherData.description);
+                $('#weatherCondition').text(description);
                 //populate image
                 $('#weatherImage').attr('src', imgSrc);
                 // Populate temperature
-                if(weatherData.description === "Unknown"){
-                    $('#weatherTemp').text("");
-                }else{
-                    $('#weatherTemp').text(' ' + weatherData.temp + ' \u2103');
-                }
+                // if(weatherData.description === "Unknown"){
+                //     $('#weatherTemp').text("");
+                // }else{
+                //     $('#weatherTemp').text(' ' + weatherData.temp + ' \u2103');
+                // }
 
         },
         error: function(xhr, status, error) {
