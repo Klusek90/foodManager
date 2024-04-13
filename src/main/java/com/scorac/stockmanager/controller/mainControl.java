@@ -5,7 +5,6 @@ import com.scorac.stockmanager.model.Entity.Booking;
 import com.scorac.stockmanager.model.Entity.Prep;
 import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.Entity.Setup;
-import com.scorac.stockmanager.model.TDO.WeatherDTO;
 import com.scorac.stockmanager.service.*;
 //import com.scorac.stockmanager.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,7 +107,7 @@ public class mainControl {
 
     @GetMapping("/editday")
     public String editday(){
-        return "editday";
+        return "bookingAdd";
     }
 
 
