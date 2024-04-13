@@ -24,6 +24,8 @@ public class WekaService {
     private SaleRepository saleRepository;
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     private RecipeProductService recipeProductService;
 
@@ -48,66 +50,71 @@ public class WekaService {
         List<Sale> sales = saleRepository.findAll();
         List<Booking> bookings = bookingRepository.findAll();
         List<Waste> wastes = wasteRepository.findAll();
+        List<Product> allproducts = productRepository.findAll();
 
 
         //createing 2 years data
         for (int i = 0; i < 730; i++) {
             dateToValidate = today.minusDays(i);
 
-            BigData bigDataRow = new BigData();
-            for (int j = 0; j < preparationMode.size(); j++) {
-                if (preparationMode.get(j).getCreated().isEqual(dateToValidate)) {
+            for(int x=0; x< allproducts.size() ;x++){
+                BigData bigDataRow = new BigData();
+                bigDataRow.setProductid( allproducts.get(x).getId());
+                bigDataRow.setDayOfMonth(dateToValidate.getDayOfMonth());
+                bigDataRow.setDayOfWeek(dateToValidate.getDayOfWeek().getValue());
 
-                    bigDataRow.setDayOfWeek(dateToValidate.getDayOfMonth());
-                    bigDataRow.setDayOfMonth(dateToValidate.getDayOfMonth());
+                int made=0;
+                for (int j = 0; j < preparationMode.size(); j++) {
 
-                    for (int k = 0; k < weathers.size(); k++) {
-                        if (weathers.get(k).getDate().isEqual(dateToValidate)) {
-                            bigDataRow.setWeatherTemp(weathers.get(k).getTemperature());
-                            bigDataRow.setWeatherHumidity(weathers.get(k).getHumidity());
-                            bigDataRow.setWeatherPressure(weathers.get(k).getPressure());
-                        }
+                    if (preparationMode.get(j).getCreated().isEqual(dateToValidate) && preparationMode.get(j).getId() == allproducts.get(x).getId()) {
+                        made += preparationMode.get(j).getAmount();
                     }
+                }
+                bigDataRow.setMadeQuantity(made);
 
-                    int allBookings = 0;
-                    for (int l = 0; l < bookings.size(); l++) {
-                        if (bookings.get(l).getBookingDate().isEqual(dateToValidate)) {
-                            allBookings += bookings.get(l).getNumberOfGuest();
-
-                        }
+                for (int k = 0; k < weathers.size(); k++) {
+                    if (weathers.get(k).getDate().isEqual(dateToValidate)) {
+                        bigDataRow.setWeatherTemp(weathers.get(k).getTemperature());
+                        bigDataRow.setWeatherHumidity(weathers.get(k).getHumidity());
+                        bigDataRow.setWeatherPressure(weathers.get(k).getPressure());
                     }
-                    bigDataRow.setBookings(allBookings);
+                }
 
-                    //how much product was prepared that day and how much was wasted
-                    int waste = 0;
-                    for (int m = 0; m < wastes.size(); m++) {
-                        if (wastes.get(m).getDate().isEqual(dateToValidate) && wastes.get(m).getProduct().getId() == preparationMode.get(j).getProduct().getId()) {
-                            waste += wastes.get(m).getQuantity();
-                        }
+                int allBookings = 0;
+                for (int l = 0; l < bookings.size(); l++) {
+                    if (bookings.get(l).getBookingDate().isEqual(dateToValidate)) {
+                        allBookings += bookings.get(l).getNumberOfGuest();
+
                     }
-                    bigDataRow.setWaste(waste);
+                }
+                bigDataRow.setBookings(allBookings);
 
-                    //how much of this product was sold that day
-                    int sold = 0;
-                    for (int n = 0; n < sales.size(); n++) {
-                        if (sales.get(n).getDate().isEqual(dateToValidate)) {
-                            List<RecipeProduct> productsInRecipie = recipeProductService.listforRecipe(sales.get(n).getRecipe().getRecipeId());
-                            for (int o = 0; o < productsInRecipie.size(); o++) {
-                                if (productsInRecipie.get(o).getProduct().getId() == preparationMode.get(j).getId()) {
-                                    int productAmountOfSold = productsInRecipie.get(o).getQuantity() * sales.get(n).getMultiplicity();
-                                    sold += productAmountOfSold;
-                                }
+                //how much product was prepared that day and how much was wasted
+                int waste = 0;
+                for (int m = 0; m < wastes.size(); m++) {
+                    if (wastes.get(m).getDate().isEqual(dateToValidate) && wastes.get(m).getProduct().getId() == allproducts.get(x).getId()) {
+                        waste += wastes.get(m).getQuantity();
+                    }
+                }
+                bigDataRow.setWaste(waste);
+
+                        //how much of this product was sold that day
+                int sold = 0;
+                for (int n = 0; n < sales.size(); n++) {
+                    if (sales.get(n).getDate().isEqual(dateToValidate)) {
+                        List<RecipeProduct> productsInRecipie = recipeProductService.listforRecipe(sales.get(n).getRecipe().getRecipeId());
+                        for (int o = 0; o < productsInRecipie.size(); o++) {
+                            if (productsInRecipie.get(o).getProduct().getId() == allproducts.get(x).getId()) {
+                                int productAmountOfSold = productsInRecipie.get(o).getQuantity() * sales.get(n).getMultiplicity();
+                                sold += productAmountOfSold;
                             }
                         }
                     }
-                    bigDataRow.setSaleQuantity(sold);
-                    bigDataRow.setProductid(preparationMode.get(j).getId());
-
-
                 }
+                bigDataRow.setSaleQuantity(sold);
+
                 bigDataSet.add(bigDataRow);
             }
-
 
         }
         return bigDataSet;
