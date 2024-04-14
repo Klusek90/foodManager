@@ -4,12 +4,20 @@ import com.scorac.stockmanager.model.Entity.*;
 import com.scorac.stockmanager.service.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import weka.classifiers.Evaluation;
+import weka.classifiers.functions.LinearRegression;
+import weka.core.Attribute;
+import weka.core.DenseInstance;
+import weka.core.Instance;
+import weka.core.Instances;
 
+import javax.sql.DataSource;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class WekaService {
@@ -164,6 +172,64 @@ public class WekaService {
             System.out.println("Error while creating CSV ");
         }
     }
+
+    public Instances convertListToInstances() {
+        List<BigData> dataList = bigDataSet();
+
+        ArrayList<Attribute> attributes = new ArrayList<>();
+        attributes.add(new Attribute("productid"));
+        attributes.add(new Attribute("weatherTemp"));
+        attributes.add(new Attribute("weatherHumidity"));
+        attributes.add(new Attribute("weatherPressure"));
+        attributes.add(new Attribute("madeQuantity"));
+        attributes.add(new Attribute("saleQuantity"));
+        attributes.add(new Attribute("bookings"));
+        attributes.add(new Attribute("dayOfWeek"));
+        attributes.add(new Attribute("monthNumber"));
+        attributes.add(new Attribute("waste"));
+
+        Instances dataset = new Instances("ProductData", attributes, dataList.size());
+        dataset.setClassIndex(dataset.attribute("saleQuantity").index()); // Setting saleQuantity as the target variable for sales prediction
+
+        for (BigData data : dataList) {
+            double[] instanceValue = new double[dataset.numAttributes()];
+            instanceValue[0] = data.getProductid();
+            instanceValue[1] = data.getWeatherTemp();
+            instanceValue[2] = data.getWeatherHumidity();
+            instanceValue[3] = data.getWeatherPressure();
+            instanceValue[4] = data.getMadeQuantity();
+            instanceValue[5] = data.getSaleQuantity();
+            instanceValue[6] = data.getBookings();
+            instanceValue[7] = data.getDayOfWeek();
+            instanceValue[8] = data.getMonthNumber();
+            instanceValue[9] = data.getWaste();
+            dataset.add(new DenseInstance(1.0, instanceValue));
+        }
+        return dataset;
+    }
+
+    public String trainAndEvaluateModel() {
+        try {
+            Instances data = convertListToInstances();
+            // Set the last attribute as the target
+            data.setClassIndex(data.numAttributes() - 1);
+
+            // Initialize and build the classifier
+            LinearRegression model = new LinearRegression();
+            model.buildClassifier(data);
+
+            // Evaluate the model
+            Evaluation eval = new Evaluation(data);
+            eval.crossValidateModel(model, data, 10, new Random(1)); // 10-fold cross-validation
+
+            return eval.toSummaryString("\nResults\n======\n", false);
+
+        } catch (Exception e) {
+            return "Faild to process data";
+        }
+
+    }
+
 
 }
 

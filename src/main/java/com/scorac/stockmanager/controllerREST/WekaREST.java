@@ -5,6 +5,8 @@ import com.scorac.stockmanager.service.WekaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import weka.classifiers.Classifier;
+import weka.core.Instances;
 
 import java.time.LocalDate;
 
@@ -18,8 +20,16 @@ public class WekaREST {
     }
 
     @GetMapping("/createcsv")
-    public String yearWaste(){
+    public String createCSV(){
         wekaService.writeListToCSV();
         return "done";
     }
+
+    @GetMapping("/trainAlgotithm")
+    public String trainWeka(){
+
+       String respond=  wekaService.trainAndEvaluateModel();
+        return respond;
+    }
+
 }
