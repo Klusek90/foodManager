@@ -25,11 +25,19 @@ public class WekaREST {
         return "done";
     }
 
-    @GetMapping("/trainAlgotithm")
-    public String trainWeka(){
-
-       String respond=  wekaService.trainAndEvaluateModel();
-        return respond;
+    @GetMapping("/trainAlgorithm")
+    public String trainWeka() {
+        return wekaService.trainAndEvaluateModel();
     }
 
+    @GetMapping("/loadModel")
+    public String loadModel() {
+        try {
+            Classifier model = wekaService.loadModel("model.model");
+            // Here will be specific actions model will do after loading, such as predictions
+            return "Model loaded successfully.";
+        } catch (Exception e) {
+            return "Failed to load model: " + e.getMessage();
+        }
+    }
 }

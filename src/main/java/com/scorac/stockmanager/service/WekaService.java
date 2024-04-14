@@ -8,16 +8,15 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
-import weka.core.Instance;
 import weka.core.Instances;
 
-import javax.sql.DataSource;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import weka.classifiers.Classifier;
+import weka.core.SerializationHelper;
 
 @Service
 public class WekaService {
@@ -211,23 +210,29 @@ public class WekaService {
     public String trainAndEvaluateModel() {
         try {
             Instances data = convertListToInstances();
-            // Set the last attribute as the target
             data.setClassIndex(data.numAttributes() - 1);
 
-            // Initialize and build the classifier
             LinearRegression model = new LinearRegression();
             model.buildClassifier(data);
 
-            // Evaluate the model
             Evaluation eval = new Evaluation(data);
-            eval.crossValidateModel(model, data, 10, new Random(1)); // 10-fold cross-validation
+            eval.crossValidateModel(model, data, 10, new Random(1));
+
+            // Save the model after training
+            saveModel(model, "model.model");
 
             return eval.toSummaryString("\nResults\n======\n", false);
-
         } catch (Exception e) {
-            return "Faild to process data";
+            return "Failed to process data: " + e.getMessage();
         }
+    }
 
+    public void saveModel(Classifier model, String path) throws Exception {
+        SerializationHelper.write(path, model);
+    }
+
+    public Classifier loadModel(String path) throws Exception {
+        return (Classifier) SerializationHelper.read(path);
     }
 
 
