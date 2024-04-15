@@ -89,19 +89,21 @@ function updateWeather(date){
                     condition = "rain";
                 } else if (description.includes("thunder")) {
                     condition = "thunder";
-                } else if (description.includes("cloud")) {
+                } else if (description.includes("sun")) {
+                    condition = "sun";
+                }else if (description.includes("cloud")) {
                     condition = "cloud";
                 } else if (description.includes("snow")) {
                     condition = "snow";
                 } else if (description.includes("clear")) {
-                    condition = "clear";
+                    condition = "sun";
                 } else if (description.includes("fog")) {
                     condition = "fog";
                 }
             }
 
             switch (condition) {
-                case 'clear':
+                case 'sun':
                     imgSrc = '/img/weather/sun.png';
                     break;
                 case 'rain':
