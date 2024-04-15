@@ -57,7 +57,8 @@ const getData = async (url = '', params = {}) => {
 };
 
 $('#chatqueryButton').on('click', function (e) {
-    if (selectedNamesSet.length === 0) {
+    $('#respondWindow').text("")
+    if (selectedNamesSet.length < 1) {
         alert("You need to select some products")
     }
     else {

@@ -4,6 +4,7 @@ package com.scorac.stockmanager.controller;
 import com.scorac.stockmanager.model.Entity.Prep;
 import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.TDO.SaleDTO;
+import com.scorac.stockmanager.service.MadeService;
 import com.scorac.stockmanager.service.PrepService;
 import com.scorac.stockmanager.service.ProductService;
 import com.scorac.stockmanager.service.SaleService;
@@ -21,13 +22,14 @@ public class prepControl {
     @Autowired
     private ProductService productService;
     private PrepService prepService;
-
     private SaleService saleService;
+    private MadeService madeService;
 
-    public prepControl(ProductService productService, PrepService prepService, SaleService saleService) {
+    public prepControl(ProductService productService, PrepService prepService, SaleService saleService, MadeService madeService) {
         this.productService = productService;
         this.prepService = prepService;
         this.saleService = saleService;
+        this.madeService = madeService;
     }
 
     @GetMapping("/prep")
@@ -53,6 +55,7 @@ public class prepControl {
             prepared.setExpireDate(timestamp.plusDays(product.getLifeLength()));
             prepared.setProduct(product);
             prepService.save(prepared);
+            madeService.save(prepared);
         }
         redirectAttributes.addFlashAttribute("message", "Product preparation status saved");
         return "redirect:/prep";

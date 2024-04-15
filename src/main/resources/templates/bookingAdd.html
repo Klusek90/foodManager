@@ -10,18 +10,18 @@
             <form th:action="@{/addBooking}" th:object="${booking}" method="post" class="mt-3">
 
                 <div class="my-3">
-                    <label for="bookingNameDate">Bookings Surname:</label>
-                    <input class="textfield form-control" type="date" id="bookingNameDate" name="bookingDate" >
+                    <label for="bookingNameDate">Bookings Date:</label>
+                    <input class="textfield form-control" type="date" id="bookingNameDate" name="bookingDate" required>
                 </div>
 
                 <div class="my-3">
                     <label for="bookingName">Bookings Surname:</label>
-                    <input class="textfield form-control" type="text" id="bookingName" name="name" >
+                    <input class="textfield form-control" type="text" id="bookingName" name="name" required>
                 </div>
 
                 <div class="my-3">
                     <label for="numberOfPeople">Number of People:</label>
-                    <input class="textfield form-control" type="number" min="0" id="numberOfPeople" name="numberOfGuest" >
+                    <input class="textfield form-control" type="number" min="1" id="numberOfPeople" name="numberOfGuest" required>
                 </div>
 
 

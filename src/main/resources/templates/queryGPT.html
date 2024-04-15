@@ -11,26 +11,26 @@
                 <div th:replace="~{fragments/expireTable :: expireTable('Select from products:','false')}"></div>
             </div>
             <div class="row mt-5">
+              <div class="col col-md-3 mt-4 ml-1">
+                <table id="selectedNamesTable" class="table">
+                    <thead>
+                    <tr>
+                        <th>Selected List:</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Selected names will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
                 <div class="col col-md-6 mt-3">
                     <div class="my-3">
                         <label for="additionalPrompt">Additional Prompt:</label></br>
                         <textarea id="additionalPrompt" name="additionalPrompt" rows="2" class="w-100" maxlength="200"></textarea>
                     </div>
                 </div>
-                <div class="col col-md-3 mt-4 ml-1">
-                    <table id="selectedNamesTable" class="table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Selected names will be dynamically added here -->
-                        </tbody>
-                    </table>
 
-                </div>
             </div>
 
             <div class="row mt-5">

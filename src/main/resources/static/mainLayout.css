@@ -181,7 +181,7 @@ table, card{
 }
 
 #bookingList {
-    max-height: 43%;
+    height: 66%;
     overflow-y: auto; /* Add vertical scrollbar if content exceeds height */
 }
 .bookingDel{
@@ -259,9 +259,6 @@ table, card{
         margin-bottom: 20px;
     }
 
-    #bookingList {
-        max-height: 40%;
-    }
 }
 
 

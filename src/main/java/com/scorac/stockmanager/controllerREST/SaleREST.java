@@ -19,19 +19,19 @@ public class SaleREST {
         this.saleService = saleService;
     }
     @GetMapping("/monthSale/{date}")
-    public ChartDataRespose yearSale(@PathVariable LocalDate date){
+    public ChartDataRespose yearSale(@PathVariable(name="date") LocalDate date){
         ChartDataRespose monthly = saleService.saleMonthly(date);
         return monthly;
     }
 
     @GetMapping("/weekSale/{date}")
-    public ChartDataRespose weekSale(@PathVariable LocalDate date){
+    public ChartDataRespose weekSale(@PathVariable(name="date") LocalDate date){
         ChartDataRespose weekly= saleService.saleWeekly(date);
         return weekly;
     }
 
     @GetMapping("/dailySale/{date}")
-    public Map<String, Meal> dailySale(@PathVariable LocalDate date){
+    public Map<String, Meal> dailySale(@PathVariable(name="date") LocalDate date){
         Map<String, Meal> daily= saleService.saleDaily(date);
         return daily;
     }

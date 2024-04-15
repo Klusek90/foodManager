@@ -18,5 +18,6 @@ public class Weather {
     private float temperature;
     private int humidity;
     private int pressure;
+    private String description;
 
 }

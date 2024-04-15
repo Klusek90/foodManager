@@ -1,16 +1,15 @@
 package com.scorac.stockmanager.service;
 
+import com.scorac.stockmanager.model.Entity.Made;
 import com.scorac.stockmanager.model.Entity.Prep;
-import com.scorac.stockmanager.model.Entity.Product;
-import com.scorac.stockmanager.model.Entity.Waste;
 import com.scorac.stockmanager.model.TDO.ProductDTO;
+import com.scorac.stockmanager.service.Repository.MadeRepository;
 import com.scorac.stockmanager.service.Repository.PrepRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,7 +38,6 @@ public class PrepService {
      }
 
      public void save(Prep prep){
-
         prepRepository.save(prep);
      }
 
