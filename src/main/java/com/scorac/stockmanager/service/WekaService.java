@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LinearRegression;
-import weka.core.Attribute;
-import weka.core.DenseInstance;
-import weka.core.Instances;
+import weka.core.*;
 
 import java.io.FileWriter;
 import java.time.LocalDate;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import weka.classifiers.Classifier;
-import weka.core.SerializationHelper;
 
 @Service
 public class WekaService {
@@ -36,16 +33,55 @@ public class WekaService {
 
     private RecipeProductService recipeProductService;
 
+
     public WekaService(RecipeProductService recipeProductService) {
         this.recipeProductService = recipeProductService;
     }
 
 
+    private Classifier model;
 
 
+    public void loadModel(String path) throws Exception {
+        this.model = (Classifier) SerializationHelper.read(path);
+    }
+
+    public double makePrediction(Instance instance) throws Exception {
+        if (model == null) {
+            throw new Exception("Model is not loaded. Please load the model first.");
+        }
+        return model.classifyInstance(instance);
+    }
 
 
+    public Instance createInstance(double temp, double humidity, double pressure, int bookings, int dayOfWeek, int month, int waste) {
+        // Create the attributes exactly as they were created during the training phase
+        ArrayList<Attribute> attributes = new ArrayList<>();
+        attributes.add(new Attribute("temperature"));
+        attributes.add(new Attribute("humidity"));
+        attributes.add(new Attribute("pressure"));
+        attributes.add(new Attribute("bookings"));
+        attributes.add(new Attribute("dayOfWeek"));
+        attributes.add(new Attribute("month"));
+        attributes.add(new Attribute("waste"));
 
+        Instances dataUnlabeled = new Instances("Instance", attributes, 0);
+        dataUnlabeled.setClassIndex(dataUnlabeled.numAttributes() - 1); // Assuming last attribute as target variable
+
+        Instance instance = new DenseInstance(attributes.size());
+        instance.setValue(attributes.get(0), temp);
+        instance.setValue(attributes.get(1), humidity);
+        instance.setValue(attributes.get(2), pressure);
+        instance.setValue(attributes.get(3), bookings);
+        instance.setValue(attributes.get(4), dayOfWeek);
+        instance.setValue(attributes.get(5), month);
+        instance.setValue(attributes.get(6), waste);
+
+        dataUnlabeled.add(instance);
+        return instance;
+    }
+
+//old
     public List<BigData> bigDataSet() {
         LocalDate today = LocalDate.now();
         LocalDate dateToValidate;
@@ -231,9 +267,9 @@ public class WekaService {
         SerializationHelper.write(path, model);
     }
 
-    public Classifier loadModel(String path) throws Exception {
-        return (Classifier) SerializationHelper.read(path);
-    }
+//    public Classifier loadModel(String path) throws Exception {
+//        return (Classifier) SerializationHelper.read(path);
+//    }
 
 
 }

@@ -4,8 +4,10 @@ import com.scorac.stockmanager.model.ChartDataRespose;
 import com.scorac.stockmanager.service.WekaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import weka.classifiers.Classifier;
+import weka.core.Instance;
 import weka.core.Instances;
 
 import java.time.LocalDate;
@@ -33,11 +35,22 @@ public class WekaREST {
     @GetMapping("/loadModel")
     public String loadModel() {
         try {
-            Classifier model = wekaService.loadModel("model.model");
-            // Here will be specific actions model will do after loading, such as predictions
+            wekaService.loadModel("model.model");
             return "Model loaded successfully.";
         } catch (Exception e) {
             return "Failed to load model: " + e.getMessage();
+        }
+    }
+
+    @GetMapping("/predict")
+    public String predict(@RequestParam double temp, @RequestParam double humidity, @RequestParam double pressure,
+                          @RequestParam int bookings, @RequestParam int dayOfWeek, @RequestParam int month, @RequestParam int waste) {
+        try {
+            Instance instance = wekaService.createInstance(temp, humidity, pressure, bookings, dayOfWeek, month, waste);
+            double prediction = wekaService.makePrediction(instance);
+            return "Predicted class value: " + prediction;
+        } catch (Exception e) {
+            return "Prediction failed: " + e.getMessage();
         }
     }
 }

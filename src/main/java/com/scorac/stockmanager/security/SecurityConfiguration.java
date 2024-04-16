@@ -19,21 +19,21 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authz -> authz
+                        //endpoint access for all type of users
                         .requestMatchers("/loginPage.css", "/img/logo.jpg").permitAll()
+                        //resticting accress for admin users
                         .requestMatchers("/users/*", "/reports", "/recipes").hasRole("ADMIN") // only for admin
                         .anyRequest().authenticated())
                 .formLogin(form -> form
+                        //overriding default page with custom login page
                         .loginPage("/login")
                         .permitAll())
                 .logout(logout -> logout.permitAll());
         return http.build();
     }
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().requestMatchers("/static/loginPage.css");
-//    }
     @Bean
+    //password encryption
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
