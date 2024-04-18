@@ -4,7 +4,7 @@
     <thead>
     <tr>
       <th>Name</th>
-      <th>Product ID</th>
+      <th class="hidden">Product ID</th>
       <th>Created</th>
       <th>Expire</th>
       <th>Days Left</th>
@@ -15,7 +15,7 @@
     <tr th:each="expiring : ${expires}" class="border-bottom back">
       <!-- Display the properties of each expiring object -->
       <td th:text="${expiring.name}"></td>
-      <td th:text="${expiring.productid}"></td>
+      <td class="hidden" th:text="${expiring.productid}"></td>
       <td th:text="${expiring.created}"></td>
       <td th:text="${expiring.expire}"></td>
       <td th:text="${expiring.daysLeft}"></td>

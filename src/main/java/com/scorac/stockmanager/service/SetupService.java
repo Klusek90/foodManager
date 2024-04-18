@@ -5,6 +5,8 @@ import com.scorac.stockmanager.service.Repository.SetupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SetupService {
     @Autowired
@@ -18,5 +20,12 @@ public class SetupService {
     public void updateSetup(Setup setup) {
         // Since there's only ever one entry, you can simply save it. The repository handles the update if the ID (restaurantName) exists.
         setupRepository.save(setup);
+    }
+
+    public String restauranInfo(){
+        List<Setup> customer = setupRepository.findAll();
+        String info = "";
+        info = customer.get(0).getRestaurantInfo();
+        return info;
     }
 }

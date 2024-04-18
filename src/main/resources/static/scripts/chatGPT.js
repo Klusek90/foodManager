@@ -55,29 +55,62 @@ const getData = async (url = '', params = {}) => {
     });
     return response.json();
 };
-
 $('#chatqueryButton').on('click', function (e) {
-    $('#respondWindow').text("")
+    $('#respondWindow').text("");
     if (selectedNamesSet.length < 1) {
-        alert("You need to select some products")
-    }
-    else {
-        selectedNamesSet.push($('#additionalPrompt').val())
-
+        alert("You need to select some products");
+    } else {
+        selectedNamesSet.push($('#additionalPrompt').val());
         getData('/request', {
             selectedNamesSet
         }).then(data => {
-            $('#answer').text(data)
-            console.log(data);
-            $.each(data, function (index, value) {
-                // Create a paragraph, add class, set its text, and then append it to the div
-                $('<h6>').addClass('mt-2', 'bold').text("Recipe "+ (index+1)).appendTo('#respondWindow');
-                $('<p>').addClass('mb-3').text(value).appendTo('#respondWindow');
+            // Clear previous responses
+            $('#respondWindow').empty();
+            // Standardize the response format
+            const meals = parseResponse(data);
+            // Display the standardized response
+            meals.forEach((meal, index) => {
+                // Create a paragraph for each meal
+                $('<h6>').addClass('mt-2 bold').text("Meal " + (index + 1)).appendTo('#respondWindow');
+                $('<p>').addClass('mb-3').text(meal).appendTo('#respondWindow');
             });
+        }).catch(error => {
+            // Handle errors
+            console.error("Error:", error);
+            $('#respondWindow').text("An error occurred while fetching data");
         });
 
         $('#prompt').modal('show');
     }
 });
+
+// Function to parse and standardize the response
+function parseResponse(data) {
+    let meals = [];
+    if (Array.isArray(data)) {
+        // Check if each item in the array is a string, if so, it's already in the desired format
+        if (data.every(item => typeof item === 'string')) {
+            meals = data;
+        } else {
+            // If not, try to parse the response as JSON
+            try {
+                meals = JSON.parse(data);
+                // Check if the parsed data is an array of strings, if not, handle as needed
+                if (!Array.isArray(meals) || !meals.every(item => typeof item === 'string')) {
+                    // Handle unexpected format, e.g., convert to strings
+                    meals = meals.map(item => String(item));
+                }
+            } catch (error) {
+                console.error("Error parsing response:", error);
+                meals = ["Error parsing response"];
+            }
+        }
+    } else {
+        // Handle unexpected format, e.g., convert to string
+        meals.push(String(data));
+    }
+    return meals;
+}
+
 
 

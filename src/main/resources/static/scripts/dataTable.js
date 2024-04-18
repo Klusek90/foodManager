@@ -9,11 +9,11 @@ $(document).ready(function() {
         },
         "columns": [
             { "data": "name", "width": "30%" },
-            { "data": "type", "width": "20%" },
-            { "data": "amount", "width": "12%" },
-            { "data": "productiondate", "width": "13%" },
-            { "data": "expireDate", "width": "13%" },
-            { "data": "daysLeft", "width": "12%" }
+            { "data": "type", "width": "10%" },
+            { "data": "amount", "width": "10%" },
+            { "data": "productiondate", "width": "15%" },
+            { "data": "expireDate", "width": "15%" },
+            { "data": "daysLeft", "width": "10%" }
         ]
     });
 });
