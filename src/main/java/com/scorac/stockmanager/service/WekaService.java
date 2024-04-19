@@ -1,29 +1,37 @@
 package com.scorac.stockmanager.service;
 
 import com.scorac.stockmanager.model.BigData;
+import com.scorac.stockmanager.model.Entity.*;
 import com.scorac.stockmanager.service.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import weka.classifiers.Classifier;
-import weka.classifiers.Evaluation;
-import weka.classifiers.trees.J48; // Using J48 decision tree for demonstration
-import weka.core.Instances;
-import weka.core.SerializationHelper;
-import weka.core.converters.ConverterUtils.DataSource;
-import weka.classifiers.functions.LinearRegression;
-import weka.classifiers.Classifier;
-import weka.core.DenseInstance;
-import weka.core.Instances;
-import weka.core.SerializationHelper;
-import weka.core.Attribute;
-import org.springframework.stereotype.Service;
 
+import weka.core.Instances;
+import weka.core.SerializationHelper;
+import weka.classifiers.functions.LinearRegression;
+import weka.core.DenseInstance;
+import weka.core.Attribute;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
 public class WekaService {
+
+    @Autowired
+    private  ProductRepository productRepository;
+    @Autowired
+    private WeatherRepository weatherRepository;
+    @Autowired
+    private BookingRepository bookingRepository;
+    @Autowired
+    private MadeRepository madeRepository;
+    @Autowired
+    private WasteRepository wasteRepository;
 
     private LinearRegression model;
 
@@ -39,7 +47,7 @@ public class WekaService {
         }
     }
 
-    public String performPrediction(BigData data) {
+    public Double performPrediction(BigData data) {
         try {
             // Lista atrybutów zgodna z modelem
             ArrayList<Attribute> attributes = new ArrayList<>();
@@ -76,9 +84,57 @@ public class WekaService {
 
             // Przewidywanie wartości 'made'
             double predictedMade = model.classifyInstance(dataset.instance(0));
-            return "Predicted made: " + predictedMade;
+            return  predictedMade;
         } catch (Exception e) {
-            return "Error during prediction: " + e.getMessage();
+            double error =0;
+            return error;
         }
     }
+
+    public Map<String, Double> preditionMap(LocalDate date) {
+        // Create a new HashMap<String, Integer>
+        Map<String, Double> productPredictions = new HashMap<>();
+        List<Weather> weather = weatherRepository.findAllByDate(date);
+        float temperature = weather.get(0).getTemperature();
+        float humidity = weather.get(0).getHumidity();
+        float pressure = weather.get(0).getPressure();
+        List<Booking> bookings = bookingRepository.findAllByBookingDate(date);
+        int bookingNumber = 0;
+        for(Booking booking : bookings){
+            bookingNumber =+ booking.getNumberOfGuest();
+        }
+        int dayOfweek = date.getDayOfWeek().getValue();
+        int monthNumber =  date.getMonthValue();
+       //how much was made yesterday
+        List<Made> madelist= madeRepository.findAllByCreated(date.minusDays(1));
+        //how much was removed from the stock
+        List<Waste> wasteList= wasteRepository.findAllByDate(date);
+        List<Product> allproducts = productRepository.findAll();
+
+        for (Product product: allproducts){
+            int created = 0;
+            for(Made made : madelist){
+                if(made.getProduct().getId() == product.getId() ){
+                    created =+ made.getAmount();
+                }
+            }
+            int wasted=0;
+            for(Waste waste: wasteList){
+                if(waste.getProduct().getId() == product.getId()){
+                    wasted =+ waste.getQuantity();
+                }
+            }
+
+            int id = product.getId().intValue();
+            BigData data = new BigData(id, temperature, humidity, pressure, bookingNumber, dayOfweek, monthNumber, created, wasted);
+            double productPrediction = performPrediction(data);
+            productPredictions.put(product.getName(),productPrediction);
+        }
+
+        // Return the map
+        return productPredictions;
+    }
+
+
+
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import weka.core.Instances;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 
@@ -21,8 +22,9 @@ public class WekaREST {
     private WekaService wekaService;
 
     @GetMapping("/predict")
-    public String predict() {
-        BigData data = new BigData(1, 15.00, 65.00, 1010.00, 100, 4, 11, 50, 500, 0);
-        return wekaService.performPrediction(data);
+    public Map<String, Double> predict() {
+        LocalDate date = LocalDate.now();
+//        BigData data = new BigData(1, 15.00, 65.00, 1010.00, 100, 4, 11, 50, 500, 0);
+        return wekaService.preditionMap(date);
     }
 }
