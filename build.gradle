@@ -29,6 +29,7 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.h2database:h2'
 
     implementation group: 'com.github.darrachequesne', name: 'spring-data-jpa-datatables', version: '6.0.1'
     implementation 'org.webjars:jquery:3.5.1'
