@@ -2,7 +2,7 @@
 SELECT COUNT(*) FROM users;
 -- If there are no records in the users table, insert the initial user data
 INSERT INTO users (username, password, role)
-SELECT 'admin', '$2a$10$zuZI1SDVzFZKGLLT0BkTseCp0x5NStl9L9YvLJyEZ4xursZSVifla', 'ADMIN'
+SELECT 'scorac', '$2a$10$zuZI1SDVzFZKGLLT0BkTseCp0x5NStl9L9YvLJyEZ4xursZSVifla', 'ADMIN'
 WHERE NOT EXISTS (SELECT 1 FROM users);
 
 INSERT INTO product (name, life_length, type)
