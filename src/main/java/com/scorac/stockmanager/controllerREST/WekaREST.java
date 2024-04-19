@@ -1,5 +1,6 @@
 package com.scorac.stockmanager.controllerREST;
 
+import com.scorac.stockmanager.model.BigData;
 import com.scorac.stockmanager.service.WekaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class WekaREST {
 
     @GetMapping("/predict")
     public String predict() {
-        return wekaService.performPrediction();
+        BigData data = new BigData(1, 15.00, 65.00, 1010.00, 100, 4, 11, 50, 500, 0);
+        return wekaService.performPrediction(data);
     }
 }

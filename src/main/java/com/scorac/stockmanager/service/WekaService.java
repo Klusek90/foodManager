@@ -1,5 +1,6 @@
 package com.scorac.stockmanager.service;
 
+import com.scorac.stockmanager.model.BigData;
 import com.scorac.stockmanager.service.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,9 +39,9 @@ public class WekaService {
         }
     }
 
-    public String performPrediction() {
+    public String performPrediction(BigData data) {
         try {
-            // List of attributes
+            // Lista atrybutów zgodna z modelem
             ArrayList<Attribute> attributes = new ArrayList<>();
             attributes.add(new Attribute("productId"));
             attributes.add(new Attribute("temperature"));
@@ -51,30 +52,30 @@ public class WekaService {
             attributes.add(new Attribute("month"));
             attributes.add(new Attribute("made_quantity"));
             attributes.add(new Attribute("waste"));
-            attributes.add(new Attribute("made"));  // Target attribute
+            attributes.add(new Attribute("made"));  // Zakładamy, że 'made' jest celem
 
-            // Tworzenie zbioru danych
-            Instances dataset = new Instances("TrainingData", attributes, 0);
+            // Stworzenie nowego zbioru danych
+            Instances dataset = new Instances("PredictionInstance", attributes, 0);
             dataset.setClassIndex(dataset.numAttributes() - 1);  // 'made' jest zmienną zależną
 
-            // Dodanie przykładowej instancji danych
-            double[] instanceValue1 = new double[]{6, 13.27, 70.88, 1005.28, 125, 3, 10, 24, 413, 419};
-            dataset.add(new DenseInstance(1.0, instanceValue1));
+            // Stworzenie nowej instancji na podstawie danych
+            double[] instanceValues = new double[]{
+                    data.getProductId(),
+                    data.getTemperature(),
+                    data.getHumidity(),
+                    data.getPressure(),
+                    data.getBookings(),
+                    data.getDayOfWeek(),
+                    data.getMonthNumber(),
+                    data.getMadeQuantity(),
+                    data.getWasteQuantity(),
+                    0  // wartość 'made' nie jest znana podczas predykcji
+            };
+            dataset.add(new DenseInstance(1.0, instanceValues));
+            dataset.instance(0).setDataset(dataset);
 
-            double[] instanceValue2 = new double[]{20, 15.60, 60.53, 1029.61, 57, 1, 8, 144, 937, 156};
-            dataset.add(new DenseInstance(1.0, instanceValue2));
-
-            // Trenowanie modelu regresji liniowej
-            LinearRegression model = new LinearRegression();
-            model.buildClassifier(dataset);
-
-            // Użycie modelu do przewidzenia wartości 'made' dla nowej instancji
-            double[] newInstance = new double[]{6, 15.00, 65.00, 1010.00, 100, 4, 11, 50, 500, 0};
-            Instances newData = new Instances("NewInstance", attributes, 0);
-            newData.add(new DenseInstance(1.0, newInstance));
-            newData.setClassIndex(newData.numAttributes() - 1);
-
-            double predictedMade = model.classifyInstance(newData.instance(0));
+            // Przewidywanie wartości 'made'
+            double predictedMade = model.classifyInstance(dataset.instance(0));
             return "Predicted made: " + predictedMade;
         } catch (Exception e) {
             return "Error during prediction: " + e.getMessage();
