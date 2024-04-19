@@ -1,5 +1,6 @@
 package com.scorac.stockmanager.controllerREST;
 
+import com.scorac.stockmanager.model.BigData;
 import com.scorac.stockmanager.model.ChartDataRespose;
 import com.scorac.stockmanager.service.WekaService;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ public class WekaREST {
         this.wekaService = wekaService;
     }
 
+    //start model training
     @GetMapping("/trainModel")
     public String trainModel() {
         try {
@@ -32,25 +34,18 @@ public class WekaREST {
             return "Error in model training: " + e.getMessage();
         }
     }
-    @GetMapping("/loadModel")
-    public String loadModel() {
-        try {
-            wekaService.loadModel("model.model");
-            return "Model loaded successfully.";
-        } catch (Exception e) {
-            return "Failed to load model: " + e.getMessage();
-        }
-    }
 
-    @GetMapping("/predict")
-    public ResponseEntity<?> predict(@RequestParam double temp, @RequestParam double humidity, @RequestParam double pressure,
-                                     @RequestParam int bookings, @RequestParam int dayOfWeek, @RequestParam int month, @RequestParam int waste) {
+    @GetMapping("/predictToday")
+    public String predictTodaySales(@RequestParam double temp, @RequestParam double humidity, @RequestParam double pressure,
+                                    @RequestParam int bookings, @RequestParam int dayOfWeek, @RequestParam int month, @RequestParam int waste) {
+
+        BigData data = new BigData();
         try {
-            Instance instance = wekaService.createInstance(temp, humidity, pressure, bookings, dayOfWeek, month, waste);
+            Instance instance = wekaService.createInstance(data);
             double prediction = wekaService.makePrediction(instance);
-            return ResponseEntity.ok("Predicted value: " + prediction);
+            return "Predicted sales for today: " + prediction;
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Prediction failed: " + e.getMessage());
+            return "Prediction failed: " + e.getMessage();
         }
     }
 }
