@@ -1,19 +1,17 @@
 package com.scorac.stockmanager.service;
-import com.scorac.stockmanager.model.BigData;
+
+import com.scorac.stockmanager.model.*;
 import com.scorac.stockmanager.model.Entity.*;
 import com.scorac.stockmanager.service.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.core.*;
-
 import java.io.FileWriter;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import weka.classifiers.Classifier;
+import java.util.*;
 
 @Service
 public class WekaService {
@@ -31,16 +29,7 @@ public class WekaService {
     @Autowired
     private ProductRepository productRepository;
 
-    private RecipeProductService recipeProductService;
-
-
-    public WekaService(RecipeProductService recipeProductService) {
-        this.recipeProductService = recipeProductService;
-    }
-
-
     private Classifier model;
-
 
     public void loadModel(String path) throws Exception {
         this.model = (Classifier) SerializationHelper.read(path);
@@ -53,9 +42,7 @@ public class WekaService {
         return model.classifyInstance(instance);
     }
 
-
     public Instance createInstance(double temp, double humidity, double pressure, int bookings, int dayOfWeek, int month, int waste) {
-        // Create the attributes exactly as they were created during the training phase
         ArrayList<Attribute> attributes = new ArrayList<>();
         attributes.add(new Attribute("temperature"));
         attributes.add(new Attribute("humidity"));
@@ -65,222 +52,87 @@ public class WekaService {
         attributes.add(new Attribute("month"));
         attributes.add(new Attribute("waste"));
 
-        Instances dataUnlabeled = new Instances("Instance", attributes, 0);
-        dataUnlabeled.setClassIndex(dataUnlabeled.numAttributes() - 1); // Assuming last attribute as target variable
+        Instances dataset = new Instances("Instance", attributes, 0);
+        dataset.setClassIndex(dataset.numAttributes() - 1);
 
-        Instance instance = new DenseInstance(attributes.size());
-        instance.setValue(attributes.get(0), temp);
-        instance.setValue(attributes.get(1), humidity);
-        instance.setValue(attributes.get(2), pressure);
-        instance.setValue(attributes.get(3), bookings);
-        instance.setValue(attributes.get(4), dayOfWeek);
-        instance.setValue(attributes.get(5), month);
-        instance.setValue(attributes.get(6), waste);
+        Instance instance = new DenseInstance(1.0, new double[]{temp, humidity, pressure, bookings, dayOfWeek, month, waste});
+        dataset.add(instance);
 
-        dataUnlabeled.add(instance);
-        return instance;
+        return dataset.firstInstance();
     }
 
-//old
-    public List<BigData> bigDataSet() {
-        LocalDate today = LocalDate.now();
-        LocalDate dateToValidate;
-
-        List<BigData> bigDataSet = new ArrayList<>();
-
+    public Instances collectDataForTraining() {
         List<Weather> weathers = weatherRepository.findAll();
-        List<Made> preparationMode = madeRepository.findAll();
+        List<Made> madeList = madeRepository.findAll();
         List<Sale> sales = saleRepository.findAll();
         List<Booking> bookings = bookingRepository.findAll();
         List<Waste> wastes = wasteRepository.findAll();
-        List<Product> allproducts = productRepository.findAll();
+        List<Product> products = productRepository.findAll();
 
+        Instances dataset = initializeDataset();
 
-        //createing 2 years data
-        for (int i = 0; i < 730; i++) {
-            dateToValidate = today.minusDays(i);
+        products.forEach(product -> {
+            weathers.forEach(weather -> {
+                if (weather.getDate().isBefore(LocalDate.now().minusYears(2))) {
+                    double[] instanceValues = new double[dataset.numAttributes()];
+                    instanceValues[0] = weather.getTemperature();
+                    instanceValues[1] = weather.getHumidity();
+                    instanceValues[2] = weather.getPressure();
 
-            for(int x=0; x< allproducts.size() ;x++){
-                BigData bigDataRow = new BigData();
-                bigDataRow.setProductid( allproducts.get(x).getId());
-                bigDataRow.setMonthNumber(dateToValidate.getMonth().getValue());
-                bigDataRow.setDayOfWeek(dateToValidate.getDayOfWeek().getValue());
-
-                int made=0;
-                for (int j = 0; j < preparationMode.size(); j++) {
-
-                    if (preparationMode.get(j).getCreated().isEqual(dateToValidate) && allproducts.get(x).getId() == preparationMode.get(j).getProduct().getId()) {
-                        made += preparationMode.get(j).getAmount();
-                    }
-                }
-                bigDataRow.setMadeQuantity(made);
-
-                for (int k = 0; k < weathers.size(); k++) {
-                    if (weathers.get(k).getDate().isEqual(dateToValidate)) {
-                        bigDataRow.setWeatherTemp(weathers.get(k).getTemperature());
-                        bigDataRow.setWeatherHumidity(weathers.get(k).getHumidity());
-                        bigDataRow.setWeatherPressure(weathers.get(k).getPressure());
-                    }
-                }
-
-                int allBookings = 0;
-                for (int l = 0; l < bookings.size(); l++) {
-                    if (bookings.get(l).getBookingDate().isEqual(dateToValidate)) {
-                        allBookings += bookings.get(l).getNumberOfGuest();
-
-                    }
-                }
-                bigDataRow.setBookings(allBookings);
-
-                //how much product was prepared that day and how much was wasted
-                int waste = 0;
-                for (int m = 0; m < wastes.size(); m++) {
-                    if (wastes.get(m).getDate().isEqual(dateToValidate) && wastes.get(m).getProduct().getId() == allproducts.get(x).getId()) {
-                        waste += wastes.get(m).getQuantity();
-                    }
-                }
-                bigDataRow.setWaste(waste);
-
-                        //how much of this product was sold that day
-                int sold = 0;
-                for (int n = 0; n < sales.size(); n++) {
-                    if (sales.get(n).getDate().isEqual(dateToValidate)) {
-                        List<RecipeProduct> productsInRecipie = recipeProductService.listforRecipe(sales.get(n).getRecipe().getRecipeId());
-                        for (int o = 0; o < productsInRecipie.size(); o++) {
-                            if (productsInRecipie.get(o).getProduct().getId() == allproducts.get(x).getId()) {
-                                int productAmountOfSold = productsInRecipie.get(o).getQuantity() * sales.get(n).getMultiplicity();
-                                sold += productAmountOfSold;
-                            }
+                    int bookingsTotal = 0;
+                    for (Booking booking : bookings) {
+                        if (booking.getBookingDate().equals(weather.getDate())) {
+                            bookingsTotal += booking.getNumberOfGuest();
                         }
                     }
+
+                    instanceValues[3] = bookingsTotal;
+                    instanceValues[4] = weather.getDate().getDayOfWeek().getValue();
+                    instanceValues[5] = weather.getDate().getMonthValue();
+
+                    int wasteTotal = wastes.stream()
+                            .filter(w -> w.getProduct().equals(product) && w.getDate().equals(weather.getDate()))
+                            .mapToInt(Waste::getQuantity)
+                            .sum();
+
+                    instanceValues[6] = wasteTotal;
+
+                    dataset.add(new DenseInstance(1.0, instanceValues));
                 }
-                bigDataRow.setSaleQuantity(sold);
+            });
+        });
 
-                bigDataSet.add(bigDataRow);
-            }
-
-        }
-        return bigDataSet;
-    }
-
-
-    // creating csv
-    public void writeListToCSV() {
-
-        try {
-
-
-        List<BigData> alldata = bigDataSet();
-
-        FileWriter csvWriter = new FileWriter("BigData.scv");
-
-        // Write header
-        csvWriter.append("ProductID,WeatherTemp,WeatherHumidity,WeatherPressure,MadeQuantity,SaleQuantity,Bookings,DayOfWeek,DayOfMonth,Waste\n");
-
-        // Write data
-        for (BigData data : alldata) {
-            csvWriter.append(String.valueOf(data.getProductid()));
-            csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getWeatherTemp()));
-            csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getWeatherHumidity()));
-            csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getWeatherPressure()));
-            csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getMadeQuantity()));
-            csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getSaleQuantity()));
-            csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getBookings()));
-            csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getDayOfWeek()));
-            csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getMonthNumber()));
-            csvWriter.append(",");
-            csvWriter.append(String.valueOf(data.getWaste()));
-            csvWriter.append("\n");
-        }
-
-        csvWriter.flush();
-        csvWriter.close();
-    }catch (Exception e){
-            System.out.println("Error while creating CSV ");
-        }
-    }
-
-    public Instances convertListToInstances() {
-        List<BigData> dataList = bigDataSet();
-
-        ArrayList<Attribute> attributes = new ArrayList<>();
-        attributes.add(new Attribute("productid"));
-        attributes.add(new Attribute("weatherTemp"));
-        attributes.add(new Attribute("weatherHumidity"));
-        attributes.add(new Attribute("weatherPressure"));
-        attributes.add(new Attribute("madeQuantity"));
-        attributes.add(new Attribute("saleQuantity"));
-        attributes.add(new Attribute("bookings"));
-        attributes.add(new Attribute("dayOfWeek"));
-        attributes.add(new Attribute("monthNumber"));
-        attributes.add(new Attribute("waste"));
-
-        Instances dataset = new Instances("ProductData", attributes, dataList.size());
-        dataset.setClassIndex(dataset.attribute("saleQuantity").index()); // Setting saleQuantity as the target variable for sales prediction
-
-        for (BigData data : dataList) {
-            double[] instanceValue = new double[dataset.numAttributes()];
-            instanceValue[0] = data.getProductid();
-            instanceValue[1] = data.getWeatherTemp();
-            instanceValue[2] = data.getWeatherHumidity();
-            instanceValue[3] = data.getWeatherPressure();
-            instanceValue[4] = data.getMadeQuantity();
-            instanceValue[5] = data.getSaleQuantity();
-            instanceValue[6] = data.getBookings();
-            instanceValue[7] = data.getDayOfWeek();
-            instanceValue[8] = data.getMonthNumber();
-            instanceValue[9] = data.getWaste();
-            dataset.add(new DenseInstance(1.0, instanceValue));
-        }
         return dataset;
     }
 
-    public String trainAndEvaluateModel() {
-        try {
-            Instances data = convertListToInstances();
-            data.setClassIndex(data.numAttributes() - 1);
+    private Instances initializeDataset() {
+        ArrayList<Attribute> attributes = new ArrayList<>();
+        attributes.add(new Attribute("temperature"));
+        attributes.add(new Attribute("humidity"));
+        attributes.add(new Attribute("pressure"));
+        attributes.add(new Attribute("bookings"));
+        attributes.add(new Attribute("dayOfWeek"));
+        attributes.add(new Attribute("month"));
+        attributes.add(new Attribute("waste"));
 
-            LinearRegression model = new LinearRegression();
-            model.buildClassifier(data);
+        return new Instances("ProductData", attributes, 0);
+    }
 
-            Evaluation eval = new Evaluation(data);
-            eval.crossValidateModel(model, data, 10, new Random(1));
+    public void trainAndEvaluateModel() throws Exception {
+        Instances data = collectDataForTraining();
+        data.setClassIndex(data.numAttributes() - 1);
 
-            // Save the model after training
-            saveModel(model, "model.model");
+        LinearRegression model = new LinearRegression();
+        model.buildClassifier(data);
 
-            return eval.toSummaryString("\nResults\n======\n", false);
-        } catch (Exception e) {
-            return "Failed to process data: " + e.getMessage();
-        }
+        Evaluation eval = new Evaluation(data);
+        eval.crossValidateModel(model, data, 10, new Random(1));
+
+        saveModel(model, "model.model");
+        System.out.println(eval.toSummaryString("\nResults\n======\n", false));
     }
 
     public void saveModel(Classifier model, String path) throws Exception {
         SerializationHelper.write(path, model);
     }
-
-//    public Classifier loadModel(String path) throws Exception {
-//        return (Classifier) SerializationHelper.read(path);
-//    }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-

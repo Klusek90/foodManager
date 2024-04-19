@@ -2,6 +2,8 @@ package com.scorac.stockmanager.controllerREST;
 
 import com.scorac.stockmanager.model.ChartDataRespose;
 import com.scorac.stockmanager.service.WekaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,17 +23,15 @@ public class WekaREST {
         this.wekaService = wekaService;
     }
 
-    @GetMapping("/createcsv")
-    public String createCSV(){
-        wekaService.writeListToCSV();
-        return "done";
+    @GetMapping("/trainModel")
+    public String trainModel() {
+        try {
+            wekaService.trainAndEvaluateModel();
+            return "Model trained and evaluated successfully!";
+        } catch (Exception e) {
+            return "Error in model training: " + e.getMessage();
+        }
     }
-
-    @GetMapping("/trainAlgorithm")
-    public String trainWeka() {
-        return wekaService.trainAndEvaluateModel();
-    }
-
     @GetMapping("/loadModel")
     public String loadModel() {
         try {
@@ -43,14 +43,14 @@ public class WekaREST {
     }
 
     @GetMapping("/predict")
-    public String predict(@RequestParam double temp, @RequestParam double humidity, @RequestParam double pressure,
-                          @RequestParam int bookings, @RequestParam int dayOfWeek, @RequestParam int month, @RequestParam int waste) {
+    public ResponseEntity<?> predict(@RequestParam double temp, @RequestParam double humidity, @RequestParam double pressure,
+                                     @RequestParam int bookings, @RequestParam int dayOfWeek, @RequestParam int month, @RequestParam int waste) {
         try {
             Instance instance = wekaService.createInstance(temp, humidity, pressure, bookings, dayOfWeek, month, waste);
             double prediction = wekaService.makePrediction(instance);
-            return "Predicted class value: " + prediction;
+            return ResponseEntity.ok("Predicted value: " + prediction);
         } catch (Exception e) {
-            return "Prediction failed: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Prediction failed: " + e.getMessage());
         }
     }
 }
