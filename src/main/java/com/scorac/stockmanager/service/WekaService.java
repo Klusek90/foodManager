@@ -134,7 +134,7 @@ public class WekaService {
         Map<Long, Integer> productSales = new HashMap<>();
 
         for (Sale sale : sales) {
-            List<RecipeProduct> recipeProducts = recipeProductRepository.findByRecipeId(sale.getRecipe().getId());
+            List<RecipeProduct> recipeProducts = recipeProductRepository.findAllByRecipe_RecipeId(sale.getRecipe().getRecipeId());
             for (RecipeProduct rp : recipeProducts) {
                 Long productId = rp.getProduct().getId();
                 int soldQuantity = rp.getQuantity() * sale.getMultiplicity();
