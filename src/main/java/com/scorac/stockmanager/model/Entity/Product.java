@@ -20,4 +20,13 @@ public class Product {
     private int lifeLength;
     private String type;
 
+    public Product(Long id, String name, int lifeLength, String type) {
+        this.id = id;
+        this.name = name;
+        this.lifeLength = lifeLength;
+        this.type = type;
+    }
+
+    public Product() {
+    }
 }
