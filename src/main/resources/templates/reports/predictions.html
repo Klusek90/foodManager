@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('SCORAC Sale Report')}"/>
+<body>
+<div th:replace="~{fragments/logoBar :: logoBar('Sale Report')}"></div>
+<div class="container-fluid">
+    <div class="row bg">
+        <div th:replace="~{fragments/sidebar :: sidebar('reports')}"></div>
+        <main class="col-md-8 px-md-3 mt-4">
+            <table>
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Prediction</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iterate over the map and display each key-value pair -->
+                <tr th:each="entry : ${productPredictions}">
+                    <td th:text="${entry.key}">Product</td>
+                    <td th:text="${entry.value}">Prediction</td>
+                </tr>
+                </tbody>
+            </table>
+        </main>
+        <div class="col"></div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+<!--<script th:src="@{/scripts/formPopulator.js}"></script>-->
+<!--<script th:src="@{/scripts/saleChart.js}"></script>-->
+
+</body>
+
+</html>

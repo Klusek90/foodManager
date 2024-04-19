@@ -95,9 +95,17 @@ public class WekaService {
         // Create a new HashMap<String, Integer>
         Map<String, Double> productPredictions = new HashMap<>();
         List<Weather> weather = weatherRepository.findAllByDate(date);
-        float temperature = weather.get(0).getTemperature();
-        float humidity = weather.get(0).getHumidity();
-        float pressure = weather.get(0).getPressure();
+
+        float temperature = 0;
+        float humidity = 0;
+        float pressure =0;
+
+        if(weather.size() >0 ){
+            temperature = weather.get(0).getTemperature();
+            humidity = weather.get(0).getHumidity();
+            pressure = weather.get(0).getPressure();
+        }
+
         List<Booking> bookings = bookingRepository.findAllByBookingDate(date);
         int bookingNumber = 0;
         for(Booking booking : bookings){
@@ -110,31 +118,29 @@ public class WekaService {
         //how much was removed from the stock
         List<Waste> wasteList= wasteRepository.findAllByDate(date);
         List<Product> allproducts = productRepository.findAll();
-
-        for (Product product: allproducts){
-            int created = 0;
-            for(Made made : madelist){
-                if(made.getProduct().getId() == product.getId() ){
-                    created =+ made.getAmount();
+        if(allproducts.size() > 0) {
+            for (Product product : allproducts) {
+                int created = 0;
+                for (Made made : madelist) {
+                    if (made.getProduct().getId() == product.getId()) {
+                        created = +made.getAmount();
+                    }
                 }
-            }
-            int wasted=0;
-            for(Waste waste: wasteList){
-                if(waste.getProduct().getId() == product.getId()){
-                    wasted =+ waste.getQuantity();
+                int wasted = 0;
+                for (Waste waste : wasteList) {
+                    if (waste.getProduct().getId() == product.getId()) {
+                        wasted = +waste.getQuantity();
+                    }
                 }
-            }
 
-            int id = product.getId().intValue();
-            BigData data = new BigData(id, temperature, humidity, pressure, bookingNumber, dayOfweek, monthNumber, created, wasted);
-            double productPrediction = performPrediction(data);
-            productPredictions.put(product.getName(),productPrediction);
+                int id = product.getId().intValue();
+                BigData data = new BigData(id, temperature, humidity, pressure, bookingNumber, dayOfweek, monthNumber, created, wasted);
+                double productPrediction = Math.round(performPrediction(data)) ;
+                productPredictions.put(product.getName(), productPrediction);
+            }
         }
-
         // Return the map
         return productPredictions;
     }
-
-
 
 }
