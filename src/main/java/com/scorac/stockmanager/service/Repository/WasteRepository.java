@@ -9,5 +9,4 @@ import java.util.List;
 public interface WasteRepository extends JpaRepository <Waste, Long> {
     List<Waste> findAll();
 
-    List<Waste> findAllByDateaAndAndId(LocalDate localDate, Long id);
 }

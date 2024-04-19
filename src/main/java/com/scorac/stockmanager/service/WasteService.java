@@ -144,7 +144,4 @@ public class WasteService {
         return todayWaste ;
     }
 
-    public List<Waste> wasteOnDate(LocalDate date, Long id){
-        return wasteRepository.findAllByDateaAndAndId(date, id);
-    }
-}
+  }
