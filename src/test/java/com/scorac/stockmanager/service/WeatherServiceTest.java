@@ -27,7 +27,6 @@ class WeatherServiceTest {
     @MockBean
     private WeatherRepository weatherRepositoryMock;
 
-
     @Test
     public void weatherTest() {
         LocalDate today = LocalDate.now();

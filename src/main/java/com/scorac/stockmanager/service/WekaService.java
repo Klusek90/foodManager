@@ -49,7 +49,7 @@ public class WekaService {
 
     public Double performPrediction(BigData data) {
         try {
-            // Lista atrybutów zgodna z modelem
+            // List of attributes match the model
             ArrayList<Attribute> attributes = new ArrayList<>();
             attributes.add(new Attribute("productId"));
             attributes.add(new Attribute("temperature"));
@@ -66,7 +66,7 @@ public class WekaService {
             Instances dataset = new Instances("PredictionInstance", attributes, 0);
             dataset.setClassIndex(dataset.numAttributes() - 1);  // point to dependent variable
 
-            // Stworzenie nowej instancji na podstawie danych
+            // New instance create based on data provided
             double[] instanceValues = new double[]{
                     data.getProductId(),
                     data.getTemperature(),
@@ -82,7 +82,7 @@ public class WekaService {
             dataset.add(new DenseInstance(1.0, instanceValues));
             dataset.instance(0).setDataset(dataset);
 
-            // Przewidywanie wartości 'made'
+            // Predicting value 'made'
             double predictedMade = model.classifyInstance(dataset.instance(0));
             return  predictedMade;
         } catch (Exception e) {
@@ -95,17 +95,14 @@ public class WekaService {
         // Create a new HashMap<String, Integer>
         Map<String, Double> productPredictions = new HashMap<>();
         List<Weather> weather = weatherRepository.findAllByDate(date);
-
         float temperature = 0;
         float humidity = 0;
         float pressure =0;
-
         if(weather.size() >0 ){
             temperature = weather.get(0).getTemperature();
             humidity = weather.get(0).getHumidity();
             pressure = weather.get(0).getPressure();
         }
-
         List<Booking> bookings = bookingRepository.findAllByBookingDate(date);
         int bookingNumber = 0;
         for(Booking booking : bookings){
@@ -132,7 +129,6 @@ public class WekaService {
                         wasted = +waste.getQuantity();
                     }
                 }
-
                 int id = product.getId().intValue();
                 BigData data = new BigData(id, temperature, humidity, pressure, bookingNumber, dayOfweek, monthNumber, created, wasted);
                 double productPrediction = Math.round(performPrediction(data)) ;

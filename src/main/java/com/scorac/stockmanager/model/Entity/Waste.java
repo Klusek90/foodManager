@@ -20,4 +20,14 @@ public class Waste {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    public Waste(Long id, LocalDate date, int quantity, Product product) {
+        this.id = id;
+        this.date = date;
+        this.quantity = quantity;
+        this.product = product;
+    }
+
+    public Waste() {
+    }
 }

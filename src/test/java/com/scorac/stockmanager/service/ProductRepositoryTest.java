@@ -43,5 +43,6 @@ public class ProductRepositoryTest {
         Assertions.assertEquals("meat", list.get(2).getType());
 
     }
+
 }
 

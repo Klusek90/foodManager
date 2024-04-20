@@ -46,10 +46,5 @@ public class reportConrol {
     }
 
     @GetMapping("/prediction")
-    public String predictionReport(Model model){
-        LocalDate date = LocalDate.now();
-//        BigData data = new BigData(1, 15.00, 65.00, 1010.00, 100, 4, 11, 50, 500, 0);
-        Map<String,Double> productPredictions= wekaService.preditionMap(date);
-        model.addAttribute("productPredictions", productPredictions);
-        return  "reports/predictions";}
+    public String predictionReport(){ return  "reports/predictions";}
 }
