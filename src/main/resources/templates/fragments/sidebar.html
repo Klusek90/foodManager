@@ -28,7 +28,7 @@
           <a class="nav-link" href="/setup">Setup</a>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeMenu == 'recipes' ? 'active' : ''}">
-          <a class="nav-link" href="/recipes">Recipes</a>
+          <a class="nav-link" href="/recipes/list">Recipes</a>
         </li>
         <li class="nav-item" th:classappend="${activeMenu == 'sale' ? 'active' : ''}">
           <a class="nav-link bg-light" href="/sale">Sale</a>

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@RequestMapping(value="/recipes")
 public class managementControl {
     @Autowired
     private ProductService productService;
@@ -29,7 +30,7 @@ public class managementControl {
         this.recipeProductService = recipeProductService;
     }
 
-    @GetMapping("/recipes")
+    @GetMapping("/list")
     public String recipes(Model model) {
         List<Recipe> recipe = recipeService.getAll();
         model.addAttribute("recipe", recipe);
@@ -51,7 +52,7 @@ public class managementControl {
         }else {
             redirectAttributes.addFlashAttribute("message", respond);
         }
-        return "redirect:/newproduct"; // Redirect to prevent duplicate submissions
+        return "redirect:/recipes/newproduct"; // Redirect to prevent duplicate submissions
     }
 
     @GetMapping("/newrecipe")
@@ -83,7 +84,7 @@ public class managementControl {
             recipeProductService.save(recipeProduct);
         }
         redirectAttributes.addFlashAttribute("message", "New recipe added");
-        return "redirect:/newrecipe";
+        return "redirect:/recipes/newrecipe";
     }
 
     @GetMapping("/recipe/{id}")

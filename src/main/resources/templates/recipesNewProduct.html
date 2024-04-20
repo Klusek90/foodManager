@@ -15,7 +15,7 @@
             </div>
             <div class="row">
                 <div class="col col-md-4 mt-5 ml-4 back">
-                    <form th:action="@{/addProduct}" th:object="${product}" method="post">
+                    <form th:action="@{/recipes/addProduct}" th:object="${product}" method="post">
                         <div>
                             <label for="name">Product name:</label>
                             <input type="text" id="name" class="textfield form-control" name="name">
@@ -30,7 +30,7 @@
                         </div>
                         <div>
                             <button type="submit" class="btn bg-success mt-5">Add new Product</button>
-                            <a href="recipes" class="btn btn-secondary mt-5">Back</a>
+                            <a href="/recipes/list" class="btn btn-secondary mt-5">Back</a>
                         </div>
                     </form>
                 </div>

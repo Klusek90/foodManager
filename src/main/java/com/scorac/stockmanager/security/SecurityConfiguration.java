@@ -22,7 +22,7 @@ public class SecurityConfiguration {
                         //endpoint access for all type of users
                         .requestMatchers("/loginPage.css", "/img/logo.jpg").permitAll()
                         //resticting accress for admin users
-                        .requestMatchers("/users/*", "/reports", "/recipes").hasRole("ADMIN") // only for admin
+                        .requestMatchers("/users/*", "/recipes/*").hasRole("ADMIN") // only for admin
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         //overriding default page with custom login page
