@@ -14,7 +14,9 @@ public class BigData {
         private int madeQuantity;
         private int wasteQuantity;
 
-    public BigData(int productId, float temperature, float humidity, float pressure, int bookings, int dayOfWeek, int monthNumber, int madeQuantity, int wasteQuantity) {
+    public BigData(int productId, float temperature, float humidity,
+                   float pressure, int bookings, int dayOfWeek, int monthNumber,
+                   int madeQuantity, int wasteQuantity) {
         this.productId = productId;
         this.temperature = temperature;
         this.humidity = humidity;
@@ -26,6 +28,4 @@ public class BigData {
         this.wasteQuantity = wasteQuantity;
     }
 
-    public BigData(long l, double v, double v1, double v2, int i, int i1, int i2, int i3, int i4, int i5) {
-    }
 }

@@ -60,11 +60,11 @@ public class WekaService {
             attributes.add(new Attribute("month"));
             attributes.add(new Attribute("made_quantity"));
             attributes.add(new Attribute("waste"));
-            attributes.add(new Attribute("made"));  // Zakładamy, że 'made' jest celem
+            attributes.add(new Attribute("made"));  // dependent variable
 
-            // Stworzenie nowego zbioru danych
+            // New set of data
             Instances dataset = new Instances("PredictionInstance", attributes, 0);
-            dataset.setClassIndex(dataset.numAttributes() - 1);  // 'made' jest zmienną zależną
+            dataset.setClassIndex(dataset.numAttributes() - 1);  // point to dependent variable
 
             // Stworzenie nowej instancji na podstawie danych
             double[] instanceValues = new double[]{
@@ -77,7 +77,7 @@ public class WekaService {
                     data.getMonthNumber(),
                     data.getMadeQuantity(),
                     data.getWasteQuantity(),
-                    0  // wartość 'made' nie jest znana podczas predykcji
+                    0
             };
             dataset.add(new DenseInstance(1.0, instanceValues));
             dataset.instance(0).setDataset(dataset);
