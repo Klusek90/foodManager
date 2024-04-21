@@ -12,10 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StockService {
@@ -91,19 +89,19 @@ public class StockService {
             for(int i =0 ; i<livePrepared.size(); i++){
 
                 Prep prep = livePrepared.get(i);
-                LocalDate shortly  = today.plusDays(2);
+                LocalDate shortly  = today.plusDays(3);
 
                 if (prep.getExpireDate().isBefore(shortly)){
 
                     Expiring expiring= new Expiring();
-                    Product product = productService.getSingleProduct(prep.getId());
+                    Product product = prep.getProduct();
 
                     expiring.setCreated(prep.getProductionDate());
                     expiring.setExpire(prep.getExpireDate());
 
                     //calculate days
-                    long differenceInDays = ChronoUnit.DAYS.between(expiring.getExpire(), today);
-                    int daysleft = (int) differenceInDays +1;
+                    long differenceInDays = ChronoUnit.DAYS.between(today, expiring.getExpire());
+                    int daysleft = (int) differenceInDays;
                     expiring.setPrepid(prep.getId());
                     expiring.setName(product.getName());
                     expiring.setProductid(product.getId());
@@ -111,6 +109,7 @@ public class StockService {
                     expirings.add(expiring);
                 }
 
+                expirings = removeDuplicates(expirings);
             }
 
         } catch(Exception e){
@@ -118,7 +117,7 @@ public class StockService {
         }
 
         // Sort the list based on the daysLeft field
-        Collections.sort(expirings, Comparator.comparingInt(Expiring::getDaysLeft));
+
 
         return  expirings;
     }
@@ -139,6 +138,14 @@ public class StockService {
             logger.error("Product not removed properly");
         }
 
+    }
+
+    public static List<Expiring> removeDuplicates(List<Expiring> list) {
+        return list.stream()
+                .collect(Collectors.toMap(Expiring::getName, ex -> ex, (existing, replacement) -> existing))
+                .values()
+                .stream()
+                .collect(Collectors.toList());
     }
 
 }

@@ -51,14 +51,4 @@ public class ProductService {
         return productRepository.findAllById(productIds);
     }
 
-    public Product getSingleProduct(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Product not found with id: " + id));
-        return product;
-    }
-
-    public   String findProductName(Long id){
-        String name= findProductName(id);
-        return name;
-    }
 }
