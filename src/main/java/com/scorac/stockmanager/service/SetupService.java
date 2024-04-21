@@ -25,7 +25,9 @@ public class SetupService {
     public String restauranInfo(){
         List<Setup> customer = setupRepository.findAll();
         String info = "";
-        info = customer.get(0).getRestaurantInfo();
+        if(customer.size()>0){
+            info = customer.get(0).getRestaurantInfo();
+        }
         return info;
     }
 }

@@ -35,8 +35,9 @@ public class iaAnswerControll {
             }
         }
         String productList = sb.toString();
-        String question = "Based restaurant information \" "+ restaurantInfo +"\" and list of these products: " + productList +" create me 3 meal proposals. Additionally: "+ additonal +" . Send respond as Array ";
+        String question = "Based on restaurant information \"" + restaurantInfo + "\" and a list of these products: " + productList + " create me 3 meal proposals including meal names and descriptions. Additionally: " + additonal + ". Please format the response as an array of objects, each including 'meal' and 'description' keys.";
         // Respond from Neural network based on prompt
-        return chatClient.call(question);
+        String respond =chatClient.call(question);
+        return respond;
     }
 }

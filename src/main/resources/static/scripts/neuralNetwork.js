@@ -64,23 +64,16 @@ $('#chatqueryButton').on('click', function (e) {
         getData('/request', {
             selectedNamesSet
         }).then(data => {
-            // Clear previous responses
             $('#respondWindow').empty();
-            // Standardize the response format
-            console.log(data)
             const meals = parseResponse(data);
-            // Display the standardized response
             meals.forEach((meal, index) => {
-                // Create a paragraph for each meal
                 $('<h6>').addClass('mt-2 bold').text("Meal " + (index + 1)).appendTo('#respondWindow');
                 $('<p>').addClass('mb-3').text(meal).appendTo('#respondWindow');
             });
         }).catch(error => {
-            // Handle errors
             console.error("Error:", error);
             $('#respondWindow').text("An error occurred while fetching data");
         });
-
         $('#prompt').modal('show');
     }
 });
@@ -89,25 +82,17 @@ $('#chatqueryButton').on('click', function (e) {
 function parseResponse(data) {
     let meals = [];
     if (Array.isArray(data)) {
-        // Check if each item in the array is a string, if so, it's already in the desired format
-        if (data.every(item => typeof item === 'string')) {
-            meals = data;
-        } else {
-            // If not, try to parse the response as JSON
-            try {
-                meals = JSON.parse(data);
-                // Check if the parsed data is an array of strings, if not, handle as needed
-                if (!Array.isArray(meals) || !meals.every(item => typeof item === 'string')) {
-                    // Handle unexpected format, e.g., convert to strings
-                    meals = meals.map(item => String(item));
-                }
-            } catch (error) {
-                console.error("Error parsing response:", error);
-                meals = ["Error parsing response"];
+        data.forEach(item => {
+            if (typeof item === 'object' && item.meal && typeof item.meal === 'string' && item.description && typeof item.description === 'string') {
+                meals.push(item.meal + ": " + item.description); // Combine meal name and description
+            } else {
+                console.error("Unexpected item format:", item);
+                // Optionally add a fallback or error message
+                meals.push("Invalid meal data");
             }
-        }
+        });
     } else {
-        // Handle unexpected format, e.g., convert to string
+        console.error("Error: Data is not an array", data);
         meals.push(String(data));
     }
     return meals;
