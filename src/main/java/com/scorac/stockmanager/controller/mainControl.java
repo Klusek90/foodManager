@@ -87,8 +87,17 @@ public class mainControl {
     private String addWaste(@ModelAttribute Prep prep , @RequestParam(value = "productIds") List<Long> productIds, @RequestParam(value = "quantities") List<Integer> quantities, RedirectAttributes redirectAttributes){
 
         List<Product> products = productService.getProductsByIds(productIds);
+        //sorting products list (not nice but fast fix the problem)
+        List<Product> sorted = new ArrayList<>();
+        for (int i =0; i < productIds.size(); i++ ){
+            for(int j =0; j< products.size();j++){
+                if(productIds.get(i)== products.get(j).getId()){
+                    sorted.add(products.get(j));
+                }
+            }
+        }
 
-        String respond = wasteService.saveWaste(products, quantities);
+        String respond = wasteService.saveWaste(sorted, quantities);
 
         if(respond.contains("Faild")){
             redirectAttributes.addFlashAttribute("error", respond);
