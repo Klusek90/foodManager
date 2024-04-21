@@ -46,8 +46,13 @@ public class prepControl {
         List<Product> products = productService.getProductsByIds(productIds);
         LocalDate timestamp = LocalDate.now();
         // Save recipe products
-        for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
+        for (int i = 0; i < productIds.size(); i++) {
+            Product product =new Product();
+            for(int j =0; j< products.size(); j++){
+                if(products.get(j).getId()== productIds.get(i)){
+                    product = products.get(j);
+                }
+            }
             Integer amount = quantities.get(i);
             Prep prepared =  new Prep();
             prepared.setAmount(amount);

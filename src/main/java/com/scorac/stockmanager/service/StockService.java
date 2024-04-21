@@ -103,7 +103,7 @@ public class StockService {
 
                     //calculate days
                     long differenceInDays = ChronoUnit.DAYS.between(expiring.getExpire(), today);
-                    int daysleft = (int) differenceInDays;
+                    int daysleft = (int) differenceInDays +1;
                     expiring.setPrepid(prep.getId());
                     expiring.setName(product.getName());
                     expiring.setProductid(product.getId());
