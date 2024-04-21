@@ -74,9 +74,15 @@ public class managementControl {
         recipeService.save(recipe);
 
         // Save recipe products
-        for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
+        for (int i = 0; i < productIds.size(); i++) {
+            Product product =new Product();
+            for(int j =0; j< products.size(); j++){
+                if(products.get(j).getId()== productIds.get(i)){
+                    product = products.get(j);
+                }
+            }
             Integer quantity = quantities.get(i);
+
             RecipeProduct recipeProduct = new RecipeProduct();
             recipeProduct.setProduct(product);
             recipeProduct.setQuantity(quantity);
