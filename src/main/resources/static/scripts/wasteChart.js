@@ -66,7 +66,7 @@ $(document).ready(function() {
                     }
                 };
                 initChart(monthData, "line");
-                totalValue.text("Total Wastage:  "+ totalWastege);
+                totalValue.text("Total Wastage:  "+ totalWastege +" g");
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching data: ", error);
@@ -115,7 +115,7 @@ $(document).ready(function() {
                     }
                 };
                 initChart(monthData, "line");
-                totalValue.text("Total Wastage:  "+ totalWastege);
+                totalValue.text("Total Wastage:  "+ totalWastege + " g");
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching data: ", error);
@@ -183,7 +183,7 @@ $(document).ready(function() {
                 initChart(dayData, "doughnut");
 
                 // Assuming 'totalValue' is a jQuery selector for an element where you want to display total wastage
-                totalValue.text("Total Wastage: " + totalWastage);
+                totalValue.text("Total Wastage: " + totalWastage + " g");
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching daily waste data: ", error);

@@ -107,6 +107,7 @@ public class StockService {
                     expiring.setPrepid(prep.getId());
                     expiring.setName(product.getName());
                     expiring.setProductid(product.getId());
+                    expiring.setDaysLeft(daysleft);
                     expirings.add(expiring);
                 }
 

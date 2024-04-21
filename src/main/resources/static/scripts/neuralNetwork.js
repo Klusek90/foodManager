@@ -67,6 +67,7 @@ $('#chatqueryButton').on('click', function (e) {
             // Clear previous responses
             $('#respondWindow').empty();
             // Standardize the response format
+            console.log(data)
             const meals = parseResponse(data);
             // Display the standardized response
             meals.forEach((meal, index) => {

@@ -21,7 +21,7 @@
                         <!-- Iterate over the list of recipes -->
                         <li th:each="recipe : ${recipe}" class="list-group-item p-4 m-1">
                             <!-- Display the name of each recipe -->
-                            <a class="recipelink" th:href="@{'/recipe/' + ${recipe.recipeId}}" th:text="${recipe.name}"></a>
+                            <a class="recipelink" th:href="@{'/recipes/recipe/' + ${recipe.recipeId}}" th:text="${recipe.name}"></a>
                         </li>
                     </ul>
                 </div>

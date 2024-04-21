@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('SCORAC Prediction Report')}"/>
+<body>
+<div th:replace="~{fragments/logoBar :: logoBar('Predition Report')}"></div>
+<div class="container-fluid">
+    <div class="row bg">
+        <div th:replace="~{fragments/sidebar :: sidebar('reports')}"></div>
+        <main class="col-md-8 px-md-3 mt-4">
+           <input type="text" id="searchInput" class="form-control mt-3" placeholder="Search for products...">
+            <table id="resultsTable" class="table table-striped mt-3">
+                <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Values in grams</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </main>
+        <div class="col"></div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/scripts :: scripts}"></div>
+<script>
+    $(document).ready(function() {
+            $.ajax({
+                url: '/predict', // Endpoint URL
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var table = $("#resultsTable tbody");
+                    table.empty(); // Clear previous results
+                    $.each(data, function(key, value) {
+                        var row = `<tr>
+                                  <td>${key}</td>
+                                  <td>${value}</td>
+                               </tr>`;
+                        table.append(row);;
+                    });
+                },
+
+                error: function() {
+                    alert('Error retrieving data. Please try again.');
+                }
+            });
+        $("#searchInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#resultsTable tbody tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+</body>
+
+</html>

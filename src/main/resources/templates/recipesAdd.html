@@ -9,15 +9,15 @@
         <main class="col-md-8 px-md-3 mt-4">
             <div class="row">
                 <div class="col col-md-5 col-sm-6 mt-5">
-                    <a href="/recipes" class="btn btn-secondary mb-3">Back</a>
+                    <a href="/recipes/list" class="btn btn-secondary mb-3">Back</a>
                     <div th:replace="~{fragments/productList :: productList}"></div>
                 </div>
                 <div class="col col-md-1 blank"></div>
                 <div class="col col-md-6 mt-5 ml-4 ">
                     <h6><div th:if="${message}" th:text="${message}" style="color:green; text-align: center;"></div></h6>
                     <div class="showform">
-                    <form action="#" th:action="@{/addRecipe}" th:object="${recipe}" method="post">
-                        <p>Name: <input type="text" th:field="*{name}" required/></p>
+                    <form action="#" th:action="@{/recipes/addRecipe}" th:object="${recipe}" method="post">
+                        <p>Name: <input type="text" th:field="*{name}" required pattern="[A-Za-z0-9 ]+"/></p>
                         <p>Meal Price: <input type="number" min="0.01" step="0.01" th:field="*{price}" required/></p>
 
                         <div class="longlist">

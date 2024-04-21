@@ -7,10 +7,13 @@ import com.scorac.stockmanager.model.Entity.Product;
 import com.scorac.stockmanager.model.Entity.Setup;
 import com.scorac.stockmanager.service.*;
 //import com.scorac.stockmanager.service.StockService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -40,11 +43,7 @@ public class mainControl {
         this.wasteService = wasteService;
     }
 
-    @GetMapping("/error")
-    public String handleError() {
-        // View to display as an error page.
-        return "errorPage";
-    }
+
     
     @GetMapping({"/","home","index"})
     public String homePage(Model model){
@@ -100,11 +99,21 @@ public class mainControl {
     }
 
     @PostMapping("/addBooking")
-    public String addBooking(Booking booking) {
+    public ModelAndView addBooking(@Valid Booking booking, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("errorPage");
+            modelAndView.addObject("errors", bindingResult.getAllErrors());
+            return modelAndView;
+        }
         bookingService.saveBooking(booking);
-        return "redirect:/index";
+        return new ModelAndView("redirect:/index");
     }
 
+    @GetMapping("/error")
+    public String handleError() {
+        // View to display as an error page.
+        return "errorPage";
+    }
     @GetMapping("/editday")
     public String editday(){
         return "bookingAdd";
