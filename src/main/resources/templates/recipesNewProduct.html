@@ -18,7 +18,7 @@
                     <form th:action="@{/recipes/addProduct}" th:object="${product}" method="post">
                         <div>
                             <label for="name">Product name:</label>
-                            <input type="text" id="name" class="textfield form-control" name="name">
+                            <input type="text" id="name" class="textfield form-control" name="name" pattern="[A-Za-z0-9 ]+">
                         </div>
                         <div>
                             <label for="lifeLength">Days of freshness:</label>

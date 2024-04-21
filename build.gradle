@@ -48,6 +48,9 @@ dependencies {
     }
     // WEKA
     implementation 'nz.ac.waikato.cms.weka:weka-stable:3.8.5'
+    //String pattern validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 }
 
 tasks.named('test') {
