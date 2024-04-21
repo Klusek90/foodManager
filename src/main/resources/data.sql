@@ -4,14 +4,16 @@ SELECT COUNT(*) FROM users;
 INSERT INTO users (username, password, role)
 SELECT 'scorac', '$2a$10$zuZI1SDVzFZKGLLT0BkTseCp0x5NStl9L9YvLJyEZ4xursZSVifla', 'ADMIN'
 WHERE NOT EXISTS (SELECT 1 FROM users);
---
--- INSERT INTO product (name, life_length, type)
--- SELECT 'Cooked Penne', 5, 'Pasta' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
--- SELECT 'Cooked Spaghetti', 5, 'Pasta' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
--- SELECT 'Bolognese Sauce', 4, 'Sauce' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
--- SELECT 'Carbonara Sauce', 3, 'Sauce' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
--- SELECT 'Cooked Prosciutto', 7, 'Meat' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
--- SELECT 'Marinara Sauce', 5, 'Sauce' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
+
+INSERT INTO product (name, life_length, type)
+SELECT 'Cooked Penne', 3, 'Pasta' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
+SELECT 'Cooked Spaghetti', 3, 'Pasta' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
+SELECT 'Bolognese Sauce', 4, 'Sauce' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
+SELECT 'Meat Balls', 4, 'Meat' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
+SELECT 'Pomodoro Sauce', 3, 'Sauce' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
+SELECT 'Grated Cheese', 3, 'Dairy' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
+SELECT 'Rice', 1, 'Grain' WHERE NOT EXISTS (SELECT 1 FROM product);
+
 -- SELECT 'Alfredo Sauce', 4, 'Sauce' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
 -- SELECT 'Pesto Sauce', 7, 'Sauce' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
 -- SELECT 'Cooked Fusilli', 5, 'Pasta' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
@@ -41,7 +43,7 @@ WHERE NOT EXISTS (SELECT 1 FROM users);
 -- SELECT 'Vegetable Broth', 7, 'Broth' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
 -- SELECT 'Canned Beans', 7, 'Vegetable' WHERE NOT EXISTS (SELECT 1 FROM product) UNION ALL
 -- SELECT 'Cantaloupe', 7, 'Fruit' WHERE NOT EXISTS (SELECT 1 FROM product);
---
+
 -- INSERT INTO recipe (name, price)
 -- SELECT 'Spaghetti Bolognese', 15.0 WHERE NOT EXISTS (SELECT 1 FROM recipe) UNION ALL
 -- SELECT 'Penne Alfredo', 14.5 WHERE NOT EXISTS (SELECT 1 FROM recipe) UNION ALL

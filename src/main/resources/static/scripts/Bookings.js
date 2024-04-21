@@ -131,11 +131,11 @@ function updateWeather(date){
                 //populate image
                 $('#weatherImage').attr('src', imgSrc);
                 // Populate temperature
-                // if(weatherData.description === "Unknown"){
-                //     $('#weatherTemp').text("");
-                // }else{
-                //     $('#weatherTemp').text(' ' + weatherData.temp + ' \u2103');
-                // }
+                if(weatherData.description === "Unknown"){
+                    $('#weatherTemp').text("");
+                }else{
+                    $('#weatherTemp').text(' ' + weatherData.temp + ' \u2103');
+                }
 
         },
         error: function(xhr, status, error) {
