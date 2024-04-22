@@ -1,4 +1,7 @@
 let SelectedDate;
+const currentUrl = window.location.href;
+// console.log(currentUrl);
+
 
 $(document).ready(function() {
     SelectedDate = new Date();
@@ -16,9 +19,9 @@ $("#monthBtn").click(function() {
 });
 
 function updateBookings(date) {
-
+    let url= currentUrl.replace('index', 'bookings/')
     $.ajax({
-        url: '/bookings/'+ date,
+        url: url + date,
         type: 'GET',
         dataType: 'json',
         success: function (response) {
@@ -67,11 +70,14 @@ function bookingListPopulator(bookings) {
 }
 
 function updateWeather(date){
+    let url= currentUrl.replace('index', 'weatherCondition/');
+    console.log(url);
     $('#weatherCondition').text("Unknown");
     $('#weatherImage').attr('src', "");
     $('#weatherTemp').text("");
+
     $.ajax({
-        url: '/weatherCondition/'+date,
+        url: url +date,
         type: 'GET',
         success: function(weatherData) {
             // Populate weather description

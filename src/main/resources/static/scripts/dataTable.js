@@ -1,9 +1,13 @@
 $(document).ready(function() {
+    const currentUrl = window.location.href;
+    // console.log(currentUrl);
+    const url= currentUrl.replace('total', 'datatable')
+
     $('#all-table').DataTable({
         "processing": true,
         // "responsive": true, // Enable the responsive option
         "ajax": {
-            "url": "http://localhost:8080/stock/datatable",
+            "url": url,
             "type": "GET",
             "dataSrc": ""
         },

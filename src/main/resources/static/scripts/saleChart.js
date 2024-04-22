@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    const currentUrl = window.location.href;
+    // const newURl= currentUrl.replace('/reports/sale' )
     let chart;
     let totalValue =$("#TotalValue");
     let totalSalePrice = 0;
@@ -43,9 +45,9 @@ $(document).ready(function() {
         todayBtn.css('background', '#0d6efd')
         weekBtn.css('background', '#0d6efd')
         monthBtn.css('background', 'orange')
-
+        let url = currentUrl.replace('reports/sale', 'monthSale/');
         $.ajax({
-            url: '/monthSale/'+selectedDate, // Adjust if you have a different base path
+            url: url +selectedDate, // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
@@ -83,8 +85,9 @@ $(document).ready(function() {
         totalValue.css('color','green')
         selectedDate = dataPicker.val();
         totalSalePrice=0;
+        let url = currentUrl.replace('reports/sale', 'weekSale/');
         $.ajax({
-            url: '/weekSale/'+ selectedDate, // Adjust if you have a different base path
+            url: url + selectedDate, // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
@@ -132,8 +135,9 @@ $(document).ready(function() {
         selectedDate = dataPicker.val();
         totalSalePrice=0;
         totalValue.css('color','black')
+        let url = currentUrl.replace('reports/sale', 'dailySale/');
         $.ajax({
-            url: '/dailySale/'+ selectedDate, // Adjust to your actual endpoint
+            url: url+ selectedDate, // Adjust to your actual endpoint
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {

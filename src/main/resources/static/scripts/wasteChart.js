@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    const currentUrl = window.location.href;
     let chart;
     let totalValue =$("#TotalValue");
     let totalWastege = 0;
@@ -43,9 +44,9 @@ $(document).ready(function() {
         todayBtn.css('background', '#0d6efd')
         weekBtn.css('background', '#0d6efd')
         monthBtn.css('background', 'orange')
-
+        let url = currentUrl.replace('reports/waste', 'monthWaste/');
         $.ajax({
-            url: '/monthWaste/'+selectedDate, // Adjust if you have a different base path
+            url: url +selectedDate, // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
@@ -83,8 +84,9 @@ $(document).ready(function() {
         totalValue.css('color','red')
         selectedDate = dataPicker.val();
         totalWastege=0;
+        let url = currentUrl.replace('reports/waste', 'weekWaste/');
         $.ajax({
-            url: '/weekWaste/'+ selectedDate, // Adjust if you have a different base path
+            url: url + selectedDate, // Adjust if you have a different base path
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
@@ -132,8 +134,9 @@ $(document).ready(function() {
         selectedDate = dataPicker.val();
         totalWastege=0;
         totalValue.css('color','black')
+        let url = currentUrl.replace('reports/waste', 'dailyWaste/');
         $.ajax({
-            url: '/dailyWaste/' + selectedDate, // Adjust to your actual endpoint
+            url: url + selectedDate, // Adjust to your actual endpoint
             type: 'GET',
             dataType: 'json', // Expecting JSON response
             success: function(response) {
