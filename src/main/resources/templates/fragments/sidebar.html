@@ -4,34 +4,34 @@
     <div class="sidebar-sticky">
       <ul class="nav flex-column">
         <li class="nav-item" th:classappend="${activeMenu == 'index' ? 'active' : ''}">
-          <a class="nav-link" href="/index">Homepage</a>
+          <a class="nav-link" th:href="@{/index}">Homepage</a>
         </li>
         <li class="nav-item" th:classappend="${activeMenu == 'stock' ? 'active' : ''}">
-          <a class="nav-link" href="/stock/total">Stock</a>
+          <a class="nav-link" th:href="@{/stock/total}">Stock</a>
         </li>
         <li class="nav-item" th:classappend="${activeMenu == 'preparation' ? 'active' : ''}">
-          <a class="nav-link" href="/prep">Preparation</a>
+          <a class="nav-link" th:href="@{/prep}">Preparation</a>
         </li>
         <li class="nav-item" th:classappend="${activeMenu == 'solution' ? 'active' : ''}">
-          <a class="nav-link" href="/chatquery">Ideas</a>
+          <a class="nav-link" th:href="@{/chatquery}">Ideas</a>
         </li>
         <li class="nav-item" th:classappend="${activeMenu == 'wastage' ? 'active' : ''}">
-          <a class="nav-link" href="/wastage">Wastage</a>
+          <a class="nav-link" th:href="@{/wastage}">Wastage</a>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeMenu == 'users' ? 'active' : ''}">
-          <a class="nav-link" href="/users/list">Users</a>
+          <a class="nav-link" th:href="@{/users/list}">Users</a>
         </li>
         <li class="nav-item" th:classappend="${activeMenu == 'reports' ? 'active' : ''}">
-          <a class="nav-link" href="/reports/main">Reports</a>
+          <a class="nav-link" th:href="@{/reports/main}">Reports</a>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeMenu == 'setup' ? 'active' : ''}">
-          <a class="nav-link" href="/setup">Setup</a>
+          <a class="nav-link" th:href="@{/setup}">Setup</a>
         </li>
         <li class="nav-item" sec:authorize="hasRole('ADMIN')" th:classappend="${activeMenu == 'recipes' ? 'active' : ''}">
-          <a class="nav-link" href="/recipes/list">Recipes</a>
+          <a class="nav-link" th:href="@{/recipes/list}">Recipes</a>
         </li>
         <li class="nav-item" th:classappend="${activeMenu == 'sale' ? 'active' : ''}">
-          <a class="nav-link bg-light" href="/sale">Sale</a>
+          <a class="nav-link bg-light" th:href="@{/sale}">Sale</a>
         </li>
       </ul>
     </div>

@@ -12,6 +12,8 @@ import weka.classifiers.functions.LinearRegression;
 import weka.core.DenseInstance;
 import weka.core.Attribute;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +43,12 @@ public class WekaService {
 
     private void loadModel() {
         try {
-            this.model = (LinearRegression) SerializationHelper.read("model.model");
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("model.model");
+            if (inputStream != null) {
+                this.model = (LinearRegression) SerializationHelper.read(inputStream);
+            } else {
+                throw new FileNotFoundException("model.model not found in resources");
+            }
         } catch (Exception e) {
             throw new RuntimeException("Failed to load the model", e);
         }
