@@ -135,7 +135,7 @@ function updateWeather(date){
                 //populate condition
                 $('#weatherCondition').text(description);
                 //populate image
-                $('#weatherImage').attr('src', imgSrc);
+                $('#weatherImage').attr('th:src', imgSrc);
                 // Populate temperature
                 if(weatherData.description === "Unknown"){
                     $('#weatherTemp').text("");
