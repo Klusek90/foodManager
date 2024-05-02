@@ -70,7 +70,12 @@ function bookingListPopulator(bookings) {
 }
 
 function updateWeather(date){
-    let url= currentUrl.replace('index', 'weatherCondition/');
+    let url;
+    if(currentUrl.includes('index')){
+        url = currentUrl.replace('index', 'weatherCondition/');
+    }else{
+        url= currentUrl + 'weatherCondition/'
+    }
     console.log(url);
     $('#weatherCondition').text("Unknown");
     $('#weatherImage').attr('src', "");
